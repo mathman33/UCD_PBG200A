@@ -1,0 +1,90 @@
+Overview:
+    Core:
+        Fall
+            Sebastian: Single Species Ecology
+            Graham: Population Genetics
+            Artiem: Genomics
+        Winter
+            Gary: Species Interactions
+            Sharon: Community Ecology
+            Santiago: Behavior/Evolution
+        Spring
+            Michael: Macroevolution (maybe quantitative genetics)
+            Brian, Annie: Phylogenetics
+
+
+    Main goal:
+        understand dist of a population abundance in time
+
+        start with simplistic view: homogeneous populations
+            everyone is identical, well mixed, no change in environment
+        ex: sahara: vegetated --> desert
+            bifurcation due to solar radiation
+
+    Temporal Heterogeneity
+        environment is changing over time, but still identical and well mixed
+        ex: fluctuations due to precipitation, temp
+        ex: rate of development of moths is dependent on temperature
+        ex: number of seeds produced is dependent on precipitation
+            evolution of life history.. try to 'hedge bets' against uncertainty
+
+    Individual Heterogeneity
+        individuals are potentially distinct, still well mixed, then may/may not include temporal heterogeneity
+        age classes.. egg --> hatchling --> turtle
+        sex classes
+        size classes
+        ex: sars: most infect few, few infect many
+
+    Spatial Heterogeneity
+        not well mixed.. spatial distribution models
+        one flask is warmer than another, maybe some amount of mixing between two flasks
+        three paradigms:
+            metapopulation - Ilkka Hasnki (unoccupied/occupied patches)
+            ideal free distribution - Milinski - extreme.. Sebastian clearly doesn't like it
+            Sourcing dynamics (counterpart to IFD)
+
+    ((post a few sentances on Canvas per reading by midnight the day before we discuss in class))
+
+
+HOMOGENEOUS POPULATIONS
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"Anyone who believe exponential growth can on forever in a finite world is either a madman or an economist" - Kenneth Boulding - President Kennedy's Environmental Advisor
+
+Read Tilman 91 and Bennica 2009

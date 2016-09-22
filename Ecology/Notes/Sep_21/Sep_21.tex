@@ -1,0 +1,105 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{Notes for September 21, 2016}
+\author{Sam Fleischer}
+\date{Last Modified: \today}
+
+\begin{document}
+    \maketitle
+
+    \section{Overview of the PBG Core Course}
+    \begin{enumerate}
+        \item Fall
+        \begin{enumerate}[$\cdot$]
+            \item Sebastian Schreiber: Single Species Ecology
+            \item Graham Coop: Population Genetics
+            \item Artyom Kopp: Genomics
+        \end{enumerate}
+        \item Winter
+        \begin{enumerate}[$\cdot$]
+            \item Gary (???): Species Interactions
+            \item Sharon Lawler: Community Ecology
+            \item Santiago Ramirez: Behavior and Evolution
+        \end{enumerate}
+        \item Spring
+        \begin{enumerate}[$\cdot$]
+            \item Michael Turelli: Macroevolution
+            \item Brian Moore and Annie (???): Phylogenetics
+        \end{enumerate}
+    \end{enumerate}
+
+    The main goal of Sebastian's part is to understand the distribution of a population abundance in time.  We will start with the most simplistic view: homogeneous populations.  In this case, every individual is identical, the population is well-mixed, and there is no change in the environment. \\
+
+    Then we will explore:
+    \begin{enumerate}
+        \item Temporal Heterogeneity: The environment changes over time, for example, fluctuations due to precipitation or temperature.  Real-life examples are:
+        \begin{itemize}
+            \item Rate of development of moths is dependent on temp
+            \item Number of seeds produces is dependent on precipitation
+            \item This can cause evolution of life history to try to ``hedge bets'' against uncertainty
+        \end{itemize}
+        \item Individual Hetergeneity: The individuals are potentially distinct, for example, separated in to age classes (egg $\rightarrow$ hatchling $\rightarrow$ turtle), sex classes, size classes
+        \item Spatial Heterogeneity: The population is not necessarily well mixed, for example, one beaker is warmer than another and there is some mixing between the two.  There are three paradigms of spatial models:
+        \begin{itemize}
+            \item Metapopulation (Ilkka Hanski)
+            \item Ideal Free Distribution (Milinski)
+            \item Sourcing dynamics (counterpart to Ideal Free Distributions)
+        \end{itemize}
+    \end{enumerate}
+
+    \section{Homogeneous Populations}
+
+    Denote $N$ as the population density ($N \in \Rl > 0$).  $N$ is a function of time, $N = N(t)$, and denote $G = G(N)$ as the growth rate of the population of density $N$.
+    \begin{align*}
+        G(N) = \underbrace{B(N)}_{\text{births}} + \underbrace{I(N)}_{\text{immigration}} - \underbrace{D(N)}_{\text{deaths}} - \underbrace{E(N)}_{\text{emigration}}
+    \end{align*}
+    Usually, $B(N) = Nb(n)$, $D(N) = Nd(N)$, and $E(N) = Ne(N)$, where $b$, $d$, and $e$ are the per-capita birth, death, and emigration rates, respectively. \\
+
+    There are two types of models:
+    \begin{enumerate}
+        \item Differential Equation Models (instantaneous change)
+        \begin{align*}
+            \frac{\dd N}{\dd t} = G(N)
+        \end{align*}
+        \item DIfference Equation Models (discrete time, time-delay)
+        \begin{align*}
+            N_{t+1} - N_t = G(N_t)
+        \end{align*}
+    \end{enumerate}
+
+    A population is defined to be \textbf{closed} if $I(N) = E(N) \equiv 0$.  Otherwise it is \textbf{open}.  On shorter timescales, populations tend to be closed, while on longer timescales, since immigration/emigration events are not impossible, populations tend to be open.  Examples of closed populations include
+    \begin{itemize}
+        \item forcibly closed populations in a flask in a lab
+        \item non-swimming/non-flying populations on islands
+        \item high-altitude-only populations on sky-islands (isolated mountain-tops)
+        \item water-dwellers in an isolated lake
+    \end{itemize}
+
+    The most simple density-independent model of a closed population is to assume $b(N) = b$ and $d(N) = d$ are constants.  Then, defining $r \coloneqq b - d$, we see
+    \begin{align*}
+        \dot{N} = rN
+    \end{align*}
+    Given initial condition $N(0) = N_0$, this has the solution
+    \begin{align*}
+        N(t) = N_0e^{rt}
+    \end{align*}
+    This is an incredibly nice model because if we define $x \coloneqq \log N$, then $\dot{x} = \frac{\dot{N}}{N} = r$, which implies $x(t) = x_0 + rt$ where $x_0 = \log N_0$.  This is a linear model, and so we can very easily use linear regression to match log-density data.
+
+    Supposing we have data points $y_t$ for $t = 0, 1, \dots, k$, then we can form a predictive function $y$:
+    \begin{align*}
+        y(t) = x_0 + rt + \text{``error''}
+    \end{align*}
+    \textit{NOTE: here we are assuming the error is normally distributed with mean $0$ and fixed variance.}  In this model, the values $x_0$ and $r$ are thus the ``most likely'' values to produce the observed data.
+
+    
+\end{document}

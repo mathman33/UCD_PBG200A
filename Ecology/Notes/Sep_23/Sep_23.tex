@@ -1,0 +1,106 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{September 23, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Discrete-Time, Density-Independence}
+
+    \begin{align*}
+        N_{t+1} - N_t = (b - d)N_t \\
+        \implies N_{t+1} = (1 + b - d)N_t \coloneqq RN_t
+    \end{align*}
+    if $N_0$, then $N_1 = RN_0$, $N_2 = RN_1 = R^2N_0$, and so $N_t = R^tN_0$.
+
+    So from before, $e^r = R$.  We will always use the variable $r$ to denote intrinsic growth rate
+
+    \section{Negative Density Dependence}
+
+    This means $r$ is decreasing with density.  Examples:
+    \begin{itemize}
+        \item higher populations mean easier spread of pathogens
+        \item predator has type 3 functional response
+        \item cap of resources
+        \item accumulation of waste producs
+    \end{itemize}
+    yeast model, T Carlson, 1913
+
+    picking functions to ``graduate'' a set of data.. the choice is, at its very best, only a combination of good judgement and good luck.
+
+    Simplest case of decrease function is a linear function, 
+    $r(N) = r_0\qty(1 - \frac{N}{K})$, and so we obtain the logistic growth model:
+    \begin{align*}
+        \dot{N} = Nr(N) = r_0N\qty(1 - \frac{N}{K})
+    \end{align*}
+    This can be solved using separation of variables.. the solution is:
+    \begin{align*}
+        FILL\ \ IN\ \ LATER
+    \end{align*}
+    Set $G(N) = Nr(N)$.  Then we get a downward-facing parabola with $G(0) = G(K) = 0$.  The vertex is at $\frac{K}{2}$.  So $0$ and $K$ are equilibria, and there is an inflection point at $\frac{K}{2}$ on the $N$ vs. $t$ graph.  All trajectories with $N(0) > 0$ approach $K$ asymptotically.
+
+    Fitting linear decrease of growth rate to the 1913 data gives unbelievably accurate logistic growth.
+
+    Many populations exhibit (kind of) logistic growth.  There are fluctuations...
+
+    \subsection{Discrete-Time Version}
+    \begin{align*}
+        N_{t+1} = \exp[r(N_t)]N_t
+    \end{align*}
+    with $r(N) \coloneqq r_0\qty(1 - \frac{N}{K})$.  This is called the ``Ricker Equation.''
+    The equilbiria are still $0$ and $K$.
+
+    (went to RStudio...)
+
+    \subsubsection{Lyapunov Exponent}
+
+    For Models of the form
+    \begin{align}
+        N_{t+1} = F(N_t),
+    \end{align}
+    The Lyapunov Exponent for initial condition $N_0$ is
+    \begin{align}
+        \chi = \lim_{T\rightarrow\infty} \frac{1}{T}\sum_{t=0}^{T-1}\log\abs{F'(N_t)}
+    \end{align}
+
+    \section{Discussion of Tilman/Wedin and Bennica et.~al.}
+
+    \section{How to Test for Density-Dependence?}
+
+    Suppose we have some data $y_1, y_2, \dots, y_T$, $\log$-densities.
+
+    Which model parameter(s) $a$ are best at describing the data?
+    \begin{align}
+        x_{t+1} = g(x_t, a)
+    \end{align}
+    We assume there is some uncertainty in either data or descriptor..
+
+    Consider two types of ``noise'':
+    \begin{itemize}
+        \item Observational error, i.e.~the model is perfect, but data is imperfect:
+        \begin{align}
+            y_t = x_t + {E_t^{\text{o}}}
+        \end{align}
+        where $E_t^\text{o}$ is observational error
+        \item Process error, i.e.~the observations are perfect, but descriptor is imperfect:
+        \begin{align}
+            x_{t+1} = g(x_t,a) + E_{t+1}^\text{p}
+        \end{align}
+        where $E_{t+1}^\text{p}$ is process noise.
+    \end{itemize}
+
+    For Monday, read Knape and Divalpine 2012.
+
+\end{document}

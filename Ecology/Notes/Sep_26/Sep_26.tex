@@ -1,0 +1,69 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{September 26, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Model Selection}
+
+        Consider a time series $y_1, y_2, \dots, y_T$ of log densities.  Recall process error vs.~observational error.
+
+        \subsection{Process Error}
+            \begin{align}
+                x_{t+1} &= g(x_t, a) + \underbrace{E_{t+1}^\text{p}}_{\text{process error}} \\
+                y_t &= x_t \qquad \text{(no observational error)}
+            \end{align}
+            We assume the random variables $E_{t+1}^\text{p}$ are IID (independent, identically distributed) Normal with mean $0$ and variance $\sigma^2$.
+
+            We run the model and ask..
+            \begin{itemize}
+                \item What value of $a$ (parameter or vector of parameters) is most likely to generate the observed data $y_t$?
+                \begin{itemize}
+                    \item For example, for a given $a$, and given $y_1$, what is the likelihood, what is the probability that the model produce $y_2$?
+                    \item This is the same as asking: what is the likelihood a normal with mean $0$ and variance $\sigma^2$ yields a $y_2 - g(y_1,a)$?
+                    \item The answer is
+                    \begin{align}
+                        p\qty(y_2 - g(y_1,a)) = \frac{1}{\sqrt{2\pi}\sigma}\exp[-\frac{-(y_2 - g(y_1,a))^2}{2\sigma^2}]
+                    \end{align}
+                    and we'd like to maximize this value with respect to $a$ (optimization problem..)
+                \end{itemize}
+            \end{itemize} 
+            Now we ask:
+            \begin{itemize}
+                \item What is the likelihood that the random variables $E_{t+1}^p = y_{t+1} - g(y_t,a)$ for $1 \leq t \leq T-1$?
+                \item By independence, the likelihood $a$ produces the data, denoted $L(a)$, is
+                \begin{align}
+                    L(a) = \prod_{t=1}^{T-1}\qty[\frac{1}{\sqrt{2\pi}\sigma}\exp[-\frac{(y_{t+1} - g(y_t,a))^2}{2\sigma^2}]] \\
+                    \implies \log L(a) = \sum_{t=1}^{T-1} \qty[\log\frac{1}{\sqrt{2\pi}\sigma} - \frac{(y_{t+1} - g(y_t,a))^2}{2\sigma^2}]
+                \end{align}
+                So maximizing $\log L(a)$ is the same as minimizing the sum
+                \begin{align}
+                    \sum_{t=1}^{T-1}(y_{t+1} - g(y_t,a))^2
+                \end{align}
+            \end{itemize}
+
+            \subsubsection{Chickadee Data}
+                We define the model $g(x, a)$ by the following:
+                \begin{align}
+                    N_{t+1} &= N_t \exp[a_1 + a_2 N_t], \qquad \text{with} \qquad x = \log N \\
+                    \implies x_{t+1} &= x_t + a_1 + a_2 e^{x_t} \eqqcolon g(x_t, [a_1,a_2])
+                \end{align}
+
+                Off to RStudio... a negative value of $a_2$ corresponds to some negative density dependence.
+
+                For different models, compare log-likelihood values?
+
+\end{document}

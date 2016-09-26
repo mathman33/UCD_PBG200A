@@ -67,13 +67,13 @@
     \subsubsection{Lyapunov Exponent}
 
     For Models of the form
-    \begin{align}
+    \begin{align*}
         N_{t+1} = F(N_t),
-    \end{align}
+    \end{align*}
     The Lyapunov Exponent for initial condition $N_0$ is
-    \begin{align}
+    \begin{align*}
         \chi = \lim_{T\rightarrow\infty} \frac{1}{T}\sum_{t=0}^{T-1}\log\abs{F'(N_t)}
-    \end{align}
+    \end{align*}
 
     \section{Discussion of Tilman/Wedin and Bennica et.~al.}
 
@@ -82,22 +82,22 @@
     Suppose we have some data $y_1, y_2, \dots, y_T$, $\log$-densities.
 
     Which model parameter(s) $a$ are best at describing the data?
-    \begin{align}
+    \begin{align*}
         x_{t+1} = g(x_t, a)
-    \end{align}
+    \end{align*}
     We assume there is some uncertainty in either data or descriptor..
 
     Consider two types of ``noise'':
     \begin{itemize}
         \item Observational error, i.e.~the model is perfect, but data is imperfect:
-        \begin{align}
+        \begin{align*}
             y_t = x_t + {E_t^{\text{o}}}
-        \end{align}
+        \end{align*}
         where $E_t^\text{o}$ is observational error
         \item Process error, i.e.~the observations are perfect, but descriptor is imperfect:
-        \begin{align}
+        \begin{align*}
             x_{t+1} = g(x_t,a) + E_{t+1}^\text{p}
-        \end{align}
+        \end{align*}
         where $E_{t+1}^\text{p}$ is process noise.
     \end{itemize}
 

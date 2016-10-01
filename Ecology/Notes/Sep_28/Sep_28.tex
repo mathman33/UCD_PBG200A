@@ -1,0 +1,88 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{September 28, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Persistence, Boundedness, and Regulation}
+        Suppose $r(N)$ is nonincreasing and 
+        \begin{align}
+            \frac{\dd N}{\dd t} = Nr(N)
+        \end{align}
+        If $r(N)$ is nonincreasing, the maximal per-capita growth rate is at $N=0$.  Then, if $r(0) < 0$, then there is always asymptotic extinction.  In the real world, finite time.  Or, supposing $r(0) > 0$.  Then the population tends to increase at low densities, i.e.~the population persists.
+
+        The minimal per-capito growth rate is at $N \rightarrow \infty$, i.e.~$r(\infty) \coloneqq \displaystyle\lim_{N\rightarrow\infty}r(N)$ (probably $-\infty$ since it is nonincreasing).  If $r(\infty) > 0$, then the population grows indefinitely, without bound.  If $r(\infty) < 0$, then the population at high densities starts to decrease (population is bounded).
+
+        The population is ``regulated'' if it is peresistent and bounded.  This requires $r(0) > 0$ and $r(\infty)<\infty$, i.e.~there is negative density dependence.
+
+    \section{Positive Density Dependence}
+        Suppose $r(N)$ is increasing with density and
+        \begin{align}
+            \frac{\dd N}{\dd t} = Nr(N)
+        \end{align}
+        \begin{itemize}
+            \item cooperative behavior
+            \begin{itemize}
+                \item hunting (hyenas)
+                \item defense (schools of fish)
+                \begin{itemize}
+                    \item Considering a type two functional response of a generalist predator whose dynamics are relatively constant, or maybe there are time-scale differences, i.e.~predators are much longer-lived, the individual risk of a prey individual decreases.
+                \end{itemize}
+            \end{itemize}
+            \item mating chances - harder to find a mate at low densities
+            \item inbreeding depression
+            \item demographic stochasticity
+        \end{itemize}
+
+        A paper by Lamont, 1993 showed positive density dependence in \emph{Banksia goodii}.  Another: Levitan et al, 1992.  Another: Bourbeau-Lemieux et al, 2011. \\
+
+        \subsection{Example - Mate Limitation}
+            Let $N \equiv$ density of females.  Also assuming this is the density of wild, natural, non-sterilized males (1-1 sex ratio).  Let $S \equiv$ density of sterile males.  Let $b \equiv$ the per-capita birth rate of wild-fertilized females and $d \equiv$ the per-capita death rate of females.  The model (assuming panmictic.. randomly choosing mates):
+            \begin{align}
+                r(N) = b\cdot\underbrace{\frac{N}{N + S}}_\text{prob. of randomly selecting a wild male} - d
+            \end{align}
+            This is an increasing and saturating function.. $R(0) = -d$, $R(\infty) = b - d$, which is assumed to be positive.  Two equilibria:
+            \begin{itemize}
+                \item $N = 0$ (stable)
+                \item $N^* \coloneqq \dfrac{S}{\frac{b}{d} - 1}$ (unstable)
+                \begin{itemize}
+                    \item Note: $\dfrac{b}{d}$ is the ``$R_0$'' of this population.
+                \end{itemize}
+            \end{itemize}
+            Initial conditions between $0$ and $N^*$ approach $0$, and above $N^*$ go off to infinity.  So there is an Allee effect - a density where below there is a ``spiral of doom,'' and above the population persists.
+
+        \subsection{In general...}
+            Supposing $r(N)$ is a strictly increasing function, the maximal per-capita growth rate is at $N = \infty$.  So if $r(\infty) < 0$ (bad in the best of times), the population will go extinct for all initial conditions.  The minimal per-capita growth rate is at $N = 0$.  So if $r(0) > 0$ (good in the worst of times), the population will always persist and grow without bound.
+
+            If $r(0) < 0$ and $r(\infty) > 0$, then there is a critical density $N_*$ such that $N(0) < N_*$ produces ``spiral of doom'' and $N(0) > N_*$ produces unbounded growth.  This shows positive density dependence cannot produce regulated population - only negative density dependence can do that.
+
+        \subsection{Example - Doomsday}
+            \begin{align}
+                \frac{\dd N}{\dd t} = N\qty(a N^b) \qquad a,b > 0
+            \end{align}
+            Turns out this model produces an infinite population in finite time (doomsday).
+
+    \section{Negative and Positive Density Dependence}
+        Big picture: anything can happen.
+        \subsection{Example - Mate Limitation with Negative Density Dependence}
+            \begin{align}
+                \frac{\dd N}{\dd t} = N \qty(\frac{bN}{N + S} - d_1 - d_2 N)
+            \end{align}
+            To stay interesting, assume $\dfrac{b}{S} > d_2$.  So $r(0) = -d_2$ and increases initially, then when the linear term outweighs the saturating term, it decreases asymptotically linearly.  Three equilibria (supposing the maximum is positive): $0$, $T$ (for ``threshold''), and $K$ (for ``carrying capacity'').  $0$ and $K$ are stable, and the threshold equilibrium is unstable.  There are two alternative stable states.  Increasing $d_1$ gives rise to a saddle-node bifurcation (sometimes called the ``blue sky catasrophe'').
+
+            Next time we will talk about hysteresis.
+
+\end{document}

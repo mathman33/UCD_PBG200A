@@ -1,0 +1,133 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expectation}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{September 30, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Positive and Negative Density Dependence}
+        Example $\qty(\text{assume } \dfrac{b}{S} > d_2)$:
+        \begin{align*}
+            \frac{\dd N}{\dd t} = N \qty[\frac{bN}{N + S} - d_1 - d_2 N] = Nr(N)
+        \end{align*}
+        If $d_1 = 0$, then $r(0) = 0$, and it looks (roughly) like a downward facing parabola (except linear asymptotic on the right).  Then for all initial conditions (except $0$), solutions approach the positive equilibrium.  Increasing $d_1$ moves the parabola down (or moving the $N$ axis up).  For small $d_1$, there are three equilibria (two positive (one stable and one unstable), and the no-cats-no-kittens equilibrium, $0$, which is now stable).  There are two alternative stable states.  Increasing $d_1$ to the bifurcation value gives two equilibria - one stable and one semistable.  Past this value gives only one equilibrium ($0$), and it is stable.  The Bifurcation plot shows a saddle-node bifurcation.  \emph{Note: adding in small amounts of immigration gives the classic hysteresis ``S'' curve bifurcation plot which can lead to fast-slow cycles.}
+
+    \section{An example - Atlantic Cod}
+        Fisheries caused the collapse of the cod population.  One possible explanation is the Trophic Triangle: Larval cod $\rightarrow$ herring $\rightarrow$ Adult cod.
+
+        Size-structured populations, the rate at which they grow is dependent on the amount of food they eat.  This can lead to feedbacks which generate alternative stable state.
+
+        Read Peter Abram's paper of the Hydra effect (madness)!
+
+    \section{Temporal Heterogeneity (part II)}
+        \begin{itemize}
+            \item Well-mixed flask
+            \item Closed flask
+            \item candle altering the environment
+            \item Example:
+            \begin{itemize}
+                \item Temperature changes (and abiotic changes in general) can affect the speed at which frogs close their mouths, which affect their successful attack rates.
+            \end{itemize}
+        \end{itemize}
+
+        \begin{align*}
+            N_{t+1} = R_{t+1}N_t
+        \end{align*}
+        $R$ is subscripted with $R_{t+1}$ because it represents all the variation \emph{after} time $t$.  So, given $N_0$,
+        \begin{align*}
+            N_1 &= R_1\cdot N_0 \\
+            N_2 &= R_2\cdot N_1 = R_2\cdot R_1\cdot N_0 \\
+            &\vdots \\
+            N_t &= R_t\cdot N_{t-1} = R_t\cdot R_{t-1}\cdot \dots \cdot R_1\cdot N_0 = \prod_{i=1}^tR_i \cdot N_0 \\
+            &\vdots
+        \end{align*}
+
+        We assume (for now) that the $R_i$ are i.i.d.~(independent and identically distributed).
+        \subsection{Review of probabalistic concepts}
+            A discrete random variable $X$ taking on values $x_1,x_2,\dots,x_k$ is characterized by its PMF (probability mass function).  Namely,
+            \begin{align*}
+                \prob\qty[X = x_i] = \text{probability that $X$ attains $x_i$} \eqqcolon p_i
+            \end{align*}
+            \subsubsection{Example - Dice}
+                Let $X$ be the outcome of rolling a six-sided die.  Then define $X_n = n$ for $n=1,\dots,6$.  Then assuming a fair die,
+                \begin{align*}
+                    p_1 = \dots = p_6 = \frac{1}{6}
+                \end{align*}
+                Let $X$ be the number of heads from flipping a fair coin twice.  Then define $X_n = n$ for $n = 0,1,2$.  Then
+                \begin{align*}
+                    p_0 = \frac{1}{4}, \qquad p_1 = \frac{1}{2}, \qquad p_2 = \frac{1}{4}
+                \end{align*}
+            \subsubsection{Continuous Random Variables}
+                A continuous random variable $X$ is characterized by its PMF $p(x)$.
+                \begin{align*}
+                    \prob[a \leq X \leq b] = \int_a^bp(x)\dd x
+                \end{align*}
+            \subsubsection{Example - Uniform Distribution on $[0,1]$}
+                $p(x) = 1$.  So, $\prob[a\leq X \leq b] = b - a$ for all $0 \leq a \leq b \leq 1$.  The \texttt{R} command is \texttt{runif()}.
+            \subsubsection{Example - Normal Distribution}
+                The mean is $\mu$ with standard deviation $\sigma$.  The \texttt{R} command is \texttt{rnorm()}.
+            \subsubsection{Example - Exponential Distribution for $x \geq 0$}
+                $p(x) = \lambda e^{-\lambda x}$ for $x \geq 0$.  Time to the next earthquake is exponentially distributed.  The \texttt{R} command is \texttt{rexp()}.
+            \subsubsection{i.i.d.}
+                A set of random variables $X_1,X_2,\dots,X_k$ are characterized by the joint probabilities:
+                \begin{align*}
+                    \prob\qty[a_1 \leq X_1 \leq b_1\ ,\ \dots\ ,\ a_k \leq X_k \leq b_k]
+                \end{align*}
+                These random variables are ``independent'' if
+                \begin{align*}
+                    \prob\qty[a_1 \leq X_1 \leq b_1\ ,\ \dots\ ,\ a_k \leq X_k \leq b_k] = \prod_{i=1}^k\prob\qty[a_i \leq X_i \leq b_i]
+                \end{align*}
+                These random variables are ``identically distributed'' if all the $X_i$ have the same PMF (continuous) or PDF (discrete).
+            \subsubsection{Expectation}
+                The ``expectation'' of a discrete random variable $X$ which takes $N$ values is a weighted average over those values by their probabilities.
+                \begin{align}
+                    \expectation[X] = \sum_{i=1}^N p_i x_i
+                \end{align}
+                For a continuous random variable $X$ we have
+                \begin{align}
+                    \expectation[X] = \int_\Omega p(x)x \dd x
+                \end{align}
+                where $\Omega$ is the measure space.
+            \subsection{Correlation}
+                If $X$ and $Y$ are uncorrelated,
+                \begin{align}
+                    \expectation[XY] = \expectation[X]\expectation[Y]
+                \end{align}
+                If $\expectation[XY] - \expectation[X]\expectation[Y] > 0$, then $X$ and $Y$ are positively correlated.
+
+        \subsection{Back to the Basic Model}
+            \begin{align}
+                N_{t+1} = R_{t+1}N_t \\
+                N_t = R_t\dots R_1 N_0 \\
+                \expectation[N_t] = \expectation[R_t\dots R_1 N_0] = N_0\expectation[R_t\dots R_1]
+            \end{align}
+            Supposing $R_t$ are i.i.d., then they are uncorrelated, and thus
+            \begin{align}
+                \expectation[N_t] = N_0\expectation[R_t]\dots\expectation[R_1] = N_0\expectation[R_1]^t
+            \end{align}
+            because they are identical.
+
+            Example:
+            \begin{align}
+                R_1 = \begin{cases}
+                    4 & \text{ with probability } \frac{1}{2} \\
+                    \frac{1}{5} & \text{ with probability } \frac{1}{2} \\
+                \end{cases}
+            \end{align}
+            and thus $\expectation[R_1] = 2.1$.
+
+\end{document}

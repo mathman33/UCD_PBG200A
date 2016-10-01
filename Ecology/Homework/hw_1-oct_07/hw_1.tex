@@ -315,7 +315,7 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
     \end{alltt}
     To see what the fit looks like, type
     \begin{alltt}
-        >plot(N,S,col="red")
+        >plot(N,S,col="red") \\
         >lines(N,fitted.values(reg),col="blue")
     \end{alltt}
     \item With your fitted parameters in hand, simulate the Bellows model $$N_{t+1} = FS(N_t)$$ with $N_0 = 1$ for the following fecundity values: $F = 1,3,4,6,7,10$.  Discuss what happens for each of these parameter values.
@@ -328,6 +328,25 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
         \item Discuss whether fecundity is always stabilizing or destabilizing.
     \end{enumerate}
 \end{enumerate}}
+
+\begin{enumerate}[\ \ (a)]
+    \item
+        Running the given code gives the following parameter values:
+        \begin{align}
+            a \approx 0.8068723 \qquad b \approx 0.0148920 \qquad c \approx 4.2470522
+        \end{align}
+        so the model is
+        \begin{align}
+            S(N) \approx \frac{0.8068723N}{1 + (0.0148920N)^{4.2470522}}
+        \end{align}
+        and here is the plot with the data points in red dots and the model approximation as a blue line:
+        \begin{figure}[ht!]
+            \centering
+            \includegraphics[scale=0.3]{4a.png}
+        \end{figure}
+    \item
+        
+\end{enumerate}
 
 
 

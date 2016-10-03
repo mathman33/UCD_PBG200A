@@ -136,7 +136,7 @@
 
 \title{ 
 \normalfont \normalsize 
-\textsc{UC Davis, Applied Mathematics (MAT207C), Spring 2016} \\ [25pt] % Your university, school and/or department name(s)
+\textsc{UC Davis, Principles of Population Biology (PBG 200A), Fall 2016} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{2pt} \\[0.4cm] % Thin top horizontal rule
 \Huge Homework \#8 \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
@@ -144,7 +144,7 @@
 
 \author{\huge Sam Fleischer} % Your name
 
-\date{June 3, 2016} % Today's date or a custom date
+\date{October 7, 2016} % Today's date or a custom date
 
 \begin{document}\thispagestyle{empty}
 
@@ -320,7 +320,7 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
     \end{alltt}
     \item With your fitted parameters in hand, simulate the Bellows model $$N_{t+1} = FS(N_t)$$ with $N_0 = 1$ for the following fecundity values: $F = 1,3,4,6,7,10$.  Discuss what happens for each of these parameter values.
     \item Determine analytically the minimum value $F$ for which the population persists.
-    \item To see how the behaviors change as you vary $F$, open the R-file {\color{red}bellowsBif.R} and change the values of $a$, $b$, and $c$ in this file to what you hound in (a) and for the range of $F$ values used in (b).  RUn the file.  R will produce a \emph{bifurcation diagram} that for each parameter value plots the abundances observed in the long-term in the vertical direction e.g.~if there is only one point above a given $F$ value then the population tends toward that equilibrium value; if there are two values plotted either the population oscillates between the two values or there are two stable equilibria.  Using this plot, do the following:
+    \item To see how the behaviors change as you vary $F$, open the R-file {\color{red}bellowsBif.R} and change the values of $a$, $b$, and $c$ in this file to what you hound in (a) and for the range of $F$ values used in (b).  Run the file.  R will produce a \emph{bifurcation diagram} that for each parameter value plots the abundances observed in the long-term in the vertical direction e.g.~if there is only one point above a given $F$ value then the population tends toward that equilibrium value; if there are two values plotted either the population oscillates between the two values or there are two stable equilibria.  Using this plot, do the following:
     \begin{enumerate}[\ \ (i)]
         \item Estimate for what range of fecundities the population goes to a positive equilibrium.
         \item Estimate for what range of fecundities the population goes to a period two orbit.
@@ -345,6 +345,43 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
             \includegraphics[scale=0.3]{4a.png}
         \end{figure}
     \item
+        Here is the result of the model for the six different values of $F$:
+        \begin{figure}[ht!]
+            \centering
+            \includegraphics[scale=0.3]{4b.png}
+        \end{figure}
+
+        We see that different fecundity values produce chaotic, cyclic, and equilibrium behavior, and in particular, low fecundity results in extinction.
+    \item
+        For the model
+        \begin{align}
+            N_{t+1} = R(N_t) \qquad \text{where} \qquad R(N) = F\frac{aN}{1 + (bN)^c},
+        \end{align}
+        we know $0$ is an equiilbrium since $R(0) = 0$.  To find the stability of this equilibrium, notice
+        \begin{align}
+            R'(0) = Fa
+        \end{align}
+        and thus $0$ is stable if $\abs{Fa} < 1$, i.e.~$F < \frac{1}{a}$ and unstable if $\abs{Fa} > 1$, i.e.~$F > \frac{1}{a}$.  Since $a \approx 0.8068723$, this critical value of $F$ is
+        \begin{align}
+            F^* = \frac{1}{a} \approx 1.23935349.
+        \end{align}
+    \item
+        Here is the resulting plot from \texttt{BellowsBif.R}:
+        \begin{figure}[ht!]
+            \centering
+            \includegraphics[scale=0.3]{4c.png}
+        \end{figure}
+
+        \begin{enumerate}[\ \ \ (i)]
+            \item We see the population reaches equilibrium for $F \lesssim 2.35$, and specifically a positive equilibrium for $F \gtrsim 1.25$.
+            \item We see period two cycles for $2.35 \lesssim F \lesssim 3.19$.
+            \item We see period four cycles for $3.19 \lesssim F \lesssim 3.55$.
+            \item While there is a general trend of de-stabilization as fecundity increases, the bifurcation diagram clearly shows a bifurcation at $F \approx 6.22$ where the dynamics move from chaos to period 3 cycles.  As $F$ increases, those cycles then bifurcate to period 6, then period 12, and so on, back to chaos, but there are certain intervals of $F$ which produce finite cycles bounded by regions which produce chaos.  There are many of these regions, as we can see from the bifurcation plot for $1 \leq F \leq 30$:
+            \begin{figure}[ht!]
+                \centering
+                \includegraphics[scale=0.3]{4div.png}
+            \end{figure}
+        \end{enumerate}
         
 \end{enumerate}
 
@@ -381,11 +418,18 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\problem{Problem 6}{Consider a population who in the absence of predation exhibits exponential growth i.e.~$G(N) = rN$ without predation.  If this population is subject to a predator with a saturating function response, the predation would be of the form $$\frac{aNP}{H + aN}$$ where $P$ is the predator abundance (assumed to be constant), $a$ is the searching efficiency of the predator and $H$ is the predator's ``half-saturation constant''.  In the presence of predation, the population grwth rate is given by $$G(N) = rN - \frac{aN}{H + aN}.$$  Let $R(N) = G(N)/N$ be the per-capita growth rate term.
+\problem{Problem 6}{Consider a population who in the absence of predation exhibits exponential growth i.e.~$G(N) = rN$ without predation.  If this population is subject to a predator with a saturating function response, the predation would be of the form $$\frac{aNP}{H + aN}$$ where $P$ is the predator abundance (assumed to be constant), $a$ is the searching efficiency of the predator and $H$ is the predator's ``half-saturation constant''.  In the presence of predation, the population growth rate is given by $$G(N) = rN - \frac{aN}{H + aN}.$$  Let $R(N) = G(N)/N$ be the per-capita growth rate term.
 \begin{enumerate}[\ \ (a)]
     \item Find the maximum per-capita growth rate of the population.  Discuss under what conditions the population is doomed to extincton for all initial conditions.
     \item Find the minimum per-capita growth rate of the population.  Discuss under what conditions the population persists for all positive initial conditions.  Is the population regulated?
     \item Assume that the maximum per-capita growth rate of the population is positive and the minimum per-capita growth rate is negative.  Find the positive equilibrium for the model.  What happens for populations whose initial abundance lies below this equilibrium?  What happens if the initial abundance lies above this equilibrium?  Discuss how the resilience of this population can be improved (by increasing the threshold value).
 \end{enumerate}}
+
+\begin{enumerate}[\ \ (a)]
+    \item
+        We see $R'(N) = \dfrac{a^2}{(H + aN)^2}$, which is never zero since $a > 0$, so we must look asymptotically to find the maximum value.  $R' \rightarrow 0$ as $N \rightarrow \infty$.  So $\displaystyle\lim_{N\rightarrow\infty}R(N) = r$.  This means that the maximum per-capita growth rate is $r$ but the population never attains this value since it was attained asymptotically.  The population is doomed to extinction for all initial conditinos if $r<0$.
+    \item
+        Since $R$ is an increasing function of $N$, $R$ attains its minimum on the boundary $N=0$.  This minimum is $R(0) = r - \dfrac{a}{H}$.
+\end{enumerate}
 
 \end{document}

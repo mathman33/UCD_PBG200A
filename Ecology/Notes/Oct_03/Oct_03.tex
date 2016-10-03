@@ -1,0 +1,88 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 3, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Review}
+        \subsection{Law of Large Numbers (LLN)}
+            If $X_n$ for $n = 1, 2, \dots$ are IID random variables with finite expectation ($\expec[X_1] < \infty$), then
+            \begin{align*}
+                \lim_{N\rightarrow\infty}\frac{\sum_{i=1}^N X_i}{N} = \expec[X_1] \qquad \text{with probability 1}.
+            \end{align*}
+        \subsection{From last time}
+            $N_t \coloneqq \prod_{i=1}^tR_iN_0$.  Take logs to get
+            \begin{align*}
+                \log N_t = \sum_{i=1}^t \log R_i + \log N_0 \\
+                \implies \frac{1}{t}\log\frac{N_t}{N_0} = \frac{\sum_{i=1}^t\log R_i}{t} \rightarrow \expec[\log R_1] \eqqcolon r
+            \end{align*}
+            i.e.~$\log\frac{N_t}{N_0} \approx rt$.  In the example,
+            \begin{align*}
+                r = \frac{1}{2}\log 4 + \frac{1}{2}\log\frac{1}{5} = \frac{1}{2}\log\frac{4}{5}<0
+            \end{align*}
+            This shows that the populations will tend to $\infty$.
+        \subsection{Geometric Mean}
+            $\expec[\log R_1]$ is the log of the geometric mean of $R_1$, i.e.
+            \begin{align*}
+                \text{geometric mean } R_1 = \exp(\expec[\log R_1])
+            \end{align*}
+            Basic fact:
+            \begin{align*}
+                \expec[R_1] \geq \exp(\expec[\log R_1])
+            \end{align*}
+            i.e.~the arithmentic mean is always at least as large as the geometric mean
+        \subsection{Small Variance Approximation}
+            Let $R_1 = \bar{R} + \sigma X_1$, where $X_1$ has mean $0$ and variance $1$.  Reminder:
+            \begin{align*}
+                \text{var}[X] = \expec[(X - \expec[X])^2]
+            \end{align*}
+            \begin{align*}
+                \expec[\log R_1] &= \expec[\log(\bar{R} + \sigma X_1)] \\
+                &= \log \bar{R} + \expec\qty[\log\qty(1 + \frac{\sigma}{\bar{R}}X_1)]
+            \end{align*}
+            Recall again
+            \begin{align*}
+                \log(1 + x) \approx x - \frac{1}{2}x^2
+            \end{align*}
+            So, setting $x = 1 + \frac{\sigma}{\bar{R}}X_1$,
+            \begin{align*}
+                \expec[\log R_1] &\approx \log \bar{R} + \expec\qty[\frac{\sigma}{\bar{R}}X_1 - \frac{1}{2}\qty(\frac{\sigma}{\bar{R}}X_1)^2] \\
+                &= \log \bar{R} - \frac{1}{2}\cdot\underbrace{\qty(\frac{\sigma}{\bar{R}})^2}_{\text{coefficient of variation for $R_1$}}
+            \end{align*}
+
+    \section{How Stochasticity Influences Life-History Evolution (Bet Hedging)}
+        Bet hedging is evolution of reduced variance $\sigma^2$ despite a reduction in mean $\bar{R}$.
+        \subsection{Example: Annual Plants with Seed Banks}
+            Simple model: $N$ is the number of seeds underground.  $g$ is probability of germination, which produces yield $Y_{t+1}$.  $1 - g$ is the probability the seed does not germinate.  Given the seed does not germinate, $S$ is the probability of survival to the next year.
+            \begin{align*}
+                N_{t+1} = N_t\underbrace{\qty[g Y_{t+1} + (1 - g)S]}_{=R_{t+1}}
+            \end{align*}
+            Is bet hedging possible?  We look at the mean and variance:
+            \begin{align}
+                \expec[R_1] = \expec[gY_1 + (1 - g)S] = g\expec[Y_1] + (1 - g)S
+            \end{align}
+            So mean is increasing with $g$ since $S < 1$ and we assume $\expec[Y_1] \geq 1$.
+            \begin{align}
+                \text{var}[R_1] = g^2\text{var}[Y_1]
+            \end{align}
+            So variance is also increasing with $g$.
+
+            This shows there is a tradeoff because mean and variance both increase with $g$.
+
+
+\end{document}

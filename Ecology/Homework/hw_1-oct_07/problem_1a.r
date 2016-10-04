@@ -1,7 +1,9 @@
-cranes = read.csv("cranes-2013.csv")
+cranes = read.csv("cranes.csv")
 
-N = cranes$Count
+N = cranes$Number
 Y = cranes$Year
+
+plot(Y,N,pch=4)
 
 logN = log(N)
 

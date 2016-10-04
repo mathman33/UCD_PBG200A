@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{graphics}
-\usepackage[margin=1.25in]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{color}
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
@@ -160,14 +160,14 @@
 \problem{Problem 1}{The whooping crane has been the target of protection efforts by the National Audubon Society and the federal governments of the US and Canada since 1941. There is one wild breeding population that winters at the Arkansas National Wildlife Refuge on the coast of Texas. The size of this population from 1941 to 1989 was studied by Dennis et al. (1991) in their Ecological Monographs paper Estimation of growth and extinction parameters for endangered species. The data set used by Dennis et al. is in the cranes.csv data file in the resources folder at SmartSite.
 \begin{enumerate}[\ \ (a)]
     \item Assuming the log population numbers can be modeled by
-    \begin{align}
+    \begin{align*}
         \log N(t) = \log N(0) + rt + \text{``observation error''}
-    \end{align}
+    \end{align*}
     where the ``observation error'' is normally distributed, use linear regression to estimate $\log N(0)$ and $r$.  Use this model to estimate $N(2011)$.
     \item Assuming the log population numbers can be modeled by
-    \begin{align}
+    \begin{align*}
         \log \frac{N(t+1)}{N(t)} = r + \text{``process error''}
-    \end{align}
+    \end{align*}
     where the ``process error'' is normally distributed, use linear regression to estimate $r$.  Use this model to estimate $N(2011)$.
     \item Do an online search to find an estimate for the \emph{wild} whooping population size in August 2011.  How do your model predictions compare?
 \end{enumerate}}
@@ -176,10 +176,10 @@
         The following code snippet was used to load the CSV file and run a linear regression on the log population numbers.
         \begin{code}
 # Load the file
-cranes = read.csv("cranes-2013.csv")
+cranes = read.csv("cranes.csv")
 
 # Set local variables to access the data
-Count = cranes$Count
+Count = cranes$Number
 Year = cranes$Year
 
 # Plot Count vs. Year
@@ -197,22 +197,22 @@ lines(Year,exp(regression$fitted.values))
 # Print the summary of the regression
 summary(regression)
         \end{code}
-        The output from the summary command shows $\log N(0) \approx -78.86$ and $r \approx 0.04204$, so $\log N(t) \approx -78.86 + 0.04204t$, which then implies
-        \begin{align}
-            N(t) \approx N_0\exp[0.04204t] \qquad \text{with} \qquad N_0 = \exp[-78.86].
-        \end{align}
+        The output from the summary command shows $\log N(0) \approx -67.695$ and $r \approx 0.036390$, so $\log N(t) \approx -67.695 + 0.036390t$, which then implies
+        \begin{align*}
+            N(t) \approx N_0\exp[0.036390t] \qquad \text{with} \qquad N_0 = \exp[-67.695].
+        \end{align*}
         Below is the plot generated from the code snippet.
         \begin{figure}[ht!]
             \centering
             \includegraphics[scale=0.3]{1a.png}
         \end{figure}
-        Using this linear regression, $N(2011) \approx 293.67$.
+        Using this linear regression, $N(2011) \approx 241.12$.
 
     \item
         The following code snippet was used to load the CSV file and run a linear regression on the ratio of successive log population numbers.
         \begin{code}
 # Load the file
-cranes = read.csv("cranes-2013.csv")
+cranes = read.csv("cranes.csv")
 
 # Use the variable ``N'' as the population
 N = cranes$Count
@@ -234,14 +234,14 @@ lines(logNt,regression$fitted.values)
 # Print the result of the regression
 summary(regression)
         \end{code}
-        The output from the summary command shows $\log N_{t+1} \approx 0.99038\log N_t + 0.08309$, which implies
-        \begin{align}
-            N_{t+1} = e^{0.08309}N_t^{0.99038}
-        \end{align}
-        Using $N_{2010}$ from the data, ($N_{2010} = 281$), we get the approximation $N_{2011} = 289.22$.  Using the initial condition $N_{1955} = 29$ and the above recursive rule, we get the approximation $N_{2011} = 262.5$.
+        The output from the summary command shows $\log N_{t+1} \approx 0.99783\log N_t + 0.04810$, which implies
+        \begin{align*}
+            N_{t+1} = e^{0.04810}N_t^{0.99783}
+        \end{align*}
+        Using $N_{1989}$ from the data, ($N_{1989} = 146$), we get the approximation $N_{2011} = 325.53$.  Using the initial condition $N_{1938} = 19$ and the above recursive rule, we get the approximation $N_{2011} = 318.37$.
 
     \item
-        The website {\color{blue}\hyperlink{https://www.learner.org/jnorth/tm/crane/PopulTotals.html}{https://www.learner.org/jnorth/tm/crane/PopulTotals.html}} gives the wild Whooping Crane Population in the Western Flock as 278.  It looks like the linear regression from (a) overestimated the most, while the average of the results from (b) is 275.86, which is very close to the actual value.
+        The website {\color{blue}\hyperlink{https://www.learner.org/jnorth/tm/crane/PopulTotals.html}{https://www.learner.org/jnorth/tm/crane/PopulTotals.html}} gives the wild Whooping Crane Population in the Western Flock in 2011 as $278$.  It looks like the linear regression from (a) underestimated the most (relative error $= -13.3\%$), while the results from (b) are $325.53$ and $318.37$ (average of $321.95$), which is an overapproximation of the actual data (relative error $= 15.8\%$).
 \end{enumerate}
 
 
@@ -260,13 +260,13 @@ summary(regression)
 \problem{Problem 2}{\textbf{Monad's nightmare:} Starting with a single cell of \emph{E. coli}, how long would it take to cover the Earth 1 foot deep with \emph{E. coli}?  Assume that \emph{E. coli} are rectangular prisms of volume $1.1250\times10^{-18} \text{meters}^3$ and that they reproduce every 20 minutes.}
 
 The radius of the Earth is approximately $20903520 \text{ feet}$, and thus the volume of the $1 \text{ foot}$ film of \emph{E. coli} around the Earth is
-\begin{align}
+\begin{align*}
     V_{\text{film}} = \frac{4}{3}\pi 20903521^3 - \frac{4}{3}\pi 2090352103^3 = 5490965741568000 \text{ feet}^3 \approx 155486834545908.5625 \text{ meters}^3
-\end{align}
+\end{align*}
 This means it would take approximately $\frac{155486834545908.5625}{1.1250\times10^{-18}} \approx 1.3821051959636316\times 10^{32}$ \emph{E. coli} cells to cover the earth with a $1$ foot film.  If we discretize time into twenty minute intervals and assume that the \emph{E. coli} cells never die, then we just need to solve $1.3821051959636316\times 10^{32} = 2^t$ for $t$, which has the solution
-\begin{align}
+\begin{align*}
     t = 106.7685664639302
-\end{align}
+\end{align*}
 Since this is the number of twenty minute intervals, this corresponds to about 35.6 hours.
 
 
@@ -332,13 +332,13 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
 \begin{enumerate}[\ \ (a)]
     \item
         Running the given code gives the following parameter values:
-        \begin{align}
+        \begin{align*}
             a \approx 0.8068723 \qquad b \approx 0.0148920 \qquad c \approx 4.2470522
-        \end{align}
+        \end{align*}
         so the model is
-        \begin{align}
+        \begin{align*}
             S(N) \approx \frac{0.8068723N}{1 + (0.0148920N)^{4.2470522}}
-        \end{align}
+        \end{align*}
         and here is the plot with the data points in red dots and the model approximation as a blue line:
         \begin{figure}[ht!]
             \centering
@@ -354,17 +354,17 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
         We see that different fecundity values produce chaotic, cyclic, and equilibrium behavior, and in particular, low fecundity results in extinction.
     \item
         For the model
-        \begin{align}
+        \begin{align*}
             N_{t+1} = R(N_t) \qquad \text{where} \qquad R(N) = F\frac{aN}{1 + (bN)^c},
-        \end{align}
+        \end{align*}
         we know $0$ is an equiilbrium since $R(0) = 0$.  To find the stability of this equilibrium, notice
-        \begin{align}
+        \begin{align*}
             R'(0) = Fa
-        \end{align}
+        \end{align*}
         and thus $0$ is stable if $\abs{Fa} < 1$, i.e.~$F < \frac{1}{a}$ and unstable if $\abs{Fa} > 1$, i.e.~$F > \frac{1}{a}$.  Since $a \approx 0.8068723$, this critical value of $F$ is
-        \begin{align}
+        \begin{align*}
             F^* = \frac{1}{a} \approx 1.23935349.
-        \end{align}
+        \end{align*}
     \item
         Here is the resulting plot from \texttt{BellowsBif.R}:
         \begin{figure}[ht!]
@@ -398,13 +398,114 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \problem{Problem 5}{You can find five more population data sets in the resources folder at Smartsite in the files {\color{red}data1.txt}, {\color{red}data2.txt}, {\color{red}data3.txt}, {\color{red}data4.txt}, {\color{red}data5.txt}.  For each of these data sets use Bayesian Information Criterion (BIC) to select one of the following three models where the ``process error'' is assumed to be normally distributed:
-\begin{addmargin}[1em]{2em}% 1em left, 2em right
+\begin{addmargin}[1em]{2em}
     \textbf{Gompertz model:} is of the form $$\log\frac{N(t+1)}{N(t)} = a + b\log N(t) + \text{``process error''}$$
 
     \textbf{Ricker model:} is of the form $$\log\frac{N(t+1)}{N(t)} = a + b N(t) + \text{``process error''}$$
 
     \textbf{Random walk model:} is of the form $$\log\frac{N(t+1)}{N(t)} = a + \text{``process error''}$$
 \end{addmargin}}
+
+Here is the code used to generate the parameter values for each model, as well as the Log-Likelihood, AIC, and BIC values:
+
+\begin{code}
+# Define the Ricker, Gompertz, and Random Walk models
+RICKER = function(x, a, b) x + a + b*exp(x)
+GOMPERTZ = function(x, a, b) a + (b+1)*x
+RANDOM_WALK = function(x, a) x + a
+
+# Define a list of files to load
+data_list <- c("data1.txt", "data2.txt", "data3.txt", "data4.txt", "data5.txt")
+
+for (FILE in data_list) {
+  # Load the file
+  data = read.csv(FILE)
+  N = data$N
+
+  # Take the logarithm of the data
+  y = log(N)
+  k = length(y)
+  y.future = y[-1]
+  y.past = y[-k]
+  
+  # Perform the regressions
+  MODEL_GOMPERTZ = nls(y.future~GOMPERTZ(y.past, a, b), start=list(a=0, b=0))
+  MODEL_RICKER = nls(y.future~RICKER(y.past, a, b), start=list(a=0, b=0))
+  MODEL_RANDOM_WALK = nls(y.future~RANDOM_WALK(y.past, a), start=list(a=0))
+  
+  # Print the name of the file
+  print(FILE)
+  # Print the Coefficients
+  print("COEFFICIENTS")
+  print(coef(MODEL_GOMPERTZ))
+  print(coef(MODEL_RICKER))
+  print(coef(MODEL_RANDOM_WALK))
+  # Print the Log-Likelihood values
+  print("LOGLIK")
+  print(logLik(MODEL_GOMPERTZ))
+  print(logLik(MODEL_RICKER))
+  print(logLik(MODEL_RANDOM_WALK))
+  # Print the AIC and BIC values
+  print("AIC")
+  print(AIC(MODEL_GOMPERTZ))
+  print(AIC(MODEL_RICKER))
+  print(AIC(MODEL_RANDOM_WALK))
+  print("BIC")
+  print(BIC(MODEL_GOMPERTZ))
+  print(BIC(MODEL_RICKER))
+  print(BIC(MODEL_RANDOM_WALK))
+}
+\end{code}
+
+Here are the results from the various regressions:
+
+\begin{table}[ht!]
+    \begin{tabular}{||l||l|l|l|l|l||}\hline\hline
+        data1.txt   & $a$ & $b$ & Log-Likelihood & AIC & BIC \\\hline\hline
+        Gompertz    & $2.549111$ & $-0.538343$ & $-68.97711$ & $143.9542$ & $149.4401$ \\\hline
+        Ricker      & $0.794930970$ & $-0.003908944$ & $-63.17832$ & $132.3566$ & $137.8426$ \\\hline
+        Random Walk & $-0.02756187$ & N/A & $-76.10542$ & $156.2108$ & $159.8681$ \\\hline\hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+    \begin{tabular}{||l||l|l|l|l|l||}\hline\hline
+        data2.txt   & $a$ & $b$ & Log-Likelihood & AIC & BIC \\\hline\hline
+        Gompertz    & $2.2840263$ & $-0.6554932$ & $-11.72863$ & $29.45726$ & $34.74086$ \\\hline
+        Ricker      & $0.57313072$ & $-0.01663231$ & $-12.86428$ & $31.72857$ & $37.01217$ \\\hline
+        Random Walk & $-0.0035849$ & N/A & $-20.00474$ & $44.00948$ & $47.53188$ \\\hline\hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+    \begin{tabular}{||l||l|l|l|l|l||}\hline\hline
+        data3.txt   & $a$ & $b$ & Log-Likelihood & AIC & BIC \\\hline\hline
+        Gompertz    & $1.2411181$ & $-0.2311494$ & $-2.360294$ & $10.72059$ & $14.12707$ \\\hline
+        Ricker      & $0.736252393$ & $-0.003664602$ & $-3.534877$ & $13.06975$ & $16.47624$ \\\hline
+        Random Walk & $0.1956439$ & N/A & $-12.05806$ & $28.11611$ & $30.3871$ \\\hline\hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+    \begin{tabular}{||l||l|l|l|l|l||}\hline\hline
+        data4.txt   & $a$ & $b$ & Log-Likelihood & AIC & BIC \\\hline\hline
+        Gompertz    & $0.6757822$ & $-0.1522380$ & $24.10618$ & $-42.21236$ & $-38.6782$ \\\hline
+        Ricker      & $0.162914901$ & $-0.001894426$ & $24.00982$ & $-42.01963$ & $-38.48547$ \\\hline
+        Random Walk & $0.008361279$ & N/A & $22.87781$ & $-41.75561$ & $-39.39951$ \\\hline\hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+    \begin{tabular}{||l||l|l|l|l|l||}\hline\hline
+        data5.txt   & $a$ & $b$ & Log-Likelihood & AIC & BIC \\\hline\hline
+        Gompertz    & $1.1102957$ & $-0.3326013$ & $-113.7893$ & $233.5786$ & $241.078$ \\\hline
+        Ricker      & $0.332103758$ & $-0.007314065$ & $-118.2062$ & $242.4124$ & $249.9119$ \\\hline
+        Random Walk & $-0.002411484$ & N/A & $-121.9505$ & $247.901$ & $252.9006$ \\\hline\hline
+    \end{tabular}
+\end{table}
+
+Surprisingly, the random walk model is the best fit for the first, second, third, and fifth data sets.  The Gompertz model is the best fit for the fourth data set.
+
 
 
 
@@ -427,9 +528,15 @@ Since this is the number of twenty minute intervals, this corresponds to about 3
 
 \begin{enumerate}[\ \ (a)]
     \item
-        We see $R'(N) = \dfrac{a^2}{(H + aN)^2}$, which is never zero since $a > 0$, so we must look asymptotically to find the maximum value.  $R' \rightarrow 0$ as $N \rightarrow \infty$.  So $\displaystyle\lim_{N\rightarrow\infty}R(N) = r$.  This means that the maximum per-capita growth rate is $r$ but the population never attains this value since it was attained asymptotically.  The population is doomed to extinction for all initial conditinos if $r<0$.
+        We see $R(N)$ is a strictly increasing function of $N$, and thus the maximum per-capita growth rate occurs as $N\rightarrow\infty$, i.e. $\displaystyle\lim_{N\rightarrow \infty}R(N) = r$.  If $r < 0$, the population is doomed to extinction for all initial conditions.
     \item
-        Since $R$ is an increasing function of $N$, $R$ attains its minimum on the boundary $N=0$.  This minimum is $R(0) = r - \dfrac{a}{H}$.
+        Since $R$ is an increasing function of $N$, $R$ attains its minimum on the boundary $N=0$.  This minimum is $R(0) = r - \dfrac{a}{H}$.  If $r > \dfrac{a}{H}$ then the per-capita growth rate, at its worst, is positive, and thus the population persists for all persitive initial conditions.  The per-capita growth rate at large densities is positive and bounded from zero, so no, the population is not regulated.
+    \item
+        Assuming $0 < r < \dfrac{a}{H}$, then $R(0)<0$ and $R(\infty)>\infty$.  The positive equilibrium is th value of $N$ for which
+        \begin{align*}
+            r = \frac{a}{H + aN^*} \qquad \text{which simplifies to} \qquad N^* = \frac{a - Hr}{ar}.
+        \end{align*}
+        Since $R(N)$ is an increasing function, $R(N) < 0$ for $N < N^*$ and $R(N) > 0$ for $N > N^*$.  This means $N^*$ is a threshold value below which the population must not fall if it intends on surviving.  If a population density is initially below this threshold, it will approach extinction asymptotically.  If a population density is initially above this threshold, it will grow without bound.  Note that $N^*$ is a decreasing function of $H$, whereas it is not monotonic in $a$ or $r$.  This means we can surely increase the threshold value by decreasing $H$.  {\color{red} How does this improve the relisience of a population?}
 \end{enumerate}
 
 \end{document}

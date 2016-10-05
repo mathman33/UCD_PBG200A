@@ -504,7 +504,7 @@ Here are the results from the various regressions:
     \end{tabular}
 \end{table}
 
-Surprisingly, the random walk model is the best fit for the first, second, third, and fifth data sets.  The Gompertz model is the best fit for the fourth data set.
+We choose the Ricker Model for the first data set and the Gompertz Model for the second, third, fourth, and fifth data sets since these models produce the lowest BIC scores for the data.
 
 
 
@@ -523,7 +523,7 @@ Surprisingly, the random walk model is the best fit for the first, second, third
 \begin{enumerate}[\ \ (a)]
     \item Find the maximum per-capita growth rate of the population.  Discuss under what conditions the population is doomed to extincton for all initial conditions.
     \item Find the minimum per-capita growth rate of the population.  Discuss under what conditions the population persists for all positive initial conditions.  Is the population regulated?
-    \item Assume that the maximum per-capita growth rate of the population is positive and the minimum per-capita growth rate is negative.  Find the positive equilibrium for the model.  What happens for populations whose initial abundance lies below this equilibrium?  What happens if the initial abundance lies above this equilibrium?  Discuss how the resilience of this population can be improved (by increasing the threshold value).
+    \item Assume that the maximum per-capita growth rate of the population is positive and the minimum per-capita growth rate is negative.  Find the positive equilibrium for the model.  What happens for populations whose initial abundance lies below this equilibrium?  What happens if the initial abundance lies above this equilibrium?  Discuss how the resilience of this population can be improved (by decreasing the threshold value).
 \end{enumerate}}
 
 \begin{enumerate}[\ \ (a)]
@@ -536,7 +536,7 @@ Surprisingly, the random walk model is the best fit for the first, second, third
         \begin{align*}
             r = \frac{a}{H + aN^*} \qquad \text{which simplifies to} \qquad N^* = \frac{a - Hr}{ar}.
         \end{align*}
-        Since $R(N)$ is an increasing function, $R(N) < 0$ for $N < N^*$ and $R(N) > 0$ for $N > N^*$.  This means $N^*$ is a threshold value below which the population must not fall if it intends on surviving.  If a population density is initially below this threshold, it will approach extinction asymptotically.  If a population density is initially above this threshold, it will grow without bound.  Note that $N^*$ is a decreasing function of $H$, whereas it is not monotonic in $a$ or $r$.  This means we can surely increase the threshold value by decreasing $H$.  {\color{red} How does this improve the relisience of a population?}
+        Since $R(N)$ is an increasing function, $R(N) < 0$ for $N < N^*$ and $R(N) > 0$ for $N > N^*$.  This means $N^*$ is a threshold value below which the population must not fall if it intends on surviving.  If a population density is initially below this threshold, it will approach extinction asymptotically.  If a population density is initially above this threshold, it will grow without bound.  Note that $N^*$ is a decreasing function of $H$, and $N^*$ it is not monotonic in $a$ or $r$.  This means we can surely decrease the threshold value by increasing $H$.  Decreasing the threshold value allows the population to undergo larger perturbations without increasing the risk of extinction.  This means the population is more resilient to these large perturbations.
 \end{enumerate}
 
 \end{document}

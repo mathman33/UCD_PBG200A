@@ -1,0 +1,67 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 5, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Bet Hedging}
+        \begin{align*}
+            N_{t+1} = \underbrace{\Big(Y_{t+1}g + S_{t+1}(1-g)\Big)}_{\expec\qty[\log(\text{of this})] \eqqcolon r}N_t
+        \end{align*}
+        When is $r$ maximized at $0 < g < 1$?  Must have:
+        \begin{align*}
+            \expec\qty[\frac{Y_t}{S_t}] > 1 \\
+            \expec\qty[\frac{S_t}{Y_t}] > 1
+        \end{align*}
+    \section{Discussion on Childs et al 2010 and Gremer and Venable 2014}
+        \subsection{ESS in G\&V 2014}
+            Two competing genotypes
+            \begin{align*}
+                N_{t+1} = \frac{gY_{t+1}N_t}{1 + a\qty(gN_t + \tilde{g}\tilde{N}_t)} + (1 - g)sN_t \\
+                \tilde{N}_{t+1} = \frac{\tilde{g}Y_{t+1}\tilde{N}_t}{1 + a\qty(gN_t + \tilde{g}\tilde{N}_t)} + (1 - \tilde{g})s\tilde{N}_t
+            \end{align*}
+            An ESS is a strategy $g$ which will exclude all other strategies $\tilde{g}$ at low densities.  At low $\tilde{N}$, $\cancelto{0}{\tilde{g}\tilde{N_t}}$.  Defining $r(g,\tilde{g})$ as the invasion rate of $\tilde{g}$ against $g$.
+            \begin{align}
+                r(g,\tilde{g}) = \expec\qty[\log\qty[\frac{\tilde{g}Y_{t+1}}{1 + agN_t} + (1 - \tilde{g})s]]
+            \end{align}
+            Definition: the ESS is the value of $g$ for which $r(g,\tilde{g})<0$ for all $\tilde{g} \neq g$.  Side Note: As ESS must satisfy $\dfrac{\partial r}{\partial \tilde{g}}(g,g) = 0$.
+    \section{Central Limit Theorem (CLT)}
+        This is the whole basis of hypothesis testing.
+
+        Set $X_1, \dots, X_t, \dots$ are i.i.d.~with mean $\mu$ and variance $\sigma^2$, then
+        \begin{align}
+            \frac{X_1 + \dots + X_t - t\mu}{\sqrt{t\sigma^2}} \rightarrow N(0,1)
+        \end{align}
+        where $N(\mu,\sigma^2)$ is a normal distribution with mean $\mu$ and variance $\sigma^2$.
+
+        \subsection{So What?}
+            \begin{align}
+                \log\frac{N_t}{N_0} = \log R_1 + \dots + \log R_t,
+            \end{align}
+            so $\log N_t$ is approximately normally distributed with mean $rt + \log N_0$ and variance $\sigma^2 t$ where $\sigma^2$ is the variance of $\log R_1$.
+
+\end{document}
+
+
+
+
+
+
+
+

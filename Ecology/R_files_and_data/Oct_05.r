@@ -14,3 +14,12 @@ sim=function(R,rho=0,reps=1000,Tmax=100,N0=100){
   }
   return(N)
 }
+
+#N0 = 100
+#Tmax=100
+#hist(log(N[Tmax+1,]),freq=FALSE)
+#xs = seq(-15,10,length=50)
+#M=mean(log(R))
+#V = mean((M-log(R))^2)*(1 + 2*rho/(1 - rho))
+#ys = dnorm(xs,mean = M*(Tmax)+log(N0),sd = sqrt(V*Tmax))
+#lines(xs, ys, lwd=2,col="red")

@@ -1,0 +1,140 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 7, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{From Last Time}
+        \begin{align*}
+            \log \frac{N_t}{N_0} \approx \text{ normal with mean $rt$ and variance $\sigma^2 t$}
+        \end{align*}
+        and note that $\vari\qty[\log R_1] = \sigma^2$.
+
+        $N_0 = 100$, $t = 100$, $r$, $\sigma^2$...
+        \begin{align*}
+            \prob[N_{100} \leq 1] = \prob\qty[\log \frac{N_{100}}{100} \leq \log\frac{1}{100}] = \prob\qty[\frac{\log\frac{N_{100}}{100} - 100r}{10\sigma} \leq \underbrace{\frac{\log\frac{1}{100} - 100r}{10\sigma}}_{z \text{ score}}]
+        \end{align*}
+
+    \section{Correlated Fluctuations}
+        \subsection{Recall}
+            $X$ and $Y$ are random variables with means $\mu_X$ and $\mu_Y$, respectively, then the ``covariance'' between $X$ and $Y$ is
+            \begin{align*}
+                \cov[X,Y] = \expec[(X - \mu_X)(Y - \mu_Y)]
+            \end{align*}
+            Notice positive covariance means that when $X$ is generally above the mean, so is $Y$.  The correlation is the normalized covariance.
+            \begin{align*}
+                \cor[X,Y] = \frac{\cov[X,Y]}{\sqrt{\vari[X]\vari[Y]}} \in [-1,1]
+            \end{align*}
+        \subsection{Stationary and Ergodic Random Variables}
+            \begin{align*}
+                N_{t+1} = R_{t+1}N_t
+            \end{align*}
+            Stationarity is when statistical properties like mean, variance, autocorrelation, etc.~ are constant over time.
+            Ergodicity is 
+
+            LLN\textsuperscript{$+$} $X_1$, $X_2$, $\dots$ are stationary and ergodic,
+            then
+            \begin{align*}
+                \frac{\sum_{i=1}^t}{t} \rightarrow \expec[X_1] \qquad \text{as $t\rightarrow \infty$}
+            \end{align*}
+
+            CLT\textsuperscript{$+$} $X_1,X_2,\dots$ as before with mean $\mu$ and variance $\sigma^2$, then
+            \begin{align*}
+                \frac{X_1 + \dots + X_t - t\mu}{\sqrt{t}\sigma^+} \rightarrow \text{standard normal} \qquad \text{as $t \rightarrow \infty$}
+            \end{align*}
+            where
+            \begin{align*}
+                \qty(\sigma^+)^2 = \sigma^2(1 + 2\sum_{\tau=1}^\infty \cor\qty[X_1,X_{1+\tau}])
+            \end{align*}
+
+            This means that positive correlations give rise to greater variations in population densities.
+
+    \section{Density Dependence}
+        \begin{align*}
+            N_{t+1} = R\qty(N_t, E_{t+1})N_t
+        \end{align*}
+        where $E_{t+1}$ is a sequence of random variables.  Define
+        \begin{align*}
+            r_0 = \expec\qty[log R(0, E_1)] \qquad \text{and} \qquad r_\infty = \lim_{N\rightarrow\infty}\expec\qty[\log R(N,E_1)]
+        \end{align*}
+        So they are the realized per-capita growth rates at low and high densities.
+
+        If there is no density dependence then $r_0 = r_\infty$.  Either
+        \begin{itemize}
+            \item $r\coloneqq r_0 = r_\infty > 0$, then $N_t \rightarrow \infty$ (persistence)
+            \item $r\coloneqq r_0 = r_\infty < 0$, then $N_t \rightarrow 0$ (boundedness)
+        \end{itemize}
+        If there is negative density dependence, then $r_0 > r_\infty$.  Either
+        \begin{itemize}
+            \item $r_0 < 0$, then $N_t \rightarrow 0$.
+            \item $r_\infty > 0$, then $N_t \rightarrow\infty$.
+            \item $r_0 > 0$ and $r_\infty<0$, then persistence and boundedness (regulation)
+        \end{itemize}
+        If there is positive density dependence, then $r_0 < r_\infty$.  Either
+        \begin{itemize}
+            \item $r_\infty < 0$, then $N_t \rightarrow 0$.
+            \item $r_0 > 0$, then $N_t \rightarrow \infty$.
+            \item $r_0 < 0$ and $r_\infty > 0$, then $N_t \rightarrow 0$ or $N_t \rightarrow \infty$ with positive probability for any initial condition.
+        \end{itemize}
+
+    \section{Part III - Individual Heterogeneity}
+        \subsection{Example - Juveniles and Adults}
+            $N_1(t)$ is the density of juveniles and $N_2(t)$ is the density of adults.
+            \begin{align}
+                N_1(t+1) &= 1.1N_2(t) \\
+                N_2(t+1) &= 0.55N_1(t) + 0.55N_2(t)
+            \end{align}
+            So let $N = \qty(\begin{array}{cc}N_1 & N_2\end{array})^T$ and $A = \qty(\begin{array}{cc}0 & 1.1 \\ 0.55 & 0.55\end{array})$.  Then $N_{t+1} = AN_t$, i.e.
+            \begin{align}
+                \qty(\begin{array}{c}
+                    N_1 \\
+                    N_2
+                \end{array})_{t+1} = \qty(\begin{array}{cc}
+                    0 & 1.1 \\
+                    0.55 & 0.55
+                \end{array})\cdot \qty(\begin{array}{c}
+                    N_1 \\
+                    N_2
+                \end{array})_t
+            \end{align}
+            Then we have $N(1) = AN(0)$, $N(2) = AN_1 = A^2N(0)$, and so on, and
+            \begin{align}
+                N(t) = A^tN(0).
+            \end{align}
+            Suppose $N(0) = \qty(\begin{array}{cc} 100 & 100 \end{array})^T$.  Then $N(1) = \qty(\begin{array}{cc}110 & 110\end{array})^T = 1.1N(0)$.  Then $N(2) = 1.21N(0)$. ``Hmmmmmm!!''
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

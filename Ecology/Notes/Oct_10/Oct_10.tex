@@ -1,0 +1,106 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 10, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Reminder of Toy Example from last time}
+        \begin{align}
+            N_t = \qty(\begin{array}{cc}
+                N_{1,t} \\ N_{2,t}
+            \end{array}) = A\cdot N_t \qquad \text{where} \qquad A = \qty(\begin{array}{cc}
+                0 & 1.1 \\ 0.55 & 0.55
+            \end{array})
+        \end{align}
+        We saw that if $N_0 = \qty(\begin{array}{cc} 100 & 100 \end{array})^T$ then $N_t = 1.1^t N_0$. \\
+
+        \textbf{Definition: }A scalar $\lambda$ is an eigenvalue for a $k\times k$ matrix $A$ if there is a non-zero vector $v$ such that $Av = \lambda v$.  This vector $v$ is called an eigenvector corresponding to the eigenvalue $\lambda$.
+
+    \section{Perron-Frobenius Theorem}
+        If $A$ is a nonnegative, primitive ($A^n$ has all positive entries for some $n$) matrix, then there exists $\lambda > 0$ and $v$ such that
+        \begin{enumerate}
+            \item $Av = \lambda v$
+            \item $\sum_{i=1}^k v_i = 1$ and $v_i > 0$ for all $i = 1, \dots, k$.
+            \item Let $n(t) = \sum_{i=1}^k N_i(t)$.  Then $$\frac{1}{t}\log n(t) \rightarrow \log \lambda \eqqcolon r \qquad \text{as} \qquad t \rightarrow \infty$$ whenever $N_i(0) \geq 0$ for $i = 1, \dots, k$ and $n(0) > 0$.
+            \item $\dfrac{N_i(t)}{n(t)} \rightarrow v_i$ as $t \rightarrow \infty$.  The $v_i$'s are called the ``stable stage distribution.''
+        \end{enumerate}
+        An example of a nonprimitive matrix is
+        \begin{align}
+            A = \qty(\begin{array}{cc} 0 & + \\ + & 0 \end{array})
+        \end{align}
+        which at odd $n$,
+        \begin{align}
+            A^n = \qty(\begin{array}{cc}+ & 0 \\ 0 & +\end{array})
+        \end{align}
+        and at even $n$,
+        \begin{align}
+            A^n = \qty(\begin{array}{cc} 0 & + \\ + & 0 \end{array})
+        \end{align}
+        The theorem is roughly saying
+        \begin{align}
+            N(t) \approx C \lambda^t v \qquad \text{for large enough $t$}
+        \end{align}
+        and $C$ is dependent on $N(0)$.\\
+
+        What is $C$?  First, \textbf{Definition:} Let $w = \qty[w_1, \dots, w_k]$ be such that $wA = \lambda w$ and such that $\sum_{i=1}^kw_iv_i = 1$.
+
+        \begin{align}
+            N(t) &\approx C \lambda^t v \\
+            wN(t) &\approx w C \lambda^t v \\
+            wN(t) &\approx C\lambda^t \cancelto{1}{wv} \\
+            w N(t) = w A^t N(0) &= w \lambda^t N(0) \\
+            &= \lambda^t w N(0) \\
+            \implies C &= wN(0)
+        \end{align}
+        which implies $w$ is the vector of reproductive values of each stage.  It represents the amount an individual in any stage contributes to the population.
+
+    \section{Sensitivity and Elasticity Analysis}
+        Sensitivity of $\lambda$ to the $i-j$\textsuperscript{th} entry of $A$ ($a_{ij}$), denoted $S_{ij}$, is $\dfrac{\partial \lambda}{\partial a_{ij}}$.  It turns out
+        \begin{align}
+            \frac{\partial \lambda}{\partial a_{ij}} = w_iv_j \eqqcolon S_{ij}
+        \end{align}
+        In \texttt{R}, type \texttt{w\%o\%v} where \texttt{\%o\%} is the outer product. \\
+
+        Elasticity of $\lambda$ to $a_{ij}$, denoted $E_{ij}$ is
+        \begin{align}
+            E_{ij} \coloneqq = \frac{\partial \lambda}{\partial a_{ij}} \cdot \frac{a_{ij}}{\lambda} \qty(\approx \frac{\dfrac{\partial \lambda}{\lambda}}{\dfrac{\partial a_{ij}}{a_{ij}}}) = S_{ij} \frac{a_{ij}}{\lambda}
+        \end{align}
+        In \texttt{R}, type \texttt{E = S*A/l} where \texttt{l} is $\lambda$.  Note that \texttt{*} in \texttt{R} is elementwise multiplication, whereare \texttt{\%*\%} is matrix multiplication.
+
+        Sensitivity is about \emph{absolute} (think $+$) changes, whereas elasticity is about \emph{relative} (think $\cdot$) changes.
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

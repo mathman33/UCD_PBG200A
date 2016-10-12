@@ -1,0 +1,88 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 12, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Continuous Structure in Populations}
+        Canonical example: size or weight
+
+        \subsection{Integral Projection Models (IPMs)}
+            Individual states take values in an interval $[a,b]$.  Write $N(t,x)$ as the density of size $x$ individuals at time (or year) $t$.  For a fixed $t$, we can look at $N(t,x)$ vs.~$x$.  Then the density of individuals in $[x, x+\Delta x]$ is approximately $N(t,x)\Delta x$.
+
+            Here is a classic
+            \begin{align}
+                N(t+1,y) = \int_a^b s(x)\qty[g(x,y) + p(x)f(x,y)]N(t,x)\dd x
+            \end{align}
+            where
+            \begin{align}
+                s(x) & \coloneqq \text{the percentage of size $x$ individuals which survive} \\
+                g(x,y) &\coloneqq \text{the infinitesimal probability of growing from $x$ to $y$} \\
+                p(x) &\coloneqq \text{the probability of a size $x$ individual reproducing} \\
+                f(x,y) &\coloneqq \text{the density of offspring of size $y$ produced by individuals of size $x$}
+            \end{align}
+
+    \section{Matrix Models with Temporal Heterogeneity}
+        \begin{align}
+            N(t) = \qty(\begin{array}{c}
+                N_1(t) \\ N_2(t) \\ \vdots \\ N_k(t)
+            \end{array})
+        \end{align}
+        \begin{align}
+            N(t+1) = A(t+1)N(t) \qquad \implies \qquad N(t) = A(t)A(t-1)\dots A(1)N(0)
+        \end{align}
+        What is $r$?
+
+        \subsection{Central Limit Theorem \textsuperscript{++}}
+            Assume $A(i)$ are stationary, ergodic, and primitive for $i = 1, 2, \dots$.  Then $\exists r$ and $\sigma$ ($\sigma > 0$) such that
+            \begin{align}
+                \log(N_1(t) + \dots + N_k(t)) \approx \log(N_1(0) + \dots + N_k(0))rt + \sigma \sqrt{t}Z
+            \end{align}
+            where $Z$ is the standard normal.
+
+        \subsection{Small Variance Approximation for $r$}
+            For i.i.d.~$A(t)$,
+            \begin{align}
+                A(t) = \underbrace{\expec\qty[A(t)]}_{\overline{A}} + \underbrace{A(t) - \overline{A}}_{B(t)}
+            \end{align}
+            \begin{align}
+                r \approx \log \lambda - \frac{1}{2\lambda^2}\sum_{i,j,r,s}S_{ij}S_{rs}\cov\qty[B_{ij}(1),B_{rs}(1)]
+            \end{align}
+            where $S$ are the sensitivities ($\partial \lambda/\partial \overline{a}_{ij}$).
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

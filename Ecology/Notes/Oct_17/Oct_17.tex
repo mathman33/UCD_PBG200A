@@ -1,0 +1,90 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 17, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{From Last Time}
+        \begin{align*}
+            N(t+1) = A(t+1)N(t)
+        \end{align*}
+        where
+        \begin{align*}
+            \bar{A} = \expec[A(t+1)], \qquad B(t+1) = A(t+1) - \expec[A(t+1)],
+        \end{align*}
+        and
+        \begin{align*}
+            A(t+1) = \bar{A} + B(t+1)
+        \end{align*}
+        so
+        \begin{align*}
+            r \approx \log \lambda - \frac{1}{2\lambda^2}\sum_{i,j,k,\ell}S_{ij}S_{k\ell}\cov[B_{ij}(t)B_{k\ell}(t)]
+        \end{align*}
+        where $S_{ij} = \dfrac{\partial \lambda}{\partial \overline{a}_{ij}}$ and $\lambda$ is the dominant eigenvalue for $\overline{A}$.
+
+    \section{Demographic Stochasticity}
+        Populations consist of a finite number of individuals whose fates are not perfectly correlated.  The simplest model is a branching process.
+
+        \subsection{Branching Process}
+            \begin{align*}
+                N(t+1) = X_1 + \dots + X_{N(t)}
+            \end{align*}
+            where $X_i$ are i.i.d.~on $\mathbb{N}$.  If the $X_i$ are independent of $N(t)$ - this is a standard branching process.
+
+            There is a limit theorem for branching processes: Define $R \coloneqq \expec[X_1]$.  If $R \leq 1$, then $N_0 \rightarrow 0$ in finite time with probability $1$.  Note that $R$ is defined this way since
+            \begin{align*}
+                \expec[N(t+1)|N(t)] = RN(t)
+            \end{align*}
+            If $R > 1$, then $N_t \rightarrow \infty$ with positive probability $p<1$ and goes extinct with probability $1 - p$.  The probability of extinction when $R>1$ is then $(1 - p)^{N_0}$.
+
+        \subsection{A Useful Approximation}
+            We say $N(t+1) = X_1 + \dots + X_{N(t)}$ is approximated by a normal curve with mean $RN(t)$ and variance $N(t)\vari[X_1]$ (denot $\sigma^2 \coloneqq \vari[X_1]$).
+            \begin{align*}
+                N(t+1) = X_1 + \dots + X_{N(t)} \approx \underbrace{RN(t) + Z\sigma\sqrt{N(t)}}_{= N(t)\qty(R + \frac{\sigma}{\sqrt{N(t)}}Z)}
+            \end{align*}
+            This is called the diffusion approximation.  This means smaller populations are at greater extinction risk.  What happens to population size on the event of non-extinction?
+            \begin{align}
+                \expec[N(t+1)] = RN(t)
+            \end{align}
+            but
+            \begin{align}
+                \expec[N(t+1)] = \expec[N(t+1)|N(t+1) > 0]\overbrace{\prob[N(t+1)>0]}^{<1} + \cancelto{0}{\expec[N(t+1)|N(t+1)=0]}\prob[N(t+1)=0]
+            \end{align}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

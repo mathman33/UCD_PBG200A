@@ -1,0 +1,273 @@
+\documentclass{article} % A4 paper and 11pt font size
+\setcounter{secnumdepth}{0}
+
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{moreverb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{graphics}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\usepackage{array}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage[makeroom]{cancel}
+\usepackage{bbold}
+\usepackage{scrextend}
+\usepackage{alltt}
+\usepackage{listings}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage[normalem]{ulem}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usepackage{pgfplots}
+\usepackage{bigints}
+\allowdisplaybreaks
+\pgfplotsset{compat=1.12}
+
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{lemma}{Lemma}
+
+\definecolor{verbgray}{gray}{0.9}
+% \definecolor{dkgreen}{green}{0.9}
+
+\lstnewenvironment{code}{%
+  \lstset{
+  language=R,
+  backgroundcolor=\color{verbgray},
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{magenta},   % comment style
+  stringstyle=\color{olive},      % string literal styleframe=single,
+  numberstyle=\color{black},      % string literal styleframe=single,
+  framerule=0pt,
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  showspaces=false,
+  basicstyle=\ttfamily}}{}
+
+\lstnewenvironment{console_output}{%
+  \lstset{
+  framerule=0pt,
+  numbers=left,
+  stepnumber=1,
+  showspaces=false,
+  firstnumber=1,
+  basicstyle=\ttfamily}}{}
+
+
+\makeatletter
+\newcommand{\BIGG}{\bBigg@{3}}
+\newcommand{\vast}{\bBigg@{4}}
+\newcommand{\Vast}{\bBigg@{5}}
+\makeatother
+
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\dy}{\partial_y}
+\newcommand{\dyy}{\partial_{yy}}
+\newcommand{\dxx}{\partial_{xx}}
+\newcommand{\dxy}{\partial_{xy}}
+\newcommand{\dyyy}{\partial_{yyy}}
+\newcommand{\dxxx}{\partial_{xxx}}
+\newcommand{\dx}{\partial_x}
+\newcommand{\E}{\varepsilon}
+\def\Rl{\mathbb{R}}
+\def\Cx{\mathbb{C}}
+
+\newcommand{\Ei}{\text{Ei}}
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancy} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead[L]{\bf Sam Fleischer}
+\fancyhead[C]{\bf UC Davis \\ Principles of Population Biology (PBG200A)} % No page header - if you want one, create it in the same way as the footers below
+\fancyhead[R]{\bf Fall 2016}
+
+\fancyfoot[L]{\bf } % Empty left footer
+\fancyfoot[C]{\bf \thepage} % Empty center footer
+\fancyfoot[R]{\bf } % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{25pt} % Customize the height of the header
+
+\newcommand{\VEC}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\ran}{\text{\rm ran }}
+\newcommand{\Hilb}{\mathcal{H}}
+\newcommand{\lap}{\Delta}
+
+\newcommand{\littleo}[1]{\text{\scriptsize$\mathcal{O}$}\qty(#1)}
+
+\DeclareMathOperator*{\esssup}{\text{ess~sup}}
+
+\newcommand{\problem}[2]{
+\vspace{.375cm}
+\boxed{\begin{minipage}{\textwidth}
+    \section{\bf #1}
+    #2
+\end{minipage}}
+}
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{ 
+\normalfont \normalsize 
+\textsc{UC Davis, Principles of Population Biology (PBG 200A), Fall 2016} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{2pt} \\[0.4cm] % Thin top horizontal rule
+\Huge Homework \#2 \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{\huge Sam Fleischer} % Your name
+
+\date{October 19, 2016} % Today's date or a custom date
+
+\begin{document}\thispagestyle{empty}
+
+\maketitle % Print the title
+
+\makeatletter
+\@starttoc{toc}
+\makeatother
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{Problem 1}{Consider a population of annual plants whose seed bank has abundance $N(t)$ in year $t$.  The probability that a seed germinates in a given year is $G$.  The percentage of non-germinating seeds that survive to the next year is $70\%$.  On a good year, a germinating seed contributes (on average) $6$ seeds to the next years seed bank.  On a bad year, one in eight germinating seeds contribute (on average) one seed to the next years seed bank.  Each year the probability of a good year is $0.5$ independent of other years.
+\begin{enumerate}[\ \ (a)]
+    \item If all seeds germinate in their first year (i.e.~$G=1$) and the initial density of seeds is $100$, find their expected density ten years from now.  Will this population of seeds persist in the long-term?  Justify your answers.
+    \item Write down an expression, call it $r(G)$, for the expected value of the logarithmic fitness of the population as a function of $G$.  Use \texttt{R} to plot this function.  For what values of $G$, if any, does the population persist?  What is the ``optimal value'' for $G$?  What rate does the population grow for this optimal germination strategy?
+    \item Discuss what types of changes in the environment (e.g.~probability of a good year, survivorship of seeds, etc.) would result in a lower optimal value of $G$.  Also discuss how these environmental changes would effect the growth rate of the population i.e.~effect $r(G)$.
+\end{enumerate}}
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{Problem 2}{Consider two populations, $A$ and $B$, that can be modeled by $$N(t+1) = R(t)N(t)$$ with $N_0 = 500$.  For population $A$, $R(t)$ has been observed to take on the following values $$\{1.1, 0.9, 1.2, 0.8\}.$$  For population $B$, $R(t)$ has been observed to take on the following values $$\{2.0, 0.4, 3.0, 0.5\}.$$
+\begin{enumerate}[\ \ (a)]
+    \item Compute the expected values and variances for $\ln R(t)$.  Discuss the long-term fate of each of these populations.
+    \item For each population, estimate the probability that $N_{25} \leq 100$.  Discuss these predictions.
+    \item How do your predictions for (b) change if you were told that the correlation between $\ln R(1)$ and $\ln R(t+1)$ equals $\rho^t$ where $\rho$ equals $0.5$ for population $A$ but $-0.5$ for population $B$?  Discuss.
+\end{enumerate}}
+
+\begin{enumerate}[\ \ (a)]
+    \item
+        \begin{align*}
+            N(t+1) &= R(t)N(t) \\
+            \implies \ln(N(t+1)) &= \ln(R(t)) + \ln(N(t))
+        \end{align*}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{Problem 3}{In a 1995 Science article entitled ``Population Dynamics of Exploited Fish Stocks at Low Population Levels'' by R.~A.~Myers and colleagues, parameterized a model of the following form $$N(t+1) = \frac{R(t)N(t)^b}{1 + a N(t)^b}$$ for various fish species.  In this model, $a > 0$ is the intraspecific competition coefficient, $R(t)$ is a measure of intrinsic fitness, and $b$ is called the ``dispensation'' parameter.  When $b > 1$,  the model exhibits an Allee effect, i.e.~positive density dependence at low densities.  In this problem, you will investigate the combined effects of environmental stochasticity and Allee effects on population persistence.  Assume that $R(t) = \ln R(t)$ is normally distributed in time with mean $\mu = -2.5$ and standard deviation $\sigma$.  More specificially, to allow for temporal correlations $\ln R(t)$ defined as follows
+\begin{align*}
+    R(t+1)\ &=\ \mu + \sigma \eta_t \\
+    \eta_{t+1}\ &=\ \rho \eta_t + \sqrt{1 - \rho^2}Z_t
+\end{align*}
+where $Z_1,Z_2,\dots$ are independent and identically distributed standard normals.  $\rho$ meansures the correlation between $R(t)$ and $R(t+1)$.  For these explorations, assume that $a = 0.001$, $b = 2$, and $\mu = -2.5$.
+\begin{enumerate}[\ \ (a)]
+    \item Assuming that $\sigma = 0$ (i.e.~$R = e^{-2.5}$ for all time), find and plot the per-capita growth rate function $R(N)$.  Use your plot to estimate (to the nearest integer) the two positive equilibria of the model.  Call the lower one $N_*$ and the upper one $N^*$.
+    \item Simulate the population dynamics with initial abundance $N^*$ for $200$ time steps with different values of $\sigma$ and $\rho$.  Discuss how these two parameters influence the population dynamics.
+    \item To understand how $\sigma$ influences population persistence, consider $\rho = 0$ and $\sigma = 0.1, 0.2, 0.3, 0.4, 0.5$.  For each $\sigma$ value, have \texttt{R} simulate the dynamics (starting at $N^*$) for 200 time steps for $1,000$ reps (to determine the fraction of reps for which the population persisted $200$ time steps).  Discuss how the probability of extinction in two centuries depends on the level of noise.  Discuss the conservation implications.
+    \item To understand how $\rho$ influences population persistence, repeat (c) with $\rho = -0.5$ and $\rho = 0.5$.  Discuss what you observe and the conservation implications.
+\end{enumerate}}
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{Problem 5}{(Effects of correlations between vital rates on growth)
+\begin{enumerate}[\ \ (a)]
+    \item Consider three annual plant populations in which $50\%$ of the seeds germinate every year.  Good years and bad years occur with equal likelihood.  In good years for the seeds, $90\%$ survive, otherwise only $50\%$ survive.  In good years for the plants, $4$ seeds are produced that enter the seed bank, otherwise only $1$ in $5$ plants produces a seed that enters the seed bank.  The populations differ in the following way:
+    \begin{addmargin}[1em]{2em}
+        \textbf{Population A:} Good (respectively bad) years for the seeds are also good (respectively bad) years for the plants.  In other words, environmental conditions corresponding to good years for the plants are perfectly correlated with environmental conditions corresponding to good years for the seeds.
+
+        \textbf{Population B:} Good years for the seeds are bad years for the plants, and vice versa.  In other words, environmental conditions corresponding to good years for the plants are perfectly negatively correlated with good years with the seeds.
+
+        \textbf{Population C:} Environmental conditinos corresponding to good years for the plants versus good years for the seeds are independent of one another.
+    \end{addmargin}
+    Compute the geometric growth rate of each of these populations and discuss your findings.
+    \item More generally, consider an iteroparous population whose dynamics are given by $N(t+1) = (S_t + F_t)N(t)$ where $S_t$ is the fraction of individuals that survive to the next time step and $F_t$ is the mean number of offspring per individual at time $t$.  Use the small variance approximation of the stochastic growth rate to demonstrate the effects of correlations between $S_t$ and $F)t$ on the long-term population growth rate.
+\end{enumerate}}
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{Problem 6}{For the checkerspot model, compute $r_0$ fothe pre-1971 rainfall and post-1970 rainfall data.  Discuss whether these numbers provide insights consistent with running the full nonlinear model.}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

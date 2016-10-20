@@ -204,9 +204,9 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\problem{Problem 3}{In a 1995 Science article entitled ``Population Dynamics of Exploited Fish Stocks at Low Population Levels'' by R.~A.~Myers and colleagues, parameterized a model of the following form $$N(t+1) = \frac{R(t)N(t)^b}{1 + a N(t)^b}$$ for various fish species.  In this model, $a > 0$ is the intraspecific competition coefficient, $R(t)$ is a measure of intrinsic fitness, and $b$ is called the ``dispensation'' parameter.  When $b > 1$,  the model exhibits an Allee effect, i.e.~positive density dependence at low densities.  In this problem, you will investigate the combined effects of environmental stochasticity and Allee effects on population persistence.  Assume that $R(t) = \ln R(t)$ is normally distributed in time with mean $\mu = -2.5$ and standard deviation $\sigma$.  More specificially, to allow for temporal correlations $\ln R(t)$ defined as follows
+\problem{Problem 3}{In a 1995 Science article entitled ``Population Dynamics of Exploited Fish Stocks at Low Population Levels'' by R.~A.~Myers and colleagues, parameterized a model of the following form $$N(t+1) = \frac{R(t)N(t)^b}{1 + a N(t)^b}$$ for various fish species.  In this model, $a > 0$ is the intraspecific competition coefficient, $R(t)$ is a measure of intrinsic fitness, and $b$ is called the ``dispensation'' parameter.  When $b > 1$,  the model exhibits an Allee effect, i.e.~positive density dependence at low densities.  In this problem, you will investigate the combined effects of environmental stochasticity and Allee effects on population persistence.  Assume that $\ln R(t)$ is normally distributed in time with mean $\mu = -2.5$ and standard deviation $\sigma$.  More specificially, to allow for temporal correlations $\ln R(t)$ defined as follows
 \begin{align*}
-    R(t+1)\ &=\ \mu + \sigma \eta_t \\
+    \ln[R(t+1)]\ &=\ \mu + \sigma \eta_t \\
     \eta_{t+1}\ &=\ \rho \eta_t + \sqrt{1 - \rho^2}Z_t
 \end{align*}
 where $Z_1,Z_2,\dots$ are independent and identically distributed standard normals.  $\rho$ meansures the correlation between $R(t)$ and $R(t+1)$.  For these explorations, assume that $a = 0.001$, $b = 2$, and $\mu = -2.5$.

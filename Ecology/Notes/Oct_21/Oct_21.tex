@@ -1,0 +1,82 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 17, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{From Last Time}
+        \begin{itemize}
+            \item Pulliam 1988 - under equilibrium conditions, you get sources and sinks, or you get a balanced patch landscape (ideal free distribution (ex. ideal pike system))
+            \item Levins - many patches (occupied patches, spacial heterogeneity)
+        \end{itemize}
+        ``Should I Stay or Should I Go?'' - The Clash
+
+    \section{Background - Evolution of Dispersal}
+        Basic result - spacial heterogeneity selects against dispersal.  Temporal heterogeneity is neutral.  Spacial AND temporal heterogeneity allows for possibility of selection \emph{for} dispersal.
+
+    \section{Levins' Model}
+        Assumptions
+        \begin{itemize}
+            \item same size and quality patches
+            \item dispersing randomly
+            \item every patch is equally connected to every other patch
+            \item infinite number of patches
+        \end{itemize}
+
+    \section{Incidence Function Models (IFMs)}
+        Finite number of patches, spacially explicit.  Distance between patches $i$ and $j$ is $d_{ij}$.  Patch $i$ has area $A_i$.  If patch $i$ is occupied, it goes extinct at a rate $A_i^{-x}$.  The larger the patch, the slower it goes extinct.  Patch $i$ becomes occupied at rate $\displaystyle\sum_{j \text{ occupied}} cA_jA_i\exp[-d_{ij}a]$.  This is the net propagule pressure on the focal patch (patch $i$), and is the rate at which it becomes colonized.
+
+        \subsection{Mean Field Model}
+            $p_i$ is the probability patch $i$ is occupied at any particular point in time.
+            \begin{align}
+                \frac{\dd p_i}{\dd t} = -p_iA_i^{-x} + (1 - p_i)\sum_{j \text{ occupied}} c A_jA_i\exp[-d_{ij}a]
+            \end{align}
+            Deterministic approximation of probabilistic model.
+
+    \section{Rescue Effect}
+        Let $p$ be the fraction of occupied patches. Levins' Model is
+        \begin{align}
+            \frac{\dd p}{\dd t} = cp\qty(s - p) - \frac{ep}{1 + ap}
+        \end{align}
+        where $a$ is the strength of the rescue effect.  Positive equilibria satisfy $c(s - p) = \dfrac{e}{1 + ap}$ (colonization rate matches extinction rate).  Thus,
+        \begin{align}
+            \frac{c}{e} = \frac{1}{\qty(1 + ap)\qty(s - p)}
+        \end{align}
+        Plot bifurcation diagram ($p^*$ vs.~$\frac{c}{e}$): $0$ is always an equilibrim (plot $p^* = 0$).  Horizontal asymptotes at $s$ and $-\frac{1}{a}$.  Sideways-facing parabola(ish) thing approaching the asymptotes.  Get stable states for certain values of $\frac{c}{e}$.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

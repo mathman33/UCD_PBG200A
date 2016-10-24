@@ -1,0 +1,167 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 24, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Questions from the Notes - my answers in {\color{magenta}magenta}}
+        
+        \emph{\indent 1. You are investigating a locus with three alleles, $A$, $B$, and $C$, with allele frequencies $p_A$, $p_B$, and $p_C$. What fraction of the population is expected to be homozygotes under Hardy-Weinberg?}  {\color{magenta}The probability an individual is homozygote $i$ is $p_i^2$ for $i = A,B,C$.  So the total probability an individual is homozygote is $p_A^2 + p_B^2 + p_C^2$.} \\
+
+        \emph{2. What are $r_0$, $r_1$, and $r_2$ for $\frac{1}{2}$ sibs? (share exactly one parent)?}  {\color{magenta}Parent $i$ has alleles $A_{i1}$ and $A_{i2}$ for $i = 1, 2, 3$.  If parent $1$ mates with parent $2$, their child has the following genotype with the following probabilities:
+                \begin{align*}
+                    A_{11}A_{21}\ :\ \frac{1}{4} \\
+                    A_{12}A_{21}\ :\ \frac{1}{4} \\
+                    A_{11}A_{22}\ :\ \frac{1}{4} \\
+                    A_{12}A_{22}\ :\ \frac{1}{4} \\
+                \end{align*}
+                and if parent $1$ mates with parent $3$ their child has the following genotype with the following probabilities:
+                \begin{align*}
+                    A_{11}A_{31}\ :\ \frac{1}{4} \\
+                    A_{12}A_{31}\ :\ \frac{1}{4} \\
+                    A_{11}A_{32}\ :\ \frac{1}{4} \\
+                    A_{12}A_{32}\ :\ \frac{1}{4} \\
+                \end{align*}
+                Then here are the possibilities:
+                \begin{align*}
+                    A_{11}A_{21},\ A_{11}A_{31}\ :\ 1\text{ IBD} \qquad\qquad A_{11}A_{21},\ A_{12}A_{31}\ :\ 0\text{ IBD} \\
+                    A_{11}A_{21},\ A_{11}A_{32}\ :\ 1\text{ IBD} \qquad\qquad A_{11}A_{21},\ A_{12}A_{32}\ :\ 0\text{ IBD} \\
+                    A_{12}A_{21},\ A_{11}A_{31}\ :\ 0\text{ IBD} \qquad\qquad A_{12}A_{21},\ A_{12}A_{31}\ :\ 1\text{ IBD} \\
+                    A_{12}A_{21},\ A_{11}A_{32}\ :\ 0\text{ IBD} \qquad\qquad A_{12}A_{21},\ A_{12}A_{32}\ :\ 1\text{ IBD} \\
+                    A_{11}A_{22},\ A_{11}A_{31}\ :\ 1\text{ IBD} \qquad\qquad A_{11}A_{22},\ A_{12}A_{31}\ :\ 0\text{ IBD} \\
+                    A_{11}A_{22},\ A_{11}A_{32}\ :\ 1\text{ IBD} \qquad\qquad A_{11}A_{22},\ A_{12}A_{32}\ :\ 0\text{ IBD} \\
+                    A_{12}A_{22},\ A_{11}A_{31}\ :\ 0\text{ IBD} \qquad\qquad A_{12}A_{22},\ A_{12}A_{31}\ :\ 1\text{ IBD} \\
+                    A_{12}A_{22},\ A_{11}A_{32}\ :\ 0\text{ IBD} \qquad\qquad A_{12}A_{22},\ A_{12}A_{32}\ :\ 1\text{ IBD}
+                \end{align*}
+                Thus $r_0 = \frac{8}{16} = \frac{1}{2}$, $r_1 = \frac{8}{16} = \frac{1}{2}$, and $r_2 = 0$.} \\
+        
+        \emph{3. Consider a biallelic locus where allele $1$ is at frequency $p$ and two individuals who have IBD allele sharing probabilities $r_0$, $r_1$, $r_2$.  What is the overall probability that these two individuals are both homozygous for allele $1$?}  {\color{magenta}One individual is homozygote for allele $1$ with probability $p^2$, so it must be $r_2p^2$.}
+
+    \section{Population Genetics}
+        \subsection{Why study it?}
+            It is key to our thinking as evolutionary biologists.  Darwin lacked a mechanistic basis for gradual evolution.  Mendelian genetics went unnoticed in this time unfortunately.  Pop gen is the extension of Mendelian genetics to evolving populations.  Quant Gen is the extension to phenotypic evoltion.  Modern Synthesis in the 1930s.  This is the basis of modern evolutionary thinking to this day.
+
+        \subsection{What is it?}
+            \begin{itemize}
+                \item Genetic basis for evolutionary change.
+                \item study of genetic variantion within and between populations and species
+                \item basis of ``micro''-evolutionary thought
+            \end{itemize}
+
+        \subsection{What is theoretical Population Genetics?}
+            \begin{itemize}
+                \item Interplay between
+                \begin{itemize}
+                    \item mutation, assortive mating, migration, drift, recombination, selection
+                    \item how these ``forces'' shape polymorphism and divergence
+                \end{itemize}
+            \end{itemize}
+
+        \subsection{Why are population genetics models useful?}
+            \begin{itemize}
+                \item support or discount verbal models
+                \item intuition
+                \item evolution is fundamentally statiscial
+                \item Mendelian inheritance, segregation, recombination provide a powerful framework
+            \end{itemize}
+
+        \subsection{What is empirical Population Genetics?}
+            \begin{itemize}
+                \item lots and lots of data!
+                \item DNA sequencing is getting CHEAP!
+            \end{itemize}
+
+        \subsection{What is evolution?}
+            \begin{itemize}
+                \item descent with modification
+                \begin{itemize}
+                    \item The process of descent - each individual has two parents - we can talk about the pedigree (family tree) of an individual
+                    \item Modification only happens when there is genetic variantion
+                    \item Mutations cause multiple alleles (ploymorphism)
+                    \item Changes in phylogeny is actually substitution over many generations
+                \end{itemize}
+            \end{itemize}
+
+        \subsection{DNA Sequencing}
+            \begin{itemize}
+                \item provides unbiased description of genetic variation
+                \item A ``locus'' is a location.  The allele is the genetic information at that locus.
+                \item Diploid individuals have two haplotypes (one genotype)
+                \item At each locus, individuals are either homo- or heterozygous.
+                \item Some changes in base pairs don't change the amino acids produced (synonymous) but some do (non-syn)
+                \item we can talk about the frequency of an allele, the number of segregating sites, etc.
+                \item How much variation is there?
+                \begin{itemize}
+                    \item In humans, $0.1\%$ diversity
+                    \item In D. melanogaster, $1\%$ diversity
+                    \item Vast amount of genetic diversity in every species.. why is there so much variation?
+                \end{itemize}
+            \end{itemize}
+
+        \subsection{Example - Theory}
+            Remember $p_A = f_{AA} + \frac{1}{2}f_{Aa}$.  GIVEN the frequency of the different genotypes, you don't NEED the Hardy-Weinberg Equilibrium. \\
+
+            The HW Equilibrium assumes
+            \begin{itemize}
+                \item no migration
+                \item $\boxed{\text{random mating}} \leftarrow$ most important
+                \item no selection
+                \item infinite population
+                \item equal allele frequency in males and females
+                \item no mutation
+            \end{itemize}
+
+            Supposing $f_{AA} = 0.07$, $f_{aA} = 0.4$, and $f_{aa} = 0.53$, we can calculate $p_A$ and $p_a$ using
+            \begin{align*}
+                p_A = f_{AA} + \frac{1}{2}f_{Aa} \qquad\qquad p_a = f_{aa} + \frac{1}{2}f_{Aa}
+            \end{align*}
+            then note that $p_A^2$ is remarkably close to $f_{AA}$ even though we never assumed HW equilibrium exists.  If we start with frequencies which deviate from HW, it only takes a single generation of random mating to restore HW.
+
+        \subsection{Example - Kuru outbreak in the Fore people}
+            Fore people of Papua New Guinea practiced ritual funereal cannibalism (till the 1950s).  Resistance to Kuru has a genetic basis. $f_{\text{Met}} = \frac{1}{30}\qty(4 + \frac{1}{2}\cdot23) = 52\%$.  We expect the heterozygotes to have frequency $2\times0.52\times0.48$.  This is not what we see though.  The counts are post-outbreak, so there is deviation from HW equilibrium.  A single generation of random mating would restore.
+
+        \subsection{Clarification}
+            Alleles being Identical By Descent does NOT mean it is not Identical.  Question 3 is based on this fact
+            \begin{align*}
+                \prob\qty[\text{two homozygote } AA\ |\ 0 \text{ IBD}] = p^4 \\
+                \prob\qty[\text{two homozygote } AA\ |\ 1 \text{ IBD}] = p^3 \\
+                \prob\qty[\text{two homozygote } AA\ |\ 2 \text{ IBD}] = p^2
+            \end{align*}
+            and thus the total probability is $r_0p^4 + r_1p^3 + r_2p^2$.
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 28, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Questions from the Notes - my answers in {\color{magenta}}}
+        Question 6
+        \textbf{A)}
+        {\color{magenta}
+        \begin{align}
+            \frac{\prob[G|W]\prob[W]}{\prob[G]}
+        \end{align}
+        where $\prob[G|W] = \prob[AA|W]\prob[bb|W]$ and $\prob[G] = \prob[G|W]\prob[W] + \prob[G|E]\prob[E]$
+        }
+
+        \textbf{B)}
+        {\color{magenta}
+        \begin{align}
+            \text{something for now - fill in later}
+        \end{align}
+        }
+        Question 7
+        \textbf{A)}
+        {\color{magenta}
+        Use
+        \begin{align}
+            p_A = p_{AB} + p_{Ab}
+            p_B = p_{AB} + p_{aB}
+        \end{align}
+        and eq. 21
+        }
+
+        \textbf{B)}
+        {\color{magenta}
+        Just average each frequency since they are combined in equal proportions.  Final answer is $D = 0.1225$.
+        }
+
+    \section{Recombination and Linkage Disequilibrium (LD)}
+        A haplotype is a combination of alleles on a chromosome.  Let $r = $ the recombination fraction probability of an odd number of crossovers occur between our markers $0 < r < \frac{1}{2}$.  Define the expected frequency (expected if independent) of each of the possible haplotypes as $p_{AB}$, $p_{aB}$, etc.  Then we fine covariance (deviation from independence) as $D_{AB} = p_{AB} - p_Ap_B$, etc.  The algebra simplifies to
+        \begin{align}
+            D_{AB} = -D_{Ab} \qquad D_{AB} = D_{ab} \qquad D_{Ab} = D_{aB}
+        \end{align}
+        In a large randomly mating population,
+        \begin{align}
+            D_t = (1 - r)^tD_0
+        \end{align}
+        This is because $D_{AB} = p_{AB} - p_Ap_B$.  In the next generation (notation $D'$, $p'$), we have $p'_{AB} = (1 - r)p_{AB} + rp_Ap_B$.  Thus
+        \begin{align}
+            \Delta p_{AB} = p'_{AB} - p_{AB} = -rp_{AB} + rp_Ap_B = -rD
+        \end{align}
+        Thus
+        \begin{align}
+            D_{t+1} = (1 - r)D_t
+        \end{align}
+        If $r \ll 1$, then $1 - r \approx e^{-r}$.  Thus
+        \begin{align}
+            D_t \approx e^{-rt}D_0.
+        \end{align}
+
+    \section{What creates LD?}
+        \begin{itemize}
+            \item Mutational origin
+            \item Genetic drift (and hitchhiking)
+            \item epistatic selection
+            \item assortive mating
+            \begin{itemize}
+                \item inbreeding
+                \item population structure and admixture
+                \item assotative mating by phenotype
+            \end{itemize}
+        \end{itemize}
+        Mixing two populations with no LD but with different allele frequencies will cause LD.
+
+    \section{Evolution by Genetic Drift}
+        Evolution \emph{by genetic drift} is a change in allele frequency because individuals carry the allele by chance produce more or less offspring in any given generation (in sexual populations).
+        \begin{itemize}
+            \item Genetic drift can affect selected alleles but only if they are very weakly selected (except when they are rare)
+            \item A neutral allele is an allele with no effect on fitness as compared to other alleles at the same locus
+        \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,114 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{October 26, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Questions from the Notes - my answers in {\color{magenta}magenta}}
+        
+        \emph{\indent 1. The frequency of the A1 allele is p at a biallelic locus. Assume that our population is randomly mating and that the genotype frequencies in the population follow from HW. We select two individuals at random to mate from this population. We then mate the children from this cross. What is the probability that the child from this full sib-mating is homozygous?}  {\color{magenta} The probability an offspring is homozygous for $A_1$ is $(1 - F)p^2 + Fp$ and the probability an offspring is homozygous for $A_2$ is $(1 - F)q^2 + Fq$.  Thus the total probability an offspring is homozygous is
+        \begin{align*}
+            (1 - F)\qty(p^2 + q^2) + F
+        \end{align*}
+        where $F$ is the kinship coefficient of the mates.  Since full-siblings have $F = \frac{1}{4}$, then the probability is
+        \begin{align*}
+            \frac{3}{4}\qty(p^2 + q^2) + \frac{1}{4}.
+        \end{align*}
+        At the very least, i.e. if $p = q = \frac{1}{2}$, this is equal to $\frac{5}{8}$.  At most, i.e. if $p = 1$ and $q = 0$ or vice versa, this is equal to $1$.
+        } \\
+
+        \emph{\indent 2. Suppose the following genotype frequencies were observed for at an esterase locus in a population of \emph{Drosophila} (A denotes the ``fast'' allele and B denotes the ``slow'' allele):
+        \begin{align*}
+            \left|\begin{array}{ccc}
+                AA & AB & BB \\ 0.6 & 0.2 & 0.2
+            \end{array}\right|.
+        \end{align*}
+        What is the estimate of the inbreeding coefficient at the esterase locus?}  {\color{magenta} Since the observed heterozygosity is $H_O = f_{12} = 0.2$, $f_A = p = 0.7$ and $f_B = q = 0.3$, then
+        \begin{align*}
+            \hat{F} = 1 - \frac{f_{12}}{2pq} = 1 - \frac{0.2}{2*0.7*0.3} = 1 - 0.4762 = 0.5238.
+        \end{align*}}
+
+    \section{In Class Notes}
+        \subsection{Review}
+            The coefficient of kinship is $f = 0r_0 + \dfrac{1}{4}r_1 + \dfrac{1}{2}r_2$.  We will also call this the inbreeding coefficient of the offspring.
+
+        \subsection{Generalized Hardy Weinberg}
+            \begin{align}
+                \begin{array}{ccc}
+                    AA & Aa & aa \\
+                    \underbrace{(1 - F)}_{\text{prob of not IBD}}p^2 + F\underbrace{p}_{\text{given IBD, prob of hom. A}} \qquad&\qquad (1 - F)2pq \qquad&\qquad (1 - F)q^2 + Fq
+                \end{array}
+            \end{align}
+
+        \section{Estimating Inbreeding Coefficients}
+            \begin{align}
+                \hat{F} = 1 - \frac{\text{observed heterozygosity}}{\text{expected heterozygosity}} = 1 - \frac{H_O}{2pq}
+            \end{align}
+
+        \section{Populatioin Structure}
+            Individuals $I$, Subpopulation $S$, Total Population $T$.  Heterozygosities for the sub and total populations are
+            \begin{align}
+                H_S = 2p_Sq_S \qquad \qquad H_T = 2p_Tq_T
+            \end{align}
+            Then the average inbreeding coefficient $\overline{F}_{ST}$ is
+            \begin{align}
+                \overline{F}_{ST} = 1 - \frac{\overline{H}_S}{\overline{H}_T}
+            \end{align}
+            We can also calculate $F_{IS}$, which is the reduction in heterozygosity
+            \begin{align}
+                \overline{F}_{IS} = 1 - \frac{0.1}{0.19} = 0.47
+            \end{align}
+            and
+            \begin{align}
+                F_{IT} = 1 - \frac{H_I}{H_T} = 1 - \frac{0.1}{0.307} = 0.674
+            \end{align}
+            So we see
+            \begin{align}
+                \qty(1 - F_{IT}) = \qty(1 - F_{ST})\qty(1 - F_{IS})
+            \end{align}
+            $F_{ST} = $ proportion of the variance due to between-population (rather than within population) differences.
+
+            For clarification, $H_S$ is the expectation of heterozygosity in the subpopulation, and $H_I$ is the observed heterozygosity.  We are looking at the expectation at two levels and the observation at one.
+
+        \subsection{Assignment Methods}
+            
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

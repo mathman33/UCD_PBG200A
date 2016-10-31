@@ -23,15 +23,28 @@ for(t in 2:Tmax) {
   N_B[t,]=N_B[t-1,]*sample(x=R_B, size=reps, replace = TRUE)
 }
 
-attach(mtcars)
+under100A = 0
+under100B = 0
+for(r in 1:reps){
+  if (N_A[Tmax,r] <= 100){
+    under100A = under100A + 1
+  }
+  if (N_B[Tmax,r] <= 100){
+    under100B = under100B + 1
+  }
+}
+
+#attach(mtcars)
 par(mfrow=c(1,2))
 
 # Plot the results and the mean trend line
-matplot(log(N_A),type="l")
-abline(a = log(N0), b = mean(log(R_A)))
+matplot(log(N_A),type="l",xlab="t")
+abline(a = log(N0), b = mean(log(R_A)),lwd=3)
+abline(a = log(100), b = 0,lty="dotted",lwd=3)
 
-matplot(log(N_B),type="l")
-abline(a = log(N0), b = mean(log(R_B)))
+matplot(log(N_B),type="l",xlab="t")
+abline(a = log(N0), b = mean(log(R_B)),lwd=3)
+abline(a = log(100), b = 0,lty="dotted",lwd=3)
 
 A_ext = sum(N_A[Tmax,] > 2)/reps
 B_ext = sum(N_B[Tmax,] > 2)/reps

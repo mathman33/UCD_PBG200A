@@ -48,3 +48,11 @@ abline(a = log(100), b = 0,lty="dotted",lwd=3)
 
 A_ext = sum(N_A[Tmax,] > 2)/reps
 B_ext = sum(N_B[Tmax,] > 2)/reps
+
+threshold=100
+M = r_A
+V = sig_A
+rho=0.5
+Vplus=V*(1+2*rho/(1-rho))
+z=(log(threshold/N0)-M*25)/(sqrt(25*Vplus))
+pnorm(z)

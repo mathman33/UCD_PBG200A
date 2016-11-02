@@ -112,6 +112,9 @@
 
 \newcommand{\VEC}[2]{\left\langle #1, #2 \right\rangle}
 \newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\Cov}[1]{\text{Cov}\qty[#1]}
+\newcommand{\Corr}[1]{\text{Corr}\qty[#1]}
+\newcommand{\CV}[1]{\text{CV}\qty[#1]}
 \newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
 \newcommand{\vari}[1]{\text{var}\qty[#1]}
 \newcommand{\ran}{\text{\rm ran }}
@@ -171,20 +174,41 @@
 \begin{enumerate}[\ \ (a)]
     \item
         The following model arises:
-        \begin{align}
+        \begin{align*}
             N_{t+1} = N_t\qty(GY_{t+1} + (1 - G)S)
-        \end{align}
-        where $G$ is the probability a seed germinates and $Y$ is a random variable describing seed yield for germinating plants in a particular year.  $S = 0.7$ is the probability a seed in the seed bank survives.  The parameters given are $Y_{t+1} = \left\{6,\frac{1}{8}\right\}$, each with probability $0.5$, with no correlation.  If $G = 1$ and $N_0 = 100$, the model is 
-        \begin{align}
+        \end{align*}
+        where $G$ is the probability a seed germinates and $Y$ is a random variable describing seed yield for germinating plants in a particular year.  $S = 0.7$ is the probability a seed in the seed bank survives the year.  The parameters given are $Y_{t+1} = \left\{6,\frac{1}{8}\right\}$, each with probability $0.5$, with no correlation.  If $G = 1$ and $N_0 = 100$, the model is 
+        \begin{align*}
             N_{t+1} = N_tY_{t+1} \qquad N_0 = 100
-        \end{align}
+        \end{align*}
         and thus
-        \begin{align}
+        \begin{align*}
             N_{10} = N_0\prod_{t=1}^{10}Y_{t} \implies \expec{N_{10}} = 100\expec{\prod_{t=1}^{10}Y_t} \implies \log(\expec{N_{10}}) = \log(100) + \sum_{t=1}^{10}\expec{\log(Y_t)}
-        \end{align}
+        \end{align*}
         but $r \coloneqq \expec{\log(Y_t)} \approx -0.144$, and so $\log(\expec{N_{10}}) \approx 3.167$, which implies $\expec{N_{10}} = 23.73$.  The population of seeds will not persist in the long-term since $r < 0$.  The bad years are worse than the good years are good.
     \item
-        
+        \begin{align*}
+            r(G) &\coloneqq \expec{\log(GY_{t} + 0.7(1 - G))} \\
+            &= \expec{\begin{cases}
+                \log(5.3G + 0.7) & \text{ with probability } \frac{1}{2} \\
+                \log(-0.575G + 0.7) & \text{ with probability } \frac{1}{2}
+            \end{cases}} \\
+            &= \frac{1}{2}\qty[\log(5.3G + 0.7) + \log(-0.575G + 0.7)] \\
+            &= \frac{1}{2}\qty[\log(-3.0475G^2 + 3.3075G + 0.49)]
+        \end{align*}
+        which produces the following graph:
+        \begin{figure}[ht!]
+            \centering
+            \includegraphics[scale=0.5]{figure_1b.png}
+        \end{figure}
+        \FloatBarrier
+        and is maximized when $r'(G) = 0$, i.e.
+        \begin{align*}
+            r'(G) = \frac{1}{2}\frac{-6.095G + 3.3075}{-3.0475G^2 + 3.3075G + 0.49} = 0 \qquad \implies \qquad G \approx 0.542658
+        \end{align*}
+        This is the optimal germination strategy.  The population will persist if $r(G) > 0$, which is when $G$ is between where $-3.0475G^2 + 3.3075G + 0.49 = 1$, i.e.~between $G = 0.186109$ and $G = 0.899207$.
+    \item
+        If the probability of a good year decreases then the expectation is no longer an equally-weighted average.  More weight will be given to $\log(-0.575G + 0.7)$, which is much lower than $\log(5.3G + 0.7)$.  Thus the expectation decreases overall, resulting in a smaller range of $G$ for which the populations persist.  If the survivorship $S$ decreases, then populations with lower values of $G$ (corresponding to higher percentages of seed-banking) are less fit.  Overall, $r(G)$ is moved down slightly and to the right.  The optimal strategy $G$ increases, corresponding to a higher percentage of germination.
 \end{enumerate}
 
 
@@ -218,27 +242,47 @@
         \begin{enumerate}[Pop.~A:\ ]
             \item
                 For $N_0 = 500$,
-                \begin{align}
+                \begin{align*}
                     \prob{N_{25}\leq 100} = \prob{\frac{\log \dfrac{N_{25}}{500} - 25\mu_A}{5\sigma_A} \leq \frac{\log\dfrac{100}{500} - 25\mu_A}{5\sigma_A}}
-                \end{align}
-                This is easy to calculate since $X = \dfrac{\log \frac{N_{25}}{500} - 25\mu_A}{5\sigma_A}$ is standard normal so $z_A = \dfrac{\log\frac{100}{500} - 25\mu_A}{5\sigma_A} \approx -1.317$ is a $z$-score.  This corresponds to a $9.4\%$ probability the population is below $100$ at the $25$th timestep.
+                \end{align*}
+                This is easy to calculate since $X = \dfrac{\log \frac{N_{25}}{500} - 25\mu_A}{5\sigma_A}$ is standard normal so $z_A = \dfrac{\log\frac{100}{500} - 25\mu_A}{5\sigma_A} \approx -1.613$ is a $z$-score.  This corresponds to a $5.34\%$ probability the population is below $100$ at the $25$th timestep.
             \item
                 For $N_0 = 500$,
-                \begin{align}
+                \begin{align*}
                     \prob{N_{25}\leq 100} = \prob{\frac{\log \dfrac{N_{25}}{500} - 25\mu_B}{5\sigma_B} \leq \frac{\log\dfrac{100}{500} - 25\mu_B}{5\sigma_B}}
-                \end{align}
-                This is easy to calculate since $X = \dfrac{\log \frac{N_{25}}{500} - 25\mu_B}{5\sigma_B}$ is standard normal so $z_B = \dfrac{\log\frac{100}{500} - 25\mu_A}{5\sigma_A} \approx -0.823$ is a $z$-score.  This corresponds to a $20.1\%$ probability the population is below $100$ at the $25$th timestep.
+                \end{align*}
+                This is easy to calculate since $X = \dfrac{\log \frac{N_{25}}{500} - 25\mu_B}{5\sigma_B}$ is standard normal so $z_B = \dfrac{\log\frac{100}{500} - 25\mu_A}{5\sigma_A} \approx -0.635$ is a $z$-score.  This corresponds to a $26.3\%$ probability the population is below $100$ at the $25$th timestep.
         \end{enumerate}
         This probabilities are shown in simulations.  Note that the upward trend for population B is initially not enough to overcome the large variance in growth rate, at least initially.  The next graph is a simulation for $2000$ timesteps.  Note that the positive trend for population B eventually overcomes the large variance.  In general, population A will go extinct as $t \rightarrow \infty$ with probability $1$, and population B will grow to infinity as $t \rightarrow \infty$ with probability $1$.
         \begin{figure}[ht!]
             \centering
-            \includegraphics[scale=0.4]{figure_2b1.png}
+            \includegraphics[scale=0.4]{figure_2b1.png}\\
+            Left: Population A.  Right: Population B.  Solid line shows trend.  Dotted line shows $N=100$ threshold.
+        \end{figure}
+        \begin{figure}[ht!]
+            \centering
             \includegraphics[scale=0.4]{figure_2b2.png}\\
             Left: Population A.  Right: Population B.  Solid line shows trend.  Dotted line shows $N=100$ threshold.
         \end{figure}
         \FloatBarrier
     \item
-        {\color{red} Something about correlations}
+        I ran the following code to generate $\prob{N_{25}<500}$ for population A with $\rho=0.5$:
+        \begin{code}
+threshold=100
+M = r_A
+V = sig_A
+rho=0.5
+Vplus=V*(1+2*rho/(1-rho))
+z=(log(threshold/N0)-M*25)/(sqrt(25*Vplus))
+pnorm(z)
+        \end{code}
+        which produced $\prob{N_{25}<500} \approx 17.6\%$.  I then ran the same code with the following changes to generate $\prob{N_{25}<500}$ for population B with $\rho=-0.5$:
+        \begin{code}
+M = r_B
+V = sig_B
+rho=-0.5
+        \end{code}
+        which produced $\prob{N_{25}<500} \approx 13.6\%$.
 \end{enumerate}
 
 
@@ -270,16 +314,16 @@ where $Z_1,Z_2,\dots$ are independent and identically distributed standard norma
 \begin{enumerate}[\ \ (a)]
     \item
         Assuming $\sigma = 0$ and thus $R_t = e^{-2.5}$, and since $a = 0.001$ and $b = 2$, we have
-        \begin{align}
+        \begin{align*}
             N_{t+1} = \frac{e^{-2.5} N_t^2}{1 + 0.001N_t^2}
-        \end{align}
+        \end{align*}
         To find equilibria, set $N = N_{t+1} = N_t$ and solve for $N$.
-        \begin{align}
+        \begin{align*}
             N &= \frac{e^{-2.5}N^2}{1 + 0.001N^2} \\
             \implies N - e^{-2.5}N^2 + 0.001N^3 &= 0 \\
             \implies N\qty(1 - e^{-2.5}N + 0.001N^2) &= 0 \\
             \implies N &\approx 0,\ 14.88,\ 67.21
-        \end{align}
+        \end{align*}
         So $N_* \approx 14.88$ and $N^* \approx 67.21$.  Graphically, we plot $N_{t+1}$ vs.~$N_t$ and see where the plot intersects with $N_{t+1} = N_{t}$:
         \begin{figure}[ht!]
             \centering
@@ -301,7 +345,7 @@ where $Z_1,Z_2,\dots$ are independent and identically distributed standard norma
         \FloatBarrier
     \item
         Here are the results for $\rho = 0$:
-        \begin{align}
+        \begin{align*}
             \begin{array}{||l|l||}\hline\hline
                 \sigma & \text{fraction extinct} \\\hline
                 0.1 & 0/1000 \\\hline
@@ -310,10 +354,10 @@ where $Z_1,Z_2,\dots$ are independent and identically distributed standard norma
                 0.4 & 553/1000 \\\hline
                 0.5 & 931/1000 \\\hline\hline
             \end{array}
-        \end{align}
+        \end{align*}
         Clearly the probability of extinction is an increasing function with the level of noise in environmental conditions.  This means increased variability in environmental conditions is detrimental to persistence, so if we expect variability to increse as climate change becomes more extreme, we must take extra measures to preserve natural populations.
     \item
-        \begin{align}
+        \begin{align*}
             \begin{array}{cc}
                 \rho = -0.5 & \rho = 0.5 \\
                 \begin{array}{||l|l||}\hline\hline
@@ -332,7 +376,7 @@ where $Z_1,Z_2,\dots$ are independent and identically distributed standard norma
                     0.5 & 999/1000 \\\hline\hline
                 \end{array}
             \end{array}
-        \end{align}
+        \end{align*}
         These results agree with my analysis in part (b).  Negative correlation ensures bad years are followed by good years, which helps alleviate their devastating affects.  On the other hand, positive correlation ensures bad years are followed by more bad years, which may push species under the critical threshold $N_*$, making it virtually impossible to climb back to persistence.
 \end{enumerate}
 
@@ -407,7 +451,23 @@ where $Z_1,Z_2,\dots$ are independent and identically distributed standard norma
         \begin{align*}
             r \approx \log(\bar{R}) + \expec{\frac{\sigma}{\bar{R}}X - \frac{1}{2}\qty(\frac{\sigma}{\bar{R}}X)^2} = \log(\bar{R}) - \frac{1}{2}\qty(\frac{\sigma}{\bar{R}})^2
         \end{align*}
-        {\color{red} something about correlations..}
+        The small variance approximation is
+        \begin{align*}
+            \expec{\log(R)} &\approx \log(\expec{R}) - \CV{R}^2
+        \end{align*}
+        where $\CV{\cdot}$ is the coefficient of variation
+        \begin{align*}
+            \expec{\log(R)} &= \log(\expec{R}) - \frac{\sqrt{\vari{R}}}{\expec{R}}
+        \end{align*}
+        but $\vari{R} = \vari{S + F} = \vari{S} + \vari{F} + 2\Cov{S,F}$, so
+        \begin{align*}
+            \expec{\log(R)} &= \log(\expec{R}) - \frac{\sqrt{\vari{S} + \vari{F} + 2\Cov{S,F}}}{\expec{R}}
+        \end{align*}
+        but $\Cov{S,F} = \Corr{S,F}\vari{S}^2\vari{F}^2$, so
+        \begin{align*}
+            \expec{\log(R)} &= \log(\expec{R}) - \frac{\sqrt{\vari{S} + \vari{F} + 2\Corr{S,F}\vari{S}^2\vari{F}^2}}{\expec{R}}.
+        \end{align*}
+        Thus, since $\expec{\log(R)}$ is a decreasing function of $\Corr{S,F}$, increasing the correlation between $S$ and $F$, decreases the long-term population growth rate.
 \end{enumerate}
 
 
@@ -423,6 +483,18 @@ where $Z_1,Z_2,\dots$ are independent and identically distributed standard norma
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \problem{Problem 6}{For the checkerspot model, compute $r_0$ for the pre-1971 rainfall and post-1970 rainfall data.  Discuss whether these numbers provide insights consistent with running the full nonlinear model.}
+
+To calculate $r_0$, which is the per-capita density-independent growth rate, we take the function $f(N,W)$, which is a function of density and weather, and divide by $N$ to get the per-capity densidty-dependent growth, and then set $N=0$ and $\log$ both sides.  In other words, set $g(N,W) = \frac{f(N,W)}{N}$ and use the single-variable function $R(W) \coloneqq g(0,W)$.  In \texttt{R}, we have
+\begin{code}
+R=function(W)model$coeff[1]+model$coeff[3]*W^(-2)
+\end{code}
+Then using I ran the following code:
+\begin{code}
+r0_pre = mean(r0(SJtransformed[which(SanJose$year<1971)]))
+r0_post = mean(r0(SJtransformed[which(SanJose$year>1970)]))
+\end{code}
+and the results are $r_0 \approx 0.04$ for pre-1971 data and $r_0 \approx -0.048$ for post-1970 data.
+
 
 
 

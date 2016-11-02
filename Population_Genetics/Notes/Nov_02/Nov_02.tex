@@ -1,0 +1,82 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\vari}{\text{var}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{November 2, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Coalescent process with 3 lineages}
+        Probability three coalesce at time $t$ is $\displaystyle\frac{3}{2N}\qty(1 - \frac{3}{2N})^t$.  That is,
+        \begin{align}
+            t_3 \sim \text{Geom}\qty(\frac{3}{2N}) \qquad \text{which implies} \qquad \expec{t_3} = \frac{2N}{3}.
+        \end{align}
+        Then, $t_2 \sim \text{Geom}\qty(\dfrac{1}{2N})]$.  Then
+        \begin{align}
+            T_\text{MRCA} &= T_3 + T_2 \\
+            \implies \expec{T_\text{MRCA}} &= \expec{T_3} + \expec{T_2}
+        \end{align}
+        \begin{align}
+            T_\text{Tot} = 3T_3 + 2T_2
+            \expec{T_\text{Tot}} = 3\expec{T_3} + 2\expec{T_2}
+        \end{align}
+
+    \section{Process with $k$ lineages}
+        Probability all $k$ coalesce at time $t$ is $\displaystyle\frac{{\binom{k}{2}}}{2N}\qty(1 - \frac{\binom{k}{2}}{2N})^t$.  So the coalescent time $t_k$ is a Geometric distribution
+        \begin{align}
+            t_k \sim \text{Geom}\qty(\frac{\binom{k}{2}}{2N}) \qquad \text{which implies} \qquad \expec{t_k} = \frac{2N}{\binom{k}{2}}.
+        \end{align}
+
+        When there are $n$ individuals,
+        \begin{align}
+            \expec{T_{\text{MRCA}}} = \sum_{k=n}^n\expec{T_k} = \sum_{k=n}^2 \frac{2N}{\binom{k}{2}} = \underbrace{\sum_{k=n}^2\frac{4N}{k(k-1)}}_\text{telescoping sum} = 4N\qty(1 - \frac{1}{n})
+        \end{align}
+        Also,
+        \begin{align}
+            \expec{T_\text{Tot}} = \sum_{k=n}^2 k\expec{T_k} = \sum_{k=n}k\expec{T_k} = \sum_{k=n}^2 k \frac{2N}{\binom{k}{2}} = \sum_{k=n}^2 \frac{4N}{k-1}
+        \end{align}
+        Let $S$ be the total number of segregating sites.  Then
+        \begin{align}
+            \expec{S} = \mu\expec{T_\text{Tot}} = \underbrace{4N\mu}_\theta\underbrace{\sum_{k=n}^2\frac{1}{k=1}}_w]
+        \end{align}
+
+        The total number of mutations we see is the total amount of time in the genealogy.
+
+    \section{Frequency of mutations}
+        For a constant population size, the expected count of sites at mutation frequency $i$ is $\dfrac{\theta}{i}$.  For an expanded population, this is more exaggerated (more like $\dfrac{\theta}{i^2}$) since the total time at smaller alleles is less.  In a bottlenecked population, however, this is less exagerated (more like $\dfrac{\theta}{\sqrt{i}}$).
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

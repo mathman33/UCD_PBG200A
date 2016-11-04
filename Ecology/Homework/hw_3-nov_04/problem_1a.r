@@ -1,14 +1,31 @@
-A=matrix(c(0, 0, 0,0, 127, 4, 80,
-           0.6747, 0.737, 0, 0, 0, 0, 0,
-           0, 0.0486, 0.6610, 0, 0, 0, 0,
-           0, 0, 0.0147, 0.6907, 0, 0, 0,
-           0, 0, 0, 0.0518, 0, 0, 0,
-           0, 0, 0, 0, 0.8091, 0, 0,
-           0, 0, 0, 0, 0, 0.8091, 0.8089),7,byrow=TRUE)
+A=matrix(0,55,55)
+A[2,1]=0.6747
+# small juvs
+for (i in 2:8){
+  A[i+1,i]=0.7857
+}
+# large juvs
+for (i in 9:16){
+  A[i+1,i]=0.6758}
+# subadults
+for (i in 17:22){
+  A[i+1,i]=0.7425}
+# novice breeders
+A[1,23]=127
+A[24,23]=0.8091
+# 1st remigrants
+A[25,24]=0.8091
+A[1,24]=4
+# matures
+for (i in 25:54){
+  A[i+1,i]=0.8091
+  A[1,i]=80}
+A[1,55]=80
 
-N1 = c(10000,0,0,0,0,0,0)
+N1 = rep(0, 55)
+N1[1] = 10000
 Tmax = 100
-N=matrix(NA,nrow=Tmax,ncol=7)
+N=matrix(NA,nrow=Tmax,ncol=55)
 N[1,] = N1
 
 for (t in 2:Tmax){
@@ -32,31 +49,29 @@ w = w/sum(v*w)
 # Grab sensitivities and elasticities of each entry of A
 S = w%o%v
 E = S*A/lambda
-
+# 
 fecund = E[1,]
-survival=c(E[2,1],E[2,2]+E[3,2],E[3,3]+E[4,3],E[4,4]+E[5,4],E[5,5]+E[6,5],E[6,6]+E[7,6],E[7,7])
-# survival = c(E[2,]
-#for (i in 3:7)survival = survival + E[i,]
+survival = diag(E[-1,-ncol(E)])
+survival = c(survival, E[55,55])
 
-plot(survival,type="l",ylim=c(0,max(survival)),xlab="Stage",ylab="Elasticities")
-lines(survival,type="p")
-lines(fecund,type="p",col="red")
-lines(fecund,col="red")
-text(3.1,0.11,"Survivorship Elasticities",font=2)
-text(3,0.08,"Fecundity Elasticities",col='red',font=2)
+fecund_stage = c(fecund[1],sum(fecund[2:8]),sum(fecund[9:16]),sum(fecund[17:22]),fecund[23],fecund[24],sum(fecund[25:55]))
+survival_stage = c(survival[1],sum(survival[2:8]),sum(survival[9:16]),sum(survival[17:22]),survival[23],survival[24],sum(survival[25:55]))
+                                  
+plot(survival_stage,type="l",labels = FALSE,ylim=c(0,max(survival_stage)),xlab="1                     2-8                     9-16               17-22                  23                    24                 25-55",ylab="Elasticities")
+axis(side =1, at1, labels = F)
+lines(survival_stage,type="p")
+lines(fecund_stage,type="p",col="red")
+lines(fecund_stage,col="red")
+text(3,0.13,"Survivorship Elasticities",font=2)
+text(2.9,0.07,"Fecundity Elasticities",col='red',font=2)
 
-# N0 = c(10000,0,0,0,0,0,0)
+APPROX = 10000*w[1]*lambda^Tmax*v
 # 
-# APPROX = 10000*0.2469775*lambda^Tmax*v
+par(mfrow=c(1,1))
 # 
-# par(mfrow=c(1,2))
-# 
-# barplot(N[Tmax,], names.arg=c("1", "2", "3", "4", "5", "6", "7"),main="Full Model, t=100")
-# barplot(APPROX, names.arg=c("1", "2", "3", "4", "5", "6", "7"),main="Approximation, t=100")
+barplot(N[Tmax,],main="Full Model, t=100",xlab="i",ylab="N_i(100)")
+barplot(APPROX,main="Approximation, t=100",xlab="i",ylab="N_i(100)")
 # 
 # par(mfrow=c(1,1))
-# E = abs(N[Tmax,]-APPROX)
-# E
-# sum(E)
-# plot(N[Tmax,],pch=4)
-# lines(APPROX,type="p")
+E = sum(abs(N[Tmax,]-APPROX))
+E

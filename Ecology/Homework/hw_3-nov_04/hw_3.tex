@@ -172,15 +172,15 @@
     \item
         The seven stages of this model are
         \begin{enumerate}
-            \item Hatchlings
-            \item Yearlings
-            \item Juveniles
-            \item Sub-Adults
-            \item First-Time Reproducers
-            \item Remigrants
-            \item Mature Adults
+            \item Hatchlings (year 1)
+            \item Yearlings (years 2 - 8)
+            \item Juveniles (years 9 - 16)
+            \item Sub-Adults (years 17 - 22)
+            \item First-Time Reproducers (year 23)
+            \item Remigrants (year 24)
+            \item Mature Adults (years 25 - 55)
         \end{enumerate}
-        The matrix describing their population shifts after one year are given by
+        If we are just studying the stages, the matrix describing their population shifts after one year are given by
         \begin{align*}
             A = \qty(\begin{array}{ccccccc}
                 0 & 0 & 0 & 0 & 127 & 4 & 80 \\
@@ -192,10 +192,14 @@
                 0 & 0 & 0 & 0 & 0 & 0.8091 & 0.8089
             \end{array})
         \end{align*}
-        The largest eigenvalue of this matrix, $\lambda \approx 0.945$, corresponds to the eigenvector
+        However we are using the $55\times55$ matrix for the age-structured population model rather than the $7\times7$ stage-structure population model.  The largest eigenvalue of this matrix, $\lambda \approx 0.9644$, corresponds to the eigenvector
         \begin{align*}
-            v \approx \qty[\begin{array}{c} 0.2065048418 \\ 0.6697503241 \\ 0.1145997020 \\ 0.0066237138 \\ 0.0003630657 \\ 0.0003108432 \\ 0.0018475094\end{array}]
+            v \approx \qty[\begin{array}{c} v_1 \\ v_2 \\ v_3 \\ v_4 \\ v_5 \end{array}]
         \end{align*}
+        where
+        \begin{align}
+            v_1 &= \qty[\begin{array}{c} 2.249330e-01 \\ 1.573566e-01 \\ 1.281925e-01 \\ 1.044336e-01 \\ 8.507811e-02 \\ 6.930994e-02 \\ 5.646420e-02 \\ 4.599926e-02 \\ 3.747387e-02 \\ 2.625837e-02 \\ 1.839953e-02 \end{array}] \qquad v_2 = \qty[\begin{array}{c} 1.289276e-02 \\ 9.034103e-03 \\ 6.330298e-03 \\ 4.435711e-03 \\ 3.108153e-03 \\ 2.177918e-03 \\ 1.676713e-03 \\ 1.290851e-03 \\ 9.937877e-04 \\ 7.650873e-04 \\ 5.890177e-04 \end{array}] \qquad v_3 = \qty[\begin{array}{c} 4.534671e-04 \\ 3.804249e-04 \\ 3.191479e-04 \\ 2.677412e-04 \\ 2.246147e-04 \\ 1.884349e-04 \\ 1.580828e-04 \\ 1.326196e-04 \\ 1.112579e-04 \\ 9.333701e-05 \\ 7.830275e-05 \end{array}] \\ v_4 &= \qty[\begin{array}{c} \\ 6.569013e-05 \\ 5.510909e-05 \\ 4.623240e-05 \\ 3.878551e-05 \\ 3.253813e-05 \\ 2.729705e-05 \\ 2.290018e-05 \\ 1.921153e-05 \\ 1.611703e-05 \\ 1.352098e-05 \\ 1.134309e-05 \end{array}] \qquad v_5 = \qty[\begin{array}{c} 9.516002e-06 \\ 7.983212e-06 \\ 6.697316e-06 \\ 5.618545e-06 \\ 4.713538e-06 \\ 3.954305e-06 \\ 3.317365e-06 \\ 2.783020e-06 \\ 2.334745e-06 \\ 1.958676e-06 \\ 1.643182e-06 \end{array}].
+        \end{align}
         This is the stable stage distribution, i.e.~as $t \rightarrow \infty$, $\dfrac{N_t}{\norm{N_t}_1} \rightarrow v$ with probability $1$.
         \begin{figure}[ht!]
             \centering
@@ -204,16 +208,24 @@
         \FloatBarrier
         The vector of reproductive values $w$ is the scaled eigenvector of $A^T$ corresponding to the largest eigenvector.  The scaling constant is $\dfrac{1}{\norm{v*w}_1}$ where $*$ represents component-wise multiplication.  We find
         \begin{align*}
-            w \approx \qty[\begin{array}{c}0.2469775 \\ 0.3459336 \\ 1.4807593 \\ 28.6109872 \\ 140.4760701 \\ 125.3097224 \\ 145.1410949\end{array}].
+            w \approx \qty[\begin{array}{c} w_1 \\ w_2 \\ w_3 \\ w_4 \\ w_5 \end{array}]
         \end{align*}
+        where
+        \begin{align}
+            w_1 &= \qty[\begin{array}{c}0.1579128 \\ 0.2257281 \\ 0.2770818 \\ 0.3401186 \\ 0.4174963 \\ 0.5124777 \\ 0.6290676 \\ 0.7721819 \\ 0.9478551 \\ 1.3527042 \\ 1.9304730\end{array}] \qquad
+            w_2 = \qty[\begin{array}{c}2.7550191 \\ 3.9317464 \\ 5.6110791 \\ 8.0076905 \\ 11.4279457 \\ 16.3090647 \\ 21.1841807 \\ 27.5165696 \\ 35.7418401 \\ 46.4258138 \\ 60.3034478\end{array}] \qquad
+            w_3 = \qty[\begin{array}{c}78.3293929 \\ 68.5820615 \\ 80.9692501 \\ 80.9018094 \\ 80.8214200 \\ 80.7255957 \\ 80.6113729 \\ 80.4752192 \\ 80.3129238 \\ 80.1194673 \\ 79.8888669\end{array}] \\
+            w_4 &= \qty[\begin{array}{c}79.6139907 \\ 79.2863379 \\ 78.8957752 \\ 78.4302239 \\ 77.8752858 \\ 77.2137987 \\ 76.4253050 \\ 75.4854191 \\ 74.3650735 \\ 73.0296197 \\ 71.4377565\end{array}] \qquad
+            w_5 = \qty[\begin{array}{c}69.5402528 \\ 67.2784252 \\ 64.5823229 \\ 61.3685644 \\ 57.5377587 \\ 52.9714318 \\ 47.5283625 \\ 41.0402146 \\ 33.3063312 \\ 24.0875291 \\ 13.0987014\end{array}].
+        \end{align}
         \begin{figure}[ht!]
             \centering
             \includegraphics[scale=0.45]{figure_1b.png}
         \end{figure}
         \FloatBarrier
-        The stable-stage distribution shows us what we should expect in the long term if $A$ stays constant over time.  That is, that $\sim67\%$ of individuals in the population should be yearlings, $\sim20.7\%$ should be hatchlings, $\sim11.5\%$ should be juveniles, and the rest $<1\%$ are sub-adults, first-time reproducers, re-migrants, and mature adults.  Na\"{i}vely, this might lead us to focus conservation efforts on the hatchlings and yearlings to preserve the distribution.  However, the vector of reproductive values tells us the relative value of each of these stages in terms of what they contribute to future generations.  The mature adults, remigrants, and first-time reproducers have the highest reproductive value, and thus are the most important to reproduction.  Conservation efforts, then, should be focused on preserving what few adults are in the population.  Even though many hatchlings are lost, they have little to no reproductive value anyway.  This is intuitive since based on the matrix $A$, it is highly unlikely that an individual makes it to adulthood.  If the individual makes it to adulthood, however, it is extremely valuable in terms of how many new individuals it can produce.
+        The stable-stage distribution shows us what we should expect in the long term if $A$ stays constant over time.  That is, that most of the individuals in the population should be hatchlings and yearlings, and there are less individuals at older ages.  Na\"{i}vely, this might lead us to focus conservation efforts on the hatchlings and yearlings to preserve the distribution.  However, the vector of reproductive values tells us the relative value of each of these stages in terms of what they contribute to future generations.  The mature adults, remigrants, and first-time reproducers have the highest reproductive value, and thus are the most important to reproduction.  Conservation efforts, then, should be focused on preserving what few adults are in the population.  Even though many hatchlings are lost, they have little to no reproductive value anyway.  This is intuitive since based on the matrix $A$, it is highly unlikely that an individual makes it to adulthood.  If the individual makes it to adulthood, however, it is extremely valuable in terms of how many new individuals it can produce.
     \item
-        Using $N_0 = \qty[\begin{array}{ccccccc} 10,000 & 0 & 0 & 0 & 0 & 0 & 0\end{array}]^T$, and $\lambda,v,w$ found above, we use the approximation
+        Using $N_0 = \qty[\begin{array}{ccccccc} 10,000 & 0 & 0 & \dots & 0 & 0\end{array}]^T$, and $\lambda,v,w$ found above, we use the approximation
         \begin{align*}
             N_t \approx 10^4w_1\lambda^{t}v
         \end{align*}
@@ -222,44 +234,30 @@
             \centering
             \includegraphics[scale=0.4]{figure_1c.png}
         \end{figure}
-        \begin{figure}[ht!]
-            \centering
-            \includegraphics[scale=0.4]{figure_1d.png}
-        \end{figure}
         \FloatBarrier
         For $t = 20$, there is an error of about $37$ in the approximation of the yearlings, about $20$ in the approximation of the hatchlings, and about $1$ in the approximation of the juveniles.  All other errors are $\order{0.1}$.  For $t = 100$, all errors are $\order{0.1}$ (the largest error is in the approximation of the hatchlings: about $0.34$).
     \item
         Sensitivities of $\lambda$ to changes in $A$ (notated $S$) are given by the outer product of $w$ with $v$, that is
         \begin{align*}
-            S = \qty(\begin{array}{c} w_1 \\ w_2 \\ w_3 \\ w_4 \\ w_5 \\ w_6 \\ w_7 \end{array})\qty(\begin{array}{ccccccc} v_1 & v_2 & v_3 & v_4 & v_5 & v_6 & v_7 \end{array}) = \qty(\begin{array}{ccccccc}
-                w_1v_1 & w_1v_2 & w_1v_3 & w_1v_4 & w_1v_5 & w_1v_6 & w_1v_7 \\
-                w_2v_1 & w_2v_2 & w_2v_3 & w_2v_4 & w_2v_5 & w_2v_6 & w_2v_7 \\
-                w_3v_1 & w_3v_2 & w_3v_3 & w_3v_4 & w_3v_5 & w_3v_6 & w_3v_7 \\
-                w_4v_1 & w_4v_2 & w_4v_3 & w_4v_4 & w_4v_5 & w_4v_6 & w_4v_7 \\
-                w_5v_1 & w_5v_2 & w_5v_3 & w_5v_4 & w_5v_5 & w_5v_6 & w_5v_7 \\
-                w_6v_1 & w_6v_2 & w_6v_3 & w_6v_4 & w_6v_5 & w_6v_6 & w_6v_7 \\
-                w_7v_1 & w_7v_2 & w_7v_3 & w_7v_4 & w_7v_5 & w_7v_6 & w_7v_7 \\
-            \end{array}).
+            S = wv^T = \qty(w_iv_j)_{i,j=1}^{55}
         \end{align*}
         The elasticities of $\lambda$ to changes in $A$ (notated $E$) are given by $S*A*\frac{1}{\lambda}$, that is
         \begin{align*}
-            E = \frac{1}{\lambda}\qty(\begin{array}{ccccccc}
-                a_{11}w_1v_1 & a_{12}w_1v_2 & a_{13}w_1v_3 & a_{14}w_1v_4 & a_{15}w_1v_5 & a_{16}w_1v_6 & a_{17}w_1v_7 \\
-                a_{21}w_2v_1 & a_{22}w_2v_2 & a_{23}w_2v_3 & a_{24}w_2v_4 & a_{25}w_2v_5 & a_{26}w_2v_6 & a_{27}w_2v_7 \\
-                a_{31}w_3v_1 & a_{32}w_3v_2 & a_{33}w_3v_3 & a_{34}w_3v_4 & a_{35}w_3v_5 & a_{36}w_3v_6 & a_{37}w_3v_7 \\
-                a_{41}w_4v_1 & a_{42}w_4v_2 & a_{43}w_4v_3 & a_{44}w_4v_4 & a_{45}w_4v_5 & a_{46}w_4v_6 & a_{47}w_4v_7 \\
-                a_{51}w_5v_1 & a_{52}w_5v_2 & a_{53}w_5v_3 & a_{54}w_5v_4 & a_{55}w_5v_5 & a_{56}w_5v_6 & a_{57}w_5v_7 \\
-                a_{61}w_6v_1 & a_{62}w_6v_2 & a_{63}w_6v_3 & a_{64}w_6v_4 & a_{65}w_6v_5 & a_{66}w_6v_6 & a_{67}w_6v_7 \\
-                a_{71}w_7v_1 & a_{72}w_7v_2 & a_{73}w_7v_3 & a_{74}w_7v_4 & a_{75}w_7v_5 & a_{76}w_7v_6 & a_{77}w_7v_7 \\
-            \end{array}).
+            E = \frac{1}{\lambda}\qty(a_{ij}w_iv_j)_{i,j=1}^{55}
         \end{align*}
-        The elasticities associated with fecundity are given by the elements in the first row, which correspond to how many births do individuals in any given stage give.  The elasticities associated with survivorship are given by the sum of the entries on the diagonals and the sub-diagonals since surviving individuals either stay in their class or move on to the next class.  Here is the result:
+        The elasticities associated with fecundity are given by the elements in the first row, which correspond to how many births do individuals in any given stage give.  The elasticities associated with survivorship are given by the entries on the sub-diagonal since surviving individuals move on to the next age class.  Here is the result:
         \begin{figure}[ht!]
             \centering
-            \includegraphics[scale=0.45]{figure_1e.png}
+            \includegraphics[scale=0.45]{figure_1d.png}
         \end{figure}
         \FloatBarrier
-        This shows that $\lambda$ is the most sensitive to survivorship and fecundity of the subclass of mature adults, which is consistent with our analysis of the vector of reproductive values $w$.  In Fig.~3 in Crouse et al.~1987, she separates the elasticities of survival while staying in the same stage, labeled $P_i$, with the elasticities of survival with growth, labeled $G_i$.  My figure above maches perfectly with Crouse's.  My survivorship elasticities are the component-wise sum of Crouse's $P_i$ and $G_i$, as shown in her figure below.
+        This shows that $\lambda$ is most sensitive to the survivorship of the hatchlings, yearlings, juveniles, and sub-adults, and is most sensitive to changes in fecundity in first-time reproducers and mature adults.  As the individuals get older, they have already given most of what they can to the population, and thus increasing their survivorship or fecundity doesn't make a huge difference.  I think it is strange that the survivorship for the first 22 stages are exactly the same.  This means $v_{j+1}w_j$ are the same for $j=1,\dots,22$.  This seems like a huge coincidence, especially given the nature of $w_i$ and $v_i$ for $i=1,\dots,22$.  They must be decaying/growing at exactly the same rate!  Although it doesn't look like it, this result matches Fig.~3 in Crouse et al.~1987.  By adding the elasticities for a given stage into a single number, we get the following result.
+        \begin{figure}[ht!]
+            \centering
+            \includegraphics[scale=0.5]{figure_1e.png}
+        \end{figure}
+        \FloatBarrier
+        The survivorship elasticities shown above are similar to the component-wise sums of Crouse's $P_i$ and $G_i$, as shown in her figure below.  The age-structured model shows much more overall importance in survivability of yearlings, juveniles, and subadults.
         \begin{figure}[ht!]
             \centering
             \includegraphics[scale=0.6]{Crouse_et_al_fig_3.png}

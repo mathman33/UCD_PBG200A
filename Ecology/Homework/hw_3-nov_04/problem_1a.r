@@ -54,6 +54,9 @@ fecund = E[1,]
 survival = diag(E[-1,-ncol(E)])
 survival = c(survival, E[55,55])
 
+plot(survival)
+lines(fecund,type="p")
+
 fecund_stage = c(fecund[1],sum(fecund[2:8]),sum(fecund[9:16]),sum(fecund[17:22]),fecund[23],fecund[24],sum(fecund[25:55]))
 survival_stage = c(survival[1],sum(survival[2:8]),sum(survival[9:16]),sum(survival[17:22]),survival[23],survival[24],sum(survival[25:55]))
                                   
@@ -68,11 +71,11 @@ text(2.9,0.07,"Fecundity Elasticities",col='red',font=2)
 
 APPROX = 10000*w[1]*lambda^Tmax*v
 # 
-par(mfrow=c(1,1))
+par(mfrow=c(2,1))
 # 
 barplot(N[Tmax,],main="Full Model, t=100",xlab="i",ylab="N_i(100)")
 barplot(APPROX,main="Approximation, t=100",xlab="i",ylab="N_i(100)")
 # 
 # par(mfrow=c(1,1))
-E = sum(abs(N[Tmax,]-APPROX))
-E
+# E = sum(abs(N[Tmax,]-APPROX))
+# E

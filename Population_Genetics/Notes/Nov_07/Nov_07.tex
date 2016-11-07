@@ -13,7 +13,7 @@
 \newcommand{\Rl}{\mathbb{R}}
 \newcommand{\qiq}{\ \ \ \implies\ \ \ }
 \newcommand{\vari}{\text{var}}
-\newcommand{\cor}{\text{cor}}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
 \newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
 \newcommand{\cov}[1]{\text{cov}\qty[#1]}
 \newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
@@ -26,7 +26,7 @@
 \begin{document}
     \maketitle
 
-    \section{Questions from the notes}
+    \section{Questions from Ch.~3 notes pgs 42-50}
         \begin{itemize}
             \item Are we assuming the mean of the population is $\mu=0$?  More specifically, are we assuming nobody in the population has the gene?
             \item In figure 17, why don't we see only positive phenotypes?
@@ -36,8 +36,82 @@
             \end{align*}
             \item Question 1B: ?
             \item Who's Galton?
-            \item 
         \end{itemize}
+
+    \section{End of the Last Leture}
+        \begin{itemize}
+            \item Generally $\frac{D_N}{D_S} < 1$, which is consistent with the idea that most fixed mutations are synonymous
+        \end{itemize}
+
+    \section{Inconsistencies with Neural Theory}
+        \begin{itemize}
+            \item Some data suggests that there are fewer nonsynonymous polymorphisms w.r.t~synonymous poymorphisms than there are nonsynonymous fixed alleles w.r.t~synonymous fixed alleles.
+            \item Set $\alpha$ equal to the number of mutations due to selection, and so $1 - \alpha$ is the number of mutations due to drift.
+            \begin{align*}
+                (1 - \alpha)D_N = t_\text{Div}\mu_N \\
+                \alpha = 1 - \frac{D_SP_N}{D_NP_S}
+            \end{align*}
+    \section{Incomplete Lineage Sorting}
+            \item There are discrepancies between gene trees and the species tree.  This means geneticists must use multiple gene trees in order to determine phylogeny.
+            \item This happens if (for example) humans and chimps don't coalesce in the human/chimp common ancestor population
+            \item 
+            \begin{align*}
+                \prob{\text{fail to coalesce in the human/chimp common ancestor population}} = \qty(1 - \frac{1}{2N_A})^t
+            \end{align*}
+            where $t$ is measured in generations.  So
+            \begin{align*}
+                \prob{\text{incomplete lineage sorting}} = \frac{2}{3}\qty(1 - \frac{1}{2N_A})^t \approx \frac{2}{3}\exp[-\frac{t}{2N_A}]
+            \end{align*}
+            So given $t$, we can find $N_A$, and thus there is a $30\%$ probabiility of ILS.
+        \end{itemize}
+
+    \section{ILS vs.~Introgression}
+        \begin{itemize}
+            \item Look at genes which disagree with the species tree.  Consider the proportion of those which show human population 1 closer with Neandethal than with human population 2, and vice-versa.  They should be approximately the same. $N_{\text{ABBA}}$ vs.~$N_{\text{BABA}}$.
+            \begin{align*}
+                D = \frac{\#(\text{ABBA}) - \#(\text{BABA})}{\#(\text{ABBA}) + \#(\text{BABA})}
+            \end{align*}
+        \end{itemize}
+
+    \section{Phenotypic Evolution}
+        \subsection{Phenotypic Resemblance between relatives}
+            \begin{itemize}
+                \item Covariance, (Pearson) correlations, and slopes of linear regression
+                \begin{align*}
+                    \cov{X,Y} &= \frac{1}{m}\sum_{i=1}^m\qty(X_i - \overline{X})\qty(Y_i - \overline{Y}) = \overline{XY} - \overline{X}\cdot\overline{Y} = \expec{XY} - \expec{X}\expec{Y} \\
+                    \cov{X,X} &= \vari{X} \\
+                    \cor{X,Y} &= \frac{\cov{X,Y}}{\sqrt{\vari{X}\vari{Y}}} \\
+                    \text{slope}\qty(Y\sim X) &= \frac{\cov{X,Y}}{\vari{X}}
+                \end{align*}
+            \end{itemize}
+        \subsection{Mendel, Galton, Bateson, Fisher}
+            \begin{itemize}
+                \item Galton: Regression toward the mean of heights of offspring when compared to their parents heights.
+                \item Bateson: Populations were evolving through large effect mutations.
+                \item Fisher: We can solve the problem of continuous variation by realizing that traits are blends of many Mendelian traits.
+            \end{itemize}
+        \subsection{Example: BMI}
+            \begin{itemize}
+                \item approximately normal distribution over the population
+                \item Phenotypes are always due to the interaction of geners and environments
+            \end{itemize}
+        \subsection{Resemblance between relatives in quantitative traits}
+            \begin{itemize}
+                \item A trait with $L$ loci.
+                \item each segregating an allele $A_1$ at frequency $p\ell$.
+                \item genotype at locus $\ell$ is $0,1,2$ with probs $p_\ell^2, 2p_\ell(1 - p_\ell),(1 - p_\ell)^2$.
+                \begin{align*}
+                    X_{Ai} &= \displaystyle\sum_{\ell=1}^La_lG_{\ell,i} \qiq X_{P,i} = X_{Ai} + X_{Ei}
+                \end{align*}
+                \item So $X_A$ is normally distributed at large enough $L$.  It's reasonable to assume $X_E$ is normally distributed.  Thus $X_P$ is normally distributed with
+                \begin{align*}
+                    N(\mu_A + \mu_E,V_P) \qquad V_P = V_E + V_A
+                \end{align*}
+                and define heritability (in the narrow sense) $h$ by
+                \begin{align*}
+                    h^2 \coloneqq \frac{V_A}{V_P}
+                \end{align*}
+            \end{itemize}
 
 \end{document}
 

@@ -1,0 +1,100 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{November 9, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Notes from Ch.~3 notes pgs 49-54}
+        \begin{itemize}
+            \item $\mu_S$ is the mean phenotype at reproduction (after selection)
+            \item $\mu_{BS}$ is the mean phenotype before selection
+            \item $\mu_{NG}$ is the mean phenotype in the next generation
+            \item Set $S \coloneqq \mu_S - \mu_{BS}$ and $R \coloneqq \mu_{NG} - \mu_{BS}$.
+            \item We can find $R = h^2S$ where $h$ is heritability.  This is called the Breeders equation.
+            \item Using $h^2 \coloneqq \nicefrac{V_A}{V}$, we have $$R = V_A\frac{S}{V}.$$
+        \end{itemize}
+
+    \section{In class notes}
+        \begin{align}
+            \cov{X_1,X_2} &= \cov{(X_{1M} + X_{1P} + X_{1E})},(X_{2M} + X_{2P} + X_{2E}) \\
+            &= \cov{X_{1M},X_{2M}} + \cov{X_{1M},X_{2P}} + \cov{X_{1P},X_{2M}} + \cov{X_{1PM},X_{2P}}
+        \end{align}
+        under some assumptions about covariances of environments.
+        \begin{align}
+            \cov{X_\text{mum},X_\text{child}} &= \cov{X_{1M},X_{2M}} + \cov{X_{1P},X_{2M}} \\
+            &= \frac{1}{2}\cov{X_{1M},X_{1M}} + \frac{1}{2}\cov{X_{1P},X_{1P}} \\
+            &= \frac{1}{2}\vari{X_{1M}} + \frac{1}{2}\vari{X_{1P}}
+        \end{align}
+        because the child's allele from the mother is presumably identical to one of her alleles.  So,
+        \begin{align}
+            \cov{X_\text{mum},X_\text{child}} &= \frac{1}{2}V_A
+        \end{align}
+        We can also think about $\cov{X_1,X_2}$ with $r_0,r_1,r_2$ given.
+        \begin{align}
+            \cov{X_1,X_2} = r_0\times0 + r_1\frac{1}{2}V_A + r_2 V_A = 2F_{12}V_A
+        \end{align}
+        Galton's observation is that individuals pass on their genetics, not their environment, to their offspring.
+
+        \subsection{Predicting Offspring Phenotypes}
+            $\expec{X_\text{child}} = \mu$ where $\mu$ is the mean.  However, $\expec{X_\text{child}|X_\text{mid}} = \mu + h^2\qty(X_\text{mid} - \mu)$.
+
+            Conditions for evolution by natural selection:
+            \begin{itemize}
+                \item Variation must be present
+                \item Survival is dependent on this phenotypic variation
+                \item Variation is heritable
+            \end{itemize}
+            The first two are natrual selection.  The third gives rise to \emph{evolution} by natural selection.  We get rapid evolution when strong selection pressures highly heritable traits.
+
+        \subsection{Response to Selection}
+            \begin{align}
+                S &= \cov{W(X),X} \\
+                R &= h^2S = \frac{V_A}{V_P}S = V_A\beta \\
+                \text{where } \beta &= \frac{\cov{W(X),X}}{V_P}
+            \end{align}
+            Lande shows
+            \begin{align}
+                \overline{W} &= \int W(X)P(X)\dd X \\
+                R &= \frac{V_A}{\overline{W}}\frac{\dd\overline{W}}{\dd X}
+            \end{align}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

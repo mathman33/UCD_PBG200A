@@ -1,0 +1,67 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{November 16, 2016}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item Supposing fitness of $A_1A_1$, $A_1A_2$, and $A_2A_2$ are $1$, $1-sh$, and $1-s$, respectively, then an equlibrium frequency is
+        \begin{align}
+            q_\text{eq} = \frac{\mu}{sh}
+        \end{align}
+        \item Migration-Selection balance can preserve a near-fixation equilibrium
+        \item In the simple hapliod model, migration plays the same role as mutation.
+        \item If the migration rate is high enough, we get ``migration swamping'' where one allele wins for a particular set of initial conditions.
+        \item interaction between selection and drift
+        \begin{itemize}
+            \item when selection is strong we can ignore drift
+            \item \begin{align}
+                p_L = P_0\times 1 + P_1\times p_L + P_2\times p_L^2 + P_3 \times p_L^3 + \dots \qiq p_L = 1 - s \qquad \text{and} \qquad p_f = s
+            \end{align}
+        \end{itemize}
+        \item Current Status of views on molecular evolution
+        \begin{itemize}
+            \item the vast majority of differences between humans and chimps are due to genetic drift, not selection.
+        \end{itemize}
+    \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

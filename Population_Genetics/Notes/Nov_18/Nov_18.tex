@@ -1,0 +1,78 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{November 18, 2016}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item Hitch-hiking effect
+        \begin{itemize}
+            \item We expect to see a loss of heterozygosity as we move along the genome toward the selected allele
+            \item Example in Malaria parasite - plasmodium falciparum - resistance to anti-Malaria drugs
+            \item Use the width of non-heterozygous regions to give us information on the strength of selection - faster sweeping doesn't allow for much recombination.
+            \item \begin{align}
+                t_s = \frac{4}{s}\log(2N_e) \\
+                p_{\text{NR}} = \prod_{t=1}^{t_s}\qty(1 - r(1 - x_t)) \approx \exp[-r\sum_{t=1}^{t_s}\qty(1 - x_t)]
+            \end{align}
+            but
+            \begin{align}
+                \overline{(1 - x_t)} = \frac{1}{t_s}\sum_{t=1}^{t_s}(1 - x_t) = 0.5
+            \end{align}
+            so
+            \begin{align}
+                p_{\text{NR}} &= \exp[-rt_s\overline{(1 - x_t)}] \\
+                &= \exp[-\nicefrac{rt_s}{2}]
+            \end{align}
+            \item With probability $\pi = p_{\text{NR}}^2\times 0 + (1 - p_{\text{NR}}^2)4N\mu = \qty(1 - \exp[-rt_s])4N\mu$.
+            \item Look at how far along the genome we need to see a $50\%$ return in heterozygosity.
+        \end{itemize}
+        \item Interaction between selected alleles and recombination
+        \begin{itemize}
+            \item Suppose AB and ab have high fitness, but Ab and aB have low fitness.  Then recombination is a detriment to fitness.  Recombination is general is breaking up the high fitness haplotypes for lower fitness haplotypes.  Selection and Recombination are in opposition.
+        \end{itemize}
+        \item Inverted genes
+        \begin{itemize}
+            \item Can cause ``supergenes.''
+        \end{itemize}
+    \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,209 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{textcomp}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+\newcommand{\fold}[1]{$#1\times$}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{November 30, 2016}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item Transcriptome sequencing - what matters?
+        \begin{itemize}
+            \item want high-complexity: reads with varied starting points
+            \item want even coverage: low coefficient of variation.. all positions are covered evenly.  Uneven coverage comes from bad RNA or bad priming.
+            \item there is potential to make stranded libraries
+        \end{itemize}
+        \item Transcriptome assembly
+        \begin{itemize}
+            \item what do we want to know?
+            \begin{itemize}
+                \item genome annotation vs expression analysis
+                \item map the transcriptome to the genome sequence - find where the genes start and end - only a fraction of the genome is expressed - also, different sexes, and under different environmental conditions, express different genes.
+                \item It is easy to get most of the parts of most of the genes.  It is very very ``hideously'' difficult to get all of the parts of all of the genes.  Even the best model organism, Drosophila melanogaster, doesn't have a full gene sequence.
+                \item Do we need full-length transcripts?  If a gene is only expressed in a single cell type, it is not important for all questions
+            \end{itemize}
+            \item de novo?
+            \begin{itemize}
+                \item can be done in any nonmodel organism
+                \item Coverage at 5' ends will never be as good as at the 3' ends.
+                \item Assembly depends on coverage.  The main problem is repeats.  The repeats make up most of the genome, but very little of the transcripts.  The problem is coverage.  Some genes will be sequenced at very high/low coverage (differ in 4 orders of magnitude).
+            \end{itemize}
+            \item or reference mapping?
+            \begin{itemize}
+                \item mapping the transcriptomes to existing DNA data.
+                \item gene structure
+                \item more easily get to transcriptome start site
+                \item better to do, if possible
+            \end{itemize}
+        \end{itemize}
+        \item de novo transcriptome assembly
+        \begin{itemize}
+            \item commonly used package: ``Trinity''
+            \item assemble reads into contigs
+            \item another program tries piece contigs into clusters by finding overlaps
+            \item use reads or pairs of paired-end reads to get transcript isoforms.  This is only as high-quality as the RNA sample.
+        \end{itemize}
+        \item transcriptome assembly by refernece mapping
+        \begin{itemize}
+            \item take RNA paired-end reads.  either,
+            \begin{itemize}
+                \item align then assemble
+                \begin{itemize}
+                    \item gapped alignment
+                    \item use that to identify gene models
+                \end{itemize}
+                \item or assemble then align
+            \end{itemize}
+        \end{itemize}
+        \item RNA to DNA mapping
+        \begin{itemize}
+            \item the measure used to quantify abundance is (RPKM) ``reads per kilobase per million reads'' or (FPKM) ``fragments per kilobase per million reads''
+            \item all of this assumes 2nd generation short fragment
+            \item 3rd gen will eliminate the process of assembly
+        \end{itemize}
+        \item Anopheles phylogeny - sequencing and assembly
+        \begin{itemize}
+            \item benefits of not normalizing
+            \begin{itemize}
+                \item assembly is as good as coverage.  This was seen as a limitation.  However, the uneven representation is a feature when constructing a phylogeny
+            \end{itemize}
+            \item how much depth do we need?  Maybe not that much.  Dependent on the number of taxa?  The more taxa, paradoxically, the more coverage you need.
+            \item orthology assignment
+            \item Even back in the middle ages (2010) they got more data than needed.
+        \end{itemize}
+        \item Anopheles phylogeny - science
+        \begin{itemize}
+            \item how many loci do you need?  What do you want them for?
+            \item What's the effect of using only highly conserved CDS?
+            \item Taxonomic range?
+            \item multispecies coalescence brings up gene-tree and species-tree resolution.
+        \end{itemize}
+        \item Reduced Representation approaches
+        \begin{itemize}
+            \item Sequenc capture methods
+            \begin{itemize}
+                \item isolate only parts of the genome you want to resequence
+                \item must already know the sequence.. only suitable for resequencing applications.  Must have a reference sequence.. decide which parts you want.  Then you can capture the same parts from many other individuals or species or whatever.
+                \item If you know the sequence in a single individual, it is easy to capture the same gene in other individuals of the same species.
+                \item methods:
+                \begin{itemize}
+                    \item multiplex PCR
+                    \item micro arry hybridization and release
+                    \item molcular inversion probes
+                    \item solution hybrid selection
+                \end{itemize}
+                \item factors: capacity, scalability, mismatch tolerance, cost, input
+                \begin{itemize}
+                    \item most of these don't scale easily below 1 megabase
+                    \item Is this something that will be screwed up with high levels of polymorphisms?
+                    \item amount of imput material varies between micrograms and many milligrams
+                \end{itemize}
+            \end{itemize}
+            \item Multiplex PCR
+            \begin{itemize}
+                \item target each individual and then mix, or do multiplex PCR
+                \item barcoding allows multiplexed sequencing.. disentangle sequences bioinformatically
+                \item PCR is a pain even for a single gene - 10,000 genes is especially difficult.  Multiplex is even harder.
+                \item Hard to PCR something over 10 kilobases
+            \end{itemize}
+            \item RainStorm PCR
+            \begin{itemize}
+                \item microfluidic device that can run many PCRs in parallel using microdroplets
+                \item Can get 10-20 thousand pair of loci in one run of the machine.
+                \item Either validate each one, or accept the high rate of  failure.
+                \item Very costly
+            \end{itemize}
+            \item Molecular inversion probes
+            \begin{itemize}
+                \item design probes to capture parts of DNA in a circular fashion
+                \item works well for shorter bases
+            \end{itemize}
+            \item Microarray-based genomic selection
+            \begin{itemize}
+                \item first invented to study gene expression
+                \item Immobilize the probes, fragment the DNA
+                \item Then wash away everything else.. there's our library
+                \item This was done for a while until people realized they didn't need the microarray - you can do this in solution
+            \end{itemize}
+            \item Solution hybrid selection
+            \begin{itemize}
+                \item instead of making immobilized probes, get a series of RNA molcules which correspond to the region of genomic DNA you are trying to caputre.
+                \item Then biotinylate the RNA probes
+                \item RNA probes will find desired DNA.
+                \item Add magnetic beads that bind to the RNA probes
+                \item wash away what you don't want (non-magnetized)
+                \item strip the RNA
+                \item This is by far the most commonly used approach - scalable, flexible
+                \begin{itemize}
+                    \item SureSelect\texttrademark Target Enrichment System Capture Process
+                \end{itemize}
+            \end{itemize}
+            \item Pros and Cons
+            \begin{itemize}
+                \item PCR is too much of a pain
+                \item Microarrays are extinct
+                \item Inversion probes are not yet good enough
+                \item That leaves solution hybrid selection, but it is expensive.  One problem is that this is only ``cheap'' for big studies.  Consider the cost of sequencing vs.~cost of sample prep.
+                \item How much material?  Micrograms.. but there are low-input methods for nanograms.. wet bench procedures are much more complicated
+            \end{itemize}
+        \end{itemize}
+        \item Prum 2015 Technology
+        \begin{itemize}
+            \item Sequence divergence is more than could be handled by straightforward applications - chickens and crows are too different.
+            \item Used parts of two genomes of distantly related birds but highly conserved.  The fragmented DNA actually goes out from that conserved part.
+            \item Never getting pure isolation.  Rather, an enriched sample - there is always strong contamination from nontargeted genomic regions.
+            \item Use reference mapping to separate the data set and then running de novo assembly for each of these references.
+        \end{itemize}
+        \item Prum 2015 Science
+        \begin{itemize}
+            \item Lots of organisms with large genomes
+            \item more taxa or more characters?  Different question, different answer.
+            \item biological problems
+            \begin{itemize}
+                \item add more characters and more taxa in the difficult part of the phylogeny.
+                \item lineage sorting / gene tree conflict - they just averaged over gene trees.. this could be disastrous (next quarter)
+                \item Math - talk to Bruce Rannala - not yet computationally feasible
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

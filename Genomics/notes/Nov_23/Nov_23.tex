@@ -1,0 +1,263 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{November 23, 2016}
+
+\begin{document}
+    \maketitle
+
+    \section{Genomics for Evolution and Ecology}
+        Why?
+        \begin{itemize}
+            \item pop gen
+            \item evo and eco genetics
+            \item phylogeny reconstruction
+            \item speciation genetics
+            \item phylogeography
+            \item molecular evolution
+            \item comaprative genomics
+            \item metagenomics
+        \end{itemize}
+        How?  Tons of data.  Because gathering data was difficult, a lot of thought was put into designing the perfect experiment.  Today, biology is data-rich.  Data is cheaper than brain capacity.  A lot less work goes into experimental design. \\
+
+        It used to be really expensive.. 3 billion dollars.  Now we can sequence a human genome in 2 weeks for 10,000 dollars.  DNA is extremely dense information.  It's cheaper to keep the DNA and sequence it than it is to house the DNA in a hard drive... \\
+
+    \section{Sequencing technologies}
+        what matters?
+        \begin{itemize}
+            \item output capacity
+            \item scalability (smallest/biggest possible experiment)
+            \item read length
+            \item accuracy/error profiles
+            \item speed
+            \item ease of prep
+            \item applications.compatibility
+            \item cost
+            \item availability
+            \item tradeoffs - choose the best for what you actually need.
+        \end{itemize}
+
+    \section{Workflow}
+        \begin{itemize}
+            \item get material (DNA, RNA, etc)
+            \item prepare sequencing library
+            \item sequence it
+            \item manage/store the data - convert to raw sequence
+            \item pre-process the data
+            \item data reduction / assembly
+            \item primary analysis (identify basic units)
+            \item do science
+        \end{itemize}
+
+    \section{Types of sequencing libraries}
+        \begin{itemize}
+            \item DNA/RNA
+            \item RNA
+            \begin{itemize}
+                \item normalized/unnormalized, full-length vs endtags, stranded or nonstranded
+            \end{itemize}
+            \item DNA
+            \begin{itemize}
+                \item single-end frags
+                \item paired-end frags
+                \item mate-pair
+                \item strobed
+                \item whole genome amplification?
+            \end{itemize}
+        \end{itemize}
+
+    \section{Basic library prep}
+        \begin{itemize}
+            \item fragment the DNA - chop up into manageable pieces (acoustic shearing - ultrasonic vibrations break it up into pieces) or (enzymatic - generates double-stranded breaks)
+            \item size selection (decide what you need and get it) - we want the fragment distribution to be as tight as possible - we waste a lot of material
+            \item end-repair (fragments have ragged ends - must repair them), A-tail, ligate adapters (tech specific) (must be able to manipulate the fragments) very very important
+            \item adapters allow capture/manipulation, ID, sequencing
+            \item enrich and/or capture adapter-ligated fragments
+            \item quantify
+            \item load on the machine
+        \end{itemize}
+
+    \section{Basic Illumina approach}
+        \begin{itemize}
+            \item requires adapter ligation and 2 PCR steps
+            \begin{itemize}
+                \item pre sequencing (adapter enrichment)
+                \item on the machine (cluster generation)
+            \end{itemize}
+            \item many enzymatic steps
+            \item consequences: losses, duplicates, biases, errors
+            \item sequencing by synthesis (multiple fluorophores)
+            \item modifications: paired end, mate-pair libraries
+            \item 
+            \begin{itemize}
+                \item start with RNA
+                \item convert to double stranded cDNA
+                \item add adapters on the end of the fragments (different adapters to each end)
+            \end{itemize}
+        \end{itemize}
+
+    \section{Improved library prep: transposomes}
+        \begin{itemize}
+            \item make transposomes - get fragmented DNA with adapters on the ends
+            \item advantages
+            \begin{itemize}
+                \item less input
+                \item single tube reaction
+                \item smaller volume
+                \item faster prep
+                \item fewer steps (fewer losses)
+            \end{itemize}
+        \end{itemize}
+
+    \section{mate pair libraries}
+        \begin{itemize}
+            \item necessary for complex templates with many repeats
+            \begin{itemize}
+                \item many repeats are 10-12kb, but we sequence in 100 base pair size frags
+            \end{itemize}
+            \item Illumina mate-pair approach can get around long repeats
+            \item Cre/lox site-specific recombination
+        \end{itemize}
+
+    \section{Illumina sequencing Bridge Amplification}
+        \begin{itemize}
+            \item same principle as a florescent microscop
+            \begin{itemize}
+                \item attach primers to fragments
+                \item attach fragments to machine
+                \begin{itemize}
+                    \item vast majority of adapters are empty
+                \end{itemize}
+                \item Convert to double stranded
+                \item repeat until you get clusters which can generate optical signals
+            \end{itemize}
+            \item Error rate in Illumina technology gets larger with the length of the fragment.
+            \item Not sequencing a single molecule - rather, a cluster of 200-basepair bits
+        \end{itemize}
+
+    \section{Coverage - How much material do we need?}
+        \begin{itemize}
+            \item 1pcg $\approx$ 1Gb
+            \item Human
+            \begin{itemize}
+                \item $\approx$ 6Gb (2n)
+                \item 100 ng $\approx$ 20,000 cells
+                \item 20 mcg - 1mg of tissue
+                \item coverage?
+                \begin{itemize}
+                    \item HiSeq (full run) $\approx$ 100x .. 2 weeks
+                    \item MiSeq (full run) $\approx$ 2x .. 2 days
+                \end{itemize}
+            \end{itemize}
+            \item Drosophila $\approx$ 0.18Gb
+            \item Some plants $>$ 100Gb
+        \end{itemize}
+
+    \section{454 Sequencing}
+        \begin{itemize}
+            \item First practical tech
+            \item attach identical frags to a bead
+            \item generate an emulsion?
+            \item pipette the beads - every well is only big enough for a single bead
+            \item end up with an environment where most are empty
+            \item take a bunch of picture of the bead.. generate the sequence from that
+            \item adding nucleotides generates a flash of light which is recorded.
+            \item repeat nucleotides limit the length of reads - get a framechift mutation.. not good.  Still, we can get up to 1000bp. (mode 700 bp, typical throughput 700 Mb)
+            \item reads per run $\approx$ 1,000,000.
+            \item run time 23 hours
+            \item used to be competitive when Illumina was reading length 23bp.  But now Illumina is preferred since it can read 200bp.
+        \end{itemize}
+
+    \section{Ion Torrent}
+        \begin{itemize}
+            \item High resolution Ph {\color{red} mirror?}
+            \item essentially measuring Ph in individual wells
+            \item same kind of principle as 454.
+            \item 50 Mb - 1.2 Gb chips (dispoable)
+            \item read length 200-400 bases
+            \item 2-6 hours (fast)
+            \item cheaper and easier to operate
+            \item 6 hr prep, 96 off the shelf barcodes
+            \item load it on to a donkey and get out in the field
+            \item all of the same problems as 454 (repeat basepairs)
+        \end{itemize}
+
+    \section{PacBio: Single Molecule, Real-Tiem sequencing}
+        \begin{itemize}
+            \item no longer has to generate clusters (always stays focused)
+            \item DNA is not immobilized.. polymerase is immobilized
+            \item in principle, a 100,000 basepair sequence can be read one nucleotide at a time
+            \item based on the retension of nucleotides by the polymerase
+            \item fragment long double-stranded DNA fragments
+            \item tack on loop-shaped adapters to make a circle.
+            \item needs lots of DNA (5 micrograms of DNA) this means a single Drosophila is not enough - need 30.
+        \end{itemize}
+
+    \section{Coming up: single molecule nanopore sequencing}
+        \begin{itemize}
+            \item motor protien breaks double-strand
+            \item threads it through a pore
+            \item reads electrical current
+            \item scalable modules of 2000-8000 pores
+            \begin{itemize}
+                \item 20 modules = human genome in 15 minutes
+            \end{itemize}
+            \item \$40 per Gigabase (\$3600 per 30x human genom coverage)
+            \item Prototype - current error rate 15-20\%
+            \item mini disposable minilop for \$900 (plugs into USB port)
+        \end{itemize}
+
+    \section{High-Capacity}
+        \begin{itemize}
+            \item a blessing and a curse
+            \item what do we do with a 600 Gb sequence?  Or even 1 Gb?
+            \item barcoding allows multiplexing
+            \begin{itemize}
+                \item amplification primers or adapters
+                \item error-correcting
+                \item one or both directions, redundant or combinatorial
+                \item balancing adapters for quality calibration
+                \item adapter biases, empirical testing
+                \item 454 also uses gaskets to split the cells
+            \end{itemize}
+            \item also useful for library titration and read quantification
+        \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

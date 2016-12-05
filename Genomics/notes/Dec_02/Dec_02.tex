@@ -1,0 +1,199 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{textcomp}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+\newcommand{\fold}[1]{$#1\times$}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{December 2, 2016}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item RAD (restriction site associated DNA) tags - basic idea
+        \begin{itemize}
+            \item can capture fairly reproducible parts of the genome without any a priori information
+            \item can roughly control the number of regions
+            \item radically simplifies genome assembly
+            \begin{itemize}
+                \item drastically reduce complexity of sample
+                \item anchoring of sequencing reads at predictable sites
+            \end{itemize}
+            \item two levels of polymorphism
+            \begin{itemize}
+                \item presence/absense of tag
+                \item sequence variotion in tag
+            \end{itemize}
+            \item Sticky ends
+            \begin{align*}
+                &\texttt{GAATTC}\\
+                &\texttt{CTTAAG}\\
+                &\ \ \downarrow\\
+                &\texttt{GAATT} \\
+                &\texttt{C}
+            \end{align*}
+        \end{itemize}
+        \item Experimiental design
+        \begin{itemize}
+            \item main tradeoff: \# of individuals vs. noumber of markers (for given depth \$)
+            \item how much depth do you need?
+            \item length and configuration of reads
+            \item main cost: RAD adaptor oligos
+            \item multiplex at an early stage to save money (this vastly simplifies the process)
+        \end{itemize}
+        \item Genotyping and Genetic mapping
+        \begin{itemize}
+            \item goals:
+            \begin{itemize}
+                \item identify the genes responsible for natural variation
+                \item examine distribution of variation in time/space
+            \end{itemize}
+            \item approaches:
+            \begin{itemize}
+                \item marker identification and genotyping of recombinant progeny
+                \item direct genotyping by sequencing
+                \item individual genotyping vs Bulked Segregant Analysis
+                \item Choice of approaches depends on the model, question, and resources.
+            \end{itemize}
+        \end{itemize}
+        \item Conventional High-throughput genotyping
+        \begin{itemize}
+            \item basic strategy
+            \begin{itemize}
+                \item identify genotypable polymorphisms prior to mapping
+                \item obtain individual recombinant progeny
+                \item genotype them for the polymorphisms of your choice
+                \item do conventional QTL mapping
+            \end{itemize}
+            \item In principle, does not require any prior resources (maps, genome sequence, organism-specific reasents, etc.)
+            \item Genetic design (how you get recombinant progeny) and genotypic approach (how you genotype) are completely separable
+        \end{itemize}
+        \item Polymorphism identification
+        \begin{itemize}
+            \item source of variable genotypes?
+            \begin{itemize}
+                \item a pair of highly inbred parental strains
+                \item a pool of outbred individuals from the wild
+                \item anything in between
+            \end{itemize}
+            \item type of variable sequences?
+            \begin{itemize}
+                \item complete genome sequences
+                \item partial transcriptomes
+                \item RAD-tags, reduced representation libraries, etc.
+            \end{itemize}
+            \item identification of variable sites and alleles
+            \begin{itemize}
+                \item reference-map reads from each genotype to genome or transcriptome
+                \item assemble reads de novo, identify SNPs in assemblies
+            \end{itemize}
+            \item How many do you need?
+            \begin{itemize}
+                \item limited by marker density or X-order density?
+                \item scale of LD
+                \item this determines sequencing strategy
+            \end{itemize}
+            \item selecting polymorphisms for genotyping
+            \begin{itemize}
+                \item if sequencing parental lines of cross - choose fixed
+                \item if sequencing a population panel - choose high frequency
+                \item find real polymorphisms, not sequencing errors (effect of sequencing depth)
+                \item do we want to validate before use?
+                \item tech-specific requirements
+            \end{itemize}
+        \end{itemize}
+        \item genetic design
+        \begin{itemize}
+            \item controlled lab crosses
+            \begin{itemize}
+                \item identify parental lines that differn in phenotype
+                \item cross, get lots of individual F2 or more advanced Xovers
+                \item genotype for SNPs known from parental lines
+                \item Pros: complete control, easy analysis, non hidden population structure
+                \item Cons: high LD, low resolution, have to do crosses
+            \end{itemize}
+            \item GWAS in natural populations
+            \begin{itemize}
+                \item collect naturally polymorphic/recombinant genotypes
+                \item genotype for random naturally segregative markers
+                \item Pros: low LD, high resolution, no lab crosses
+                \item Cons: Messy data, false LD (population structure, drift, etc.)
+            \end{itemize}
+            \item Hybrid strategy
+            \begin{itemize}
+                \item low-res QTL in lab cross and GWAS in nature: simplifies analysis of GWAS data
+            \end{itemize}
+        \end{itemize}
+        \item high-throughput genotyping techs
+        \begin{itemize}
+            \item SNP chips
+            \begin{itemize}
+                \item largest number of marker loci (millions)
+                \item lowest cost per SNP per genotype, high total cost
+                \item suitable mainly for big experiments in model species, i.e. medical experiments in humans/mice
+            \end{itemize}
+            \item bead arrays
+            \begin{itemize}
+                \item moderate number of marker loci
+                \item medium cost per SNP per genotype, medium total cost
+                \item equally useful in model and non-model species
+            \end{itemize}
+            \item mass-spec arrays
+            \begin{itemize}
+                \item relatively small number of loci
+                \item cost per SNP per genotype roughly similar to bead arrays
+                \item can be used in any organism
+                \item useful for progressive genotyping strategies
+                \item can be scaled down more easily
+            \end{itemize}
+        \end{itemize}
+        \item RAD-tag genotyping
+        \begin{itemize}
+            \item start with some panel of recombinant progeny
+            \item RAD-tag individual progeny with personal barcodes
+            \item sequence them together in a pool (multiplex), assemble them separately
+            \item identify variable sites and call SNP alleles
+            \item sequence same RAD tags from both parents to identify parental haplotypes
+            \item detect recombinants, reconstruct linkage maps, map QTLs
+            \item does not require prior genome
+            \item requires investment in barcodes
+        \end{itemize}
+    \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

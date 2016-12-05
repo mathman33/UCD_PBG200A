@@ -1,0 +1,220 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+\newcommand{\fold}[1]{$#1\times$}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{November 28, 2016}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item Genome sequencing
+        \begin{itemize}
+            \item physically break up the genome, clone them, order the clones, sequence each clone, made sense to everyone, but they only got 3\% of the human genome after 10 years.
+            \item or shotgun sequencing, which is break up into random pieces.
+        \end{itemize}
+        \item Sequence assembly
+        \begin{itemize}
+            \item de novo assembly
+            \begin{itemize}
+                \item requires longer reads, greater depth, low polymorphism
+            \end{itemize}
+            \item reference mapping
+            \begin{itemize}
+                \item must assume you already have a genome sequence (reference genome)
+                \item use reference genome as a template
+                \item allows shorter reads, lower depth, tolerates polymorphisms
+            \end{itemize}
+            \item RNA to DNA mapping
+            \begin{itemize}
+                \item quantification of gene expression
+                \item detection of splice junctions
+                \item alternative splicing
+            \end{itemize}
+        \end{itemize}
+        \item Genome sequencing (shotgun) - basic ideas
+        \begin{itemize}
+            \item high coverage (redundant)
+            \item if mean coverage is \fold{1}, not going to happen since you need overlap.  Even \fold{10} is not enough.
+            \item the higher the \fold{} coverage, the greater the chances that every read will overlap with at last two other reads.  For assembly to be contiguous, you need very high coverage (\fold{30}, \fold{50}, and higher).
+            \item The shorter the reads, the higher coverage you need.  The shorter the reads, the shorter the overlap, the higher the coverage you need.
+            \begin{itemize}
+                \item the fundamental tradeoff: high coverage, short reads vs. low coverage, long reads
+            \end{itemize}
+            \item Eukaryotic genomes have repeates.. this is a problem.  If the longest repeat is longer than the longest read, no way to get contiguous assmebly.  There are some repeats which are $12$ kilobases long.
+        \end{itemize}
+        \item Second-generation technology
+        \begin{itemize}
+            \item two steps
+            \begin{itemize}
+                \item assemble unambiguous reads into contigs that end at repeat boundaries
+                \item combine contigs using bridging data
+            \end{itemize}
+            \item a scaffold is a collection of contigs linked by mate pairs.  Gaps can represent repeats or true missing data.
+            \item You want long mate pairs
+        \end{itemize}
+        \item de novo assembly
+        \begin{itemize}
+            \item overlap consensus algorithms
+            \begin{itemize}
+                \item compares reads, finds overlaps (first finds identical seeds) and extends if possible
+            \end{itemize}
+            \item de Bruijn graph algorithms (VELVET, ASySS, SOAPdenovo)
+            \begin{itemize}
+                \item breaks up reads into shorter (every possible) $k$-mers.
+                \item every read gives an enormous database of $k$-mers.
+                \item connects reads which contain identical $k$-mers
+                \item collapses graphs into contigs
+            \end{itemize}
+            \item scaffolding
+            \begin{itemize}
+                \item uses additional info from paired end and mate-pair libraries
+                \item this is where a lot of mis-assembly happens.
+                \item current tradeoff: contiguous vs.~accurate.
+            \end{itemize}
+            \item issues
+            \begin{itemize}
+                \item highly computationally intesive (not tractable for small $k$)
+                \item sensitive to polymorphisms, errors, non-random fragmentation, non-uniform coverage, repeats
+                \item polymorphisms are the biggest problems
+                \begin{itemize}
+                    \item slightly overcome this through inbreeding
+                \end{itemize}
+            \end{itemize}
+        \end{itemize}
+        \item how good is the assembly (measure the quality)
+        \begin{itemize}
+            \item N50
+            \begin{itemize}
+                \item 50\% of the entire assembly is contained in contigs that are at least as long as N50.  The higher the N50, the more contiguous the assembly.
+            \end{itemize}
+            \item it is possible that 80\% of the genome is missing
+            \item it is also possible that the assembly yields a longer contig than the size of the genome!
+            \item how good do we need the sample to be?
+            \begin{itemize}
+                \item the difficulty and cost of genome assembly increases exponentially as we approach perfection.
+                \begin{itemize}
+                    \item must decide what the goal is BEFORE you decide the technology for the job
+                \end{itemize}
+            \end{itemize}
+        \end{itemize}
+        \item reference mapping
+        \begin{itemize}
+            \item much much easier than de novo, but assumes we already have a reference assembly
+            \item used to study intra-specific polymorphisms
+            \item not used much now since it is expensive and not much better (if at all) than de novo.  Still may be better in certain circumstances. 
+        \end{itemize}
+        \item combining data
+        \begin{itemize}
+            \item hybrid strategy
+            \begin{itemize}
+                \item gets lots of short and some long reads
+            \end{itemize}
+        \end{itemize}
+        \item whole genome amplification
+        \begin{itemize}
+            \item processivity of up to 100kb
+            \item low error rates
+        \end{itemize}
+        \item how to deal with high error rates
+        \begin{itemize}
+            \item hybrid assembly
+            \begin{itemize}
+                \item use lots of short reads to correct long reads
+                \item but use long reads to assembly
+            \end{itemize}
+            \item self-correcting assembly
+            \begin{itemize}
+                \item overlapping long reads correct each other
+                \item PacBio is (basically) random error, so concensus will smooth out errors
+            \end{itemize}
+            \item additional tricks
+            \begin{itemize}
+                \item multiple pass reads of PacBio ``barbells'' (doesn't work that great in reality due to longevity of polymerase)
+                \item 2D reads with Nanopore (double strand connected to itself via loop on one end)
+            \end{itemize}
+        \end{itemize}
+        \item long read assembly approaches
+        \begin{itemize}
+            \item hierarchical
+            \begin{itemize}
+                \item long read high error to long read low error by using short read low error
+            \end{itemize}
+            \item scaffolding/gap filing
+            \item read threading
+            \begin{itemize}
+                \item graph structure resolves bubbles in scaffolding
+            \end{itemize}
+        \end{itemize}
+        \item example - Drosophila serrata
+        \begin{itemize}
+            \item Illumina
+            \begin{itemize}
+                \item reads and coverage \fold{200}
+            \end{itemize}
+            \item PacBio
+            \begin{itemize}
+                \item reads and ocverage \fold{63} (expensive for PacBio)
+            \end{itemize}
+        \end{itemize}
+        \item Irys BioNano physical mapping
+        \begin{itemize}
+            \item Get a visual fingerprint (light-based) to match up the molecules
+        \end{itemize}
+        \item (from DNA to RNA) Transcriptome sequencing
+        \begin{itemize}
+            \item RNA isolation
+            \begin{itemize}
+                \item what sample do you want and why?
+            \end{itemize}
+            \item mRNA purification and cDNA synthesis
+            \item normalization (if needed)
+            \begin{itemize}
+                \item nowadays sequencing is so cheap that we don't realy need this.. might as well just sequence the hell out of it.
+            \end{itemize}
+            \item non-stranded or strand-specific sequencing
+            \begin{itemize}
+                \item determine which strand is expressed
+                \item avoid chimeric contigs from overlapping 3' UTRs.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,208 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{textcomp}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+\newcommand{\fold}[1]{$#1\times$}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{December 5, 2016}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item SNP array genotyping
+        \begin{itemize}
+            \item based on DNA-DNA hybridization
+            \item need to know where the variable sites are in an organism
+            \begin{itemize}
+                \item multiple prob pairs for each variable nucleotide
+            \end{itemize}
+            \item the individual who carries a C(A) will hybridize better to probes with G(T).  Measuring differences in signal intensities.
+            \item very precise, very cost-effective, on a per-individual, per-SNP basis
+            \item only is useful in model organisms
+            \item For \$600, get 1 million alleles in 1 individual.
+        \end{itemize}
+        \item Bead array genotyping
+        \begin{itemize}
+            \item most common for nonmodel organisms,
+            \item but have to have a reference genome and know the variable sites and alternative alleles at a site
+            \item need the same info for nonmodel and model organisms, but for nonmodel organisms you need to make your own reagents.
+            \item primers attach to reverse-primers which have their own barcode.  Reverse primers attach to beads, so each type of bead corresponds to a single allele.  Plate-reader fishes out the beads and immobilizes them in different locations on a plate.  Image the plate for the different tags.
+            \item advantage: flexibility.
+            \begin{itemize}
+                \item $\$.2$ - $\$.5$ per SNP per genotype (48-384 SNPs)
+                \item minimum experiment: approx 500 individuals, \$10,000-\$15,000.
+                \item high requirements for DNA quantity and quality
+            \end{itemize}
+        \end{itemize}
+        \item Sequenom MassArray genotyping
+        \begin{itemize}
+            \item have to know a reference sequence (something)
+            \item need to know 100-200 variable sites
+            \item do PCR for every locus
+            \item no tags, no beads, directly reading the sequence with a mass spectrometer (must be able to determine each allele from each allele in all sites)
+            \item main limitation is SNP compatibility
+            \item 30-36 SNPs per plex.
+            \item flexible: suitable for gradual experiments (feeds information a little bit at a time, can improve experimental design on the fly)
+            \item main limitation is SNP compatibility
+            \item \$.15-\$.25 per SNP per genotype
+            \item requires less DNA and less quality
+        \end{itemize}
+        \item Genotyping by Sequence
+        \begin{itemize}
+            \item Do reads for $k$ individuals in a single pool
+            \item separate bioinformatically later on
+            \item assign ancestry to each individual at each location
+        \end{itemize}
+        \item Multiplexed shotgun genotyping
+        \begin{itemize}
+            \item essentially getting unlimited info
+            \item assuming the individuals have high LD
+            \item if the density of variate sites is much less than the density of recombination break points.
+            \item this means we don't need high coverage - we don't have complete genome
+            \item can be very cheap on the per individual basis - can multiplex multiple individuals on a single Illumina lane.
+            \item very cheap - \$20-\$40 per individual fo thousands of markers
+            \item disadvantages:
+            \begin{itemize}
+                \item need to have fairly well-assembled reference genomes, and info on each parent,
+                \item high upfront costs( barcode adaotors - need a single barcide for each individual).  The same 100 or so barcodes can be reused.  Scalaing up is easy.
+            \end{itemize}
+            \item Key point: not using genetic information to infer a genetic map.  Using physical genome as reference.
+        \end{itemize}
+        \item Bulked segregant analysis
+        \begin{itemize}
+            \item Basic principle: identify differences in the frequencies of marker alleles between pools of individuals with different phenotypes
+            \item In the absence of population structure, this is useful (do we want most or least diverse group?)
+            \item can be done in lab or in natural populations
+            \item limit by scale of LD
+            \item Genetic designs for BSA
+            \begin{itemize}
+                \item controlled lab cross
+                \item hitchhiking mapping (select for phenotypes, see which genotypes come with it)
+                \item introgression mapping
+                \item Natual poulaition
+            \end{itemize}
+        \end{itemize}
+        \item Genotyping by sequencing (Gar paper): technology
+        \begin{itemize}
+            \item a lot easier and simpler - can't use it for genome mapping without a refernce equilibrium
+            \item this was an excellent example of how to exploit the available technological resources
+            \item pseudogenomes (updated genome) - mapping to a semi-related genome - assume the genomes are close enough, and that they are more or less colinear.  Map the reads to the semi-related genome - very high error rates, but fine for their purpose
+            \item masking polymorphisms - throwing out over 90\% of data, still end up with hundreds of variable site per Mb.
+        \end{itemize}
+        \item Measuring gene expression: microarrays vs. RNA-seq
+        \begin{itemize}
+            \item what genes are expressed where, when, and in what amount
+            \item determines the function of the genome
+            \item look at gene expression to determine the link between genotype and phenotype
+            \item Microarrays
+            \begin{itemize}
+                \item immobilize probes on solid support
+                \item ``analog'' technology
+                \item cost-effective when good arrays already available,
+                \item but custom arrays can be made for any organism
+                \item has almost completely been displaced by...
+            \end{itemize}
+            \item RNA-seq
+            \begin{itemize}
+                \item ``digital'' technology
+                \item can be done for any organism, but requires a reference for mapping reads
+                \item assuming the number of reads you observe in an RNA sample is proportional to expression
+                \item don't need an organism-specifi reagent, but do need a reference genome,
+                \item but can make a custom reference (which is a helluva lot easier than making a custom array)
+                \item got cheaper fast, now even cheaper and easier
+            \end{itemize}
+        \end{itemize}
+        \item Design and analysis of expression experiments
+        \begin{itemize}
+            \item interested in differences between treatments/categories
+            \begin{itemize}
+                \item brain/liver, grain/rice, male/female, etc.
+                \item must account for variation within treatment first!
+            \end{itemize}
+            \item biological variation within treatment
+            \begin{itemize}
+                \item genetic differences, environmental conditions, etc.
+            \end{itemize}
+            \item technical variance
+            \begin{itemize}
+                \item effect of experimental procedures, dissection, batch of arrays/dyes,reagents, ozone levels that day, etc.
+                \item Artyom knows a statistician who swears she can look at two data sets and determine which Illumina machine it came from..... wtf.
+            \end{itemize}
+            \item biological replicates necessary to detect differences
+            \begin{itemize}
+                \item avoid confounding biological and technical variation
+                \item know the technical properties of your method
+                \item anticipate sources of biological and technical variance
+            \end{itemize}
+        \end{itemize}
+        \item design of RNA-seq experiments
+        \begin{itemize}
+            \item unlike microarrays, RNA-seq provides categorical (counts) data
+            \item in principle, can detect ``differential expression'' from a single replicate per treatment (conditioned on depth)
+            \item does not tell you whether you are looking at true biological variation
+            \item for quantitative experiments, need multiple biological replicates per treatment, just a with arrays
+            \item minimize environmental and technical variation
+            \item \emph{avoid confounding biological and technical variation}
+            \item example of a bad design:
+            \begin{itemize}
+                \item using different reagents, different Illumina machines - completely confounding biological and technical variation
+            \end{itemize}
+            \item example of a good design:
+            \begin{itemize}
+                \item use barcodes!
+                \item isolate RNA - use the same batch of reagents for each library
+                \item can mix all six biological replicates because of barcodes
+                \item put the mix on six different lanes, minimizing technical variation
+            \end{itemize}
+            \item the importance of this depends on the level of variation you are measuring
+            \item may be looking at subtle quantitative difference
+        \end{itemize}
+        \item problems with RNA-seq quantification
+        \begin{itemize}
+            \item standard Illumina procedure includes many enzymatic steps with purification in between
+            \item losses and biases at every step
+            \item OK if looking for big differences; may be a problem if looking for subtle quantative variation
+        \end{itemize}
+        \item Allele-specific expression analysis
+        \begin{itemize}
+            \item Differences in gene expression between genotpes can be due either to mutation in that gene (cis-regulatory) or any changes in its upstream regulators (trans-regulatory)
+            \item For some applications, we don't care (health)
+            \item In evolutionary terms, however, it makes a big difference.  How do we figure out where the divergence is based on cis- or transregulatory variation
+            \item F1 hybrids can be used to infer cisregulatory variation
+            \item By comparing two parents and their F1, can decompose gene expression divergence into cis- and trans0regulatory components
+        \end{itemize}
+    \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+

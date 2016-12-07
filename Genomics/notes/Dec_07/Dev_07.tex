@@ -1,0 +1,193 @@
+\documentclass{article}
+
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{placeins}
+\usepackage{nicefrac}
+\usepackage{textcomp}
+\usepackage{enumerate}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{color}
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\qiq}{\ \ \ \implies\ \ \ }
+\newcommand{\vari}[1]{\text{var}\qty[#1]}
+\newcommand{\cor}[1]{\text{cor}\qty[#1]}
+\newcommand{\expec}[1]{\mathbb{E}\qty[#1]}
+\newcommand{\cov}[1]{\text{cov}\qty[#1]}
+\newcommand{\f}[3]{#1\ :\ #2 \rightarrow #3}
+\newcommand{\prob}[1]{\mathbb{P}\qty[#1]}
+\newcommand{\half}{\nicefrac{1}{2}}
+\newcommand{\fold}[1]{$#1\times$}
+
+\title{PBG 200A Notes}
+\author{Sam Fleischer}
+\date{December 7, 2016}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item Allele-specific expression (Coolon 2014) - technology
+        \begin{itemize}
+            \item advantage of RNA-seq over other techniques for ASE
+            \item Sequenced different experiments on different lanes - maybe confounded biological and technological differences
+            \item The longer the reads, the greater the chances that any given read spans a site that has fixed alleles in two different species
+            \item they did controls and validation with pyrosequencing since it was the first paper of its kind
+        \end{itemize}
+        \item Coolon 2014 - Science
+        \begin{itemize}
+            \item assumptions of cis/trans decomposition
+            \begin{itemize}
+                \item no transvection
+                \item no allele-specific cis-trans interactions
+            \end{itemize}
+            \item using mixed tissues - effects on gene expression levels - allometric changes?
+            \item only females since the X chromosome is the 20\% of the genome
+            \item Taxonomic range - a balance between hybrids being possible and having distinct alleles
+        \end{itemize}
+        \item Metagenomics and Community Genomics
+        \begin{itemize}
+            \item approach: characterize the structure and function of ecological communities based on the genomes of their members, without explicitly working with or identifying the actual organisms
+            \item advantages
+            \begin{itemize}
+                \item rapid and high throughput
+                \item this is only appraoch for non-culturable organisms
+            \end{itemize}
+            \item primarily used for cryptic (microscopic) members of ecosystems
+        \end{itemize}
+        \item Approaches to community genomics
+        \begin{itemize}
+            \item culture-independent census
+            \begin{itemize}
+                \item identify all community members without knowing what any of them might be
+                \item compare different communities
+                \item identify candidate factors that may be shaping these communities
+                \item monitor changes in community composition in response to biotic or abiotic changes
+            \end{itemize}
+            \item should be completely unbiased and quantitative - this hard to achieve - usually focus on a particular lineage of bugs rather than entire community
+            \item Metagenomics - What can we do?
+            \begin{itemize}
+                \item assess the collective metabolic capability of the community
+                \item compare it between different communities
+                \item identiy ecological correlates of metabolic capabilities
+            \end{itemize}
+            \item caveats: hard to get unbiased data, can miss rare taxa, hard to assign functions to specific organisms, many functions are unknown (``no freaking clue what they do!'')
+        \end{itemize}
+        \item culture independent census
+        \begin{itemize}
+            \item most microscopic members of most ecosystems are unknown and unculturable, can't find them because don't know how to look for them, and couldn't isolate them even if we knew them.  Instead, use a culture independent approach:
+            \begin{itemize}
+                \item isolate total DNA of who community
+                \item amplify (standard PCR) a ``universal'' gene that is present in all taxa
+                \item identify community members based on sequence
+                \item quantify abundance, determine community composition
+            \end{itemize}
+            \item Caveats:
+            \begin{itemize}
+                \item no truly universal markers actually exist
+                \item quantitative biases in DNA isoltation (different isolation procedures produce different outcomes), PCR, etc.
+                \item many sequences are novel, cannot be identified
+            \end{itemize}
+        \end{itemize}
+        \item 16S rRNA sequencing
+        \begin{itemize}
+            \item closest thing to a universal bacterial marker (we think)
+            \item base primers on conserved regions, identify taxa from variable regions
+            \item extensive databases and many previous surveys enable easy identification of most taxa from their 16S sequences
+            \item read length is main limitation: typical tradeoff with depth important for quantitative ecological analysis
+            \item can't assemble since there are 1000s of taxa in a single read - the unit is a fragment
+            \item have to barcode and multiplex for good design / lower cost
+            \item quantitative biases in DNA isolation and amplification and varition in copy number
+            \item 16S sequence identity does not reveal functional capabilities
+            \begin{itemize}
+                \item Genome and functional capabilities can vary greatly within OTUs defined by ribosomal sequences (same caveat for any other single gene)
+            \end{itemize}
+        \end{itemize}
+        \item metagenomic sequencing
+        \begin{itemize}
+            \item shotgun genome sequencing of environmental DNA samples
+            \item advantages
+            \begin{itemize}
+                \item identifies many of the functional capabilities of the ecosystem without relying on culturing
+                \item important because many of these capabilities are provided by the unculturable members of the community
+                \item dynamic pictures of changing ecological communities
+            \end{itemize}
+            \item problems
+            \begin{itemize}
+                \item hard to assemble genomes from shotgun environmental sequences - especially rare taxa
+                \item hard to match functional capabilities to their owners (somebody here has genes for nitrogen fixation, but I don't know who it is)
+                \item many genes are novel so their functions remain unknown
+                \item usually not enough DNA - have to use WGA (more biases)
+            \end{itemize}
+        \end{itemize}
+        \item annotation of metagenomic data
+        \begin{itemize}
+            \item identifying OTUs based on universal genes
+            \item identifying biochemical capabilities
+            \begin{itemize}
+                \item clusters of orthologous groups (COGs)
+                \item non-supervised orthologous groups (NOGs)
+                \item KEGG pathways 
+            \end{itemize}
+        \end{itemize}
+        \item genome assembly from metagenomic sequences
+        \begin{itemize}
+            \item the most abundant and distinctive members can be assembled directly; closely related taxa are difficult to distinguish - long tail of low per-nucleotide coverage
+            \item for the remaining reads, try binning them before assembly
+            \begin{itemize}
+                \item by GC content
+                \item by tetranucleotide frequencies
+                \item by read coverage
+                \item by BLAST similarity to known taxa
+            \end{itemize}
+            \item then try to do a de novo assembly on each bin
+            \item hybrid approach: generate reference genomes for some members of the community; imited to cultuable taxaa but yields the best insights in the end
+        \end{itemize}
+        \item metatranscriptomes
+        \begin{itemize}
+            \item metatranscriptome will be even more dynamic than metagenome (what genes are being expressed now, here, in this environment)
+            \item can study rapid changes in response to biotic and abiotic factors
+            \item best if combined with metagenomic data - do metatranscriptome changes reflect a changing community, or functional changess in the same community?
+        \end{itemize}
+        \item Permafrost metagenome - technology
+        \begin{itemize}
+            \item PCR results in sequence bias - emulsion PCR minimizes competition - really important since different taxa have drastically different GC content - resulting in huge PCR bias
+            \item 95\% of the data remained unassembled
+            \item today, we would be able to assemble 10\% instead of 5\%.  We would need 100\% assembly to get all the taxa.
+            \item 3rd generation technology will be useful if it can be made cheap enough.  40Gb of data would be ``bloody expensive'' - but theoretically this is the data we need.
+        \end{itemize}
+        \item Permafrost metagenome - science
+        \begin{itemize}
+            \item guess the ecology of specific taxa - someone can do carbon and nitrogen fixation - also have methanotrphic bateria
+            \item community similarity / changes in composition under changes in environmental conditions
+            \item role of uncultivated taxa
+            \item correlating community function and composition
+            \item \emph{functions} converged, not taxonomy - essentially, different taxa capable of the same function increased in abundance
+        \end{itemize}
+        \item HGT study - technology
+        \begin{itemize}
+            \item source of data / sampling strategy - everything they do in this paper is completely dependent on someone, somewhere, culturing all of these taxa
+            \item recency of HGT
+        \end{itemize}
+        \item HGT study - science
+        \begin{itemize}
+            \item unlike the last paper, this entire completely depends on 100\% confidence of assigning taxa to gene fragments
+            \item ecological similarity means the opportunity to share genes
+        \end{itemize}
+    \end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
